@@ -1,0 +1,21 @@
+{
+  "name": "volunteam-seniordesign",
+  "version": "1.0.0",
+  "description": "Web app for connecting volunteers with volunteering opportunities",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liampalmer0/Volunteam-SeniorDesign.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/liampalmer0/Volunteam-SeniorDesign/issues"
+  },
+  "homepage": "https://github.com/liampalmer0/Volunteam-SeniorDesign#readme",
+  "dependencies": {}
+}
