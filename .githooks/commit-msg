@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Validate Commit message is in form
+#   type : message
+#   or is a merge
+#msg_regex='(([A-Z])\w+ *\: *([A-Z])\w+.*|merge)'
+msg_regex='((build|ci|docs|feat|fix|perf|refactor|style|test\b){1} *\: *.+)|(merge\b.+)'
+
+error="Commit rejected. Commit message is not in format 'type : message'"
+
+if ! grep -iqE "$msg_regex" "$1"; then
+    echo "$error" >&2
+    exit 1
+fi
