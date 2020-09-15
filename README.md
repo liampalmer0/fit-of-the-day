@@ -17,3 +17,15 @@ Run the following commands:
 Navigate to the SeniorDesign directory and run:
 
     npm start
+
+## Githooks
+
+**Optional:** make
+
+While in the project directory, run either:
+
+    make 
+
+or
+
+    git config core.hooksPath .githooks
