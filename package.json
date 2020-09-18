@@ -1,21 +1,27 @@
 {
-  "name": "volunteam-seniordesign",
+  "name": "seniordesign",
   "version": "1.0.0",
-  "description": "Web app for connecting volunteers with volunteering opportunities",
-  "main": "server.js",
+  "private": true,
+  "description": "A node app for finding the perfect outfit for every occasion",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node ./bin/www"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/liampalmer0/Volunteam-SeniorDesign.git"
+    "url": "git+https://github.com/liampalmer0/SeniorDesign.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/liampalmer0/Volunteam-SeniorDesign/issues"
+    "url": "https://github.com/liampalmer0/SeniorDesign/issues"
   },
-  "homepage": "https://github.com/liampalmer0/Volunteam-SeniorDesign#readme",
-  "dependencies": {}
+  "homepage": "https://github.com/liampalmer0/SeniorDesign#readme",
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
+    "pug": "^3.0.0"
+  }
 }
