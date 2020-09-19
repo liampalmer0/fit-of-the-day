@@ -24,5 +24,14 @@
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
     "pug": "^3.0.0"
+  },
+  "devDependencies": {
+    "prettier": "^2.1.2"
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "semi": true,
+    "singleQuote": true
   }
 }
