@@ -5,17 +5,17 @@ body {
   background-color: #dfdfdf;
 }
 
-.container { 
+.container {
   display: grid;
   min-height: 90vh;
 }
 .sticky {
   display: block;
-  margin:auto;
-  padding:2em;
+  margin: auto;
+  padding: 2em;
   max-width: 50%;
   background-color: tomato;
-  color:white;
+  color: white;
   text-align: center;
-  box-shadow: 8px 8px 25px rgba(16,16,16,.3);
+  box-shadow: 8px 8px 25px rgba(16, 16, 16, 0.3);
 }
