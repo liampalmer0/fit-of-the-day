@@ -1,5 +1,9 @@
 # SeniorDesign
 
+## Architecture
+
+Documentation [here](architecture.md)
+
 ## Install
 
 **Requires:** Git, npm/node.js
