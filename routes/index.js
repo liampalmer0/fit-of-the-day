@@ -4,28 +4,14 @@ const fs = require('fs');
 const https = require('https');
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
-  callNWS(false)
-    .then((temperature) => {
-      console.log('API call returned : ' + temperature);
-      //use pug view engine
-      res.render('index', { cur_temp: temperature, title: "Cher's Closet" });
-    })
-    .catch((reason) => {
-      console.error(`Error: ${reason}`);
-    });
-});
+router.get('/', showDashboard);
 
-function callNWS(testing) {
-  return new Promise(function (resolve, reject) {
-    // Make our API call here.
+function callWeatherApi(testing) {
+  return new Promise((resolve, reject) => {
     try {
       if (!testing) {
-        // to customize the location of weather data, coordinates are needed
-        // 2 requests: 1 for coords -> gridpoints; 1 for weather @ gridpoints
-        // could create a JSON file of zip codes and coordindates
+        // could create a JSON file of zip codes and coordindates to pass to api
         // for autocomplete for choosing
-        // var url = 'https://api.weather.gov/gridpoints/ILN/34,37/forecast'; //for cincinnati specifically
         // switch to openweathermap.org for precip
         var options = {
           host: 'api.weather.gov',
@@ -33,43 +19,83 @@ function callNWS(testing) {
           protocol: 'https:',
           headers: { 'User-Agent': 'precogcloset' },
         };
-        https.get(options, function (res) {
-          // data is streamed in chunks from the server
-          // so we have to handle the "data" event
-          var buffer = '',
-            data,
-            current_day;
-
-          res.on('data', function (chunk) {
-            buffer += chunk;
+        https
+          .get(options, (res) => {
+            if (res.statusCode != 200) {
+              return reject(`API ${res.statusCode} Error`);
+            }
+            var buffer = '';
+            // data is streamed in chunks from the server on "data" event
+            res.on('data', function (chunk) {
+              buffer += chunk;
+            });
+            res.on('end', function (err) {
+              // finished getting data
+              let data = JSON.parse(buffer);
+              //set the current days weather
+              let current_day = data.properties.periods[0];
+              return resolve(current_day);
+            });
+          })
+          .on('error', (err) => {
+            return reject(err);
           });
-
-          res.on('end', function (err) {
-            // finished getting data
-            data = JSON.parse(buffer);
-            //set the current days weather
-            current_day = data.properties.periods[0];
-
-            return resolve(current_day.temperature);
-          });
-        });
       } else {
         //uses placeholder JSON data for testing API calls
-        var current_day;
-        console.log(`using fake weather? : ${fs.existsSync('weather.json')}`);
         fs.readFile('weather.json', (err, data) => {
           let parsed = JSON.parse(data);
-          //set the days weather
-          current_day = parsed.properties.periods[0];
-          // return the temp
-          return resolve(current_day.temperature + current_day.temperatureUnit);
+          let current_day = parsed.properties.periods[0];
+          return resolve(current_day);
         });
       }
     } catch (err) {
-      reject(`Error during API Call: ${err}`);
+      return reject(`Weather API call failed: ${err}`);
     }
-    return;
   });
+}
+
+function callCalendarApi() {
+  return new Promise((resolve, reject) => {
+    try {
+      //placeholder to simulate api response
+      return resolve({ msg: 'No events today', count: 0 });
+    } catch (err) {
+      return reject(`Calendar API call failed: ${err}`);
+    }
+  });
+}
+
+function processCalData(data) {
+  if (data.count <= 0) {
+    return data.msg;
+  } else if (data.count === 1) {
+    return `There is one event today : ${data.msg}`;
+  } else {
+    return `There are ${data.count} events today`;
+  }
+}
+
+function showDashboard(req, res, next) {
+  //call APIs
+  Promise.all([callWeatherApi(false), callCalendarApi()])
+    .then((result) => {
+      let weatherData = result[0];
+      let calData = result[1];
+      let calStatus = processCalData(calData);
+      res.render('index', {
+        cur_temp: weatherData.temperature + weatherData.temperatureUnit,
+        cal_status: calStatus,
+        title: "Cher's Closet",
+      });
+    })
+    .catch((reason) => {
+      console.error(`Error : ${reason}`);
+      res.render('index', {
+        cur_temp: 'unavailable',
+        cal_status: 'Calendar Unavailable',
+        title: "Cher's Closet",
+      });
+    });
 }
 
 module.exports = router;
