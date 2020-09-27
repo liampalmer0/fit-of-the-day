@@ -98,4 +98,6 @@ function showDashboard(req, res, next) {
     });
 }
 
-module.exports = router;
+module.exports.router = router;
+module.exports.callWeatherApi = callWeatherApi;
+module.exports.callCalendarApi = callCalendarApi;
