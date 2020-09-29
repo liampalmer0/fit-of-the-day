@@ -2,7 +2,7 @@
 
 ## Architecture
 
-Documentation [here](architecture.md)
+Documentation [here](./docs/architecture.md)
 
 ## Install
 
@@ -28,7 +28,7 @@ or
 
 ## Githooks
 
-**Optional:** make
+**Optional dependency:** make
 
 While in the project directory, run either:
 
@@ -43,6 +43,8 @@ or
     <header>
     <BLANK LINE>
     <body>
+    <BLANK LINE>
+    <footer>
 
 Use header format `<type>: <short summary>` 
 
@@ -57,6 +59,11 @@ Where `<type>` is one of the following:
 * **style**: A purely visual or CSS change
 * **test**: Adding missing tests or correcting existing tests
 
+and `<footer>` should contain a closing keyword (e.g. "fix") and the issue number the commit fixes (e.g. `Fix #4548`)
+
+**See more about commit workflow [here](./docs/workflow.md)**
+
 Based on the Angular contribution guide: https://github.com/angular/angular/blob/master/CONTRIBUTING.md
+
 
 
