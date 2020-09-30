@@ -2,9 +2,7 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 const https = require('https');
-
-/* GET home page. */
-router.get('/', showDashboard);
+const db = require('../db');
 
 function callWeatherApi(testing) {
   return new Promise((resolve, reject) => {
@@ -34,7 +32,9 @@ function callWeatherApi(testing) {
               let data = JSON.parse(buffer);
               //set the current days weather
               let current_day = data.properties.periods[0];
-              return resolve(current_day);
+              return resolve(
+                `${current_day.temperature}º${current_day.temperatureUnit}`
+              );
             });
           })
           .on('error', (err) => {
@@ -74,30 +74,54 @@ function processCalData(data) {
     return `There are ${data.count} events today`;
   }
 }
+function testQuery(query) {
+  return new Promise((resolve, reject) => {
+    try {
+      let res = db.query(query);
+      return resolve(res);
+    } catch (err) {
+      // console.log(err);
+      return reject(err);
+    }
+  });
+}
+
+async function getApiResults() {
+  var currentTemp = 'Unavailable';
+  var calStatus = 'Calendar Unavailable';
+  var queryRes = 'Database Unavailable';
+  //call APIs
+  try {
+    currentTemp = await callWeatherApi(false);
+    let calData = await callCalendarApi();
+    calStatus = processCalData(calData);
+    queryRes = await testQuery('SELECT * FROM users');
+    queryRes = `Query returned ${queryRes.rowCount} row(s)`;
+  } catch (err) {
+    // next(err);
+    console.log(err);
+  } finally {
+    return {
+      title: "Cher's Closet",
+      cur_temp: currentTemp,
+      cal_status: calStatus,
+      query_res: queryRes,
+    };
+  }
+}
 
 function showDashboard(req, res, next) {
-  //call APIs
-  Promise.all([callWeatherApi(false), callCalendarApi()])
-    .then((result) => {
-      let weatherData = result[0];
-      let calData = result[1];
-      let calStatus = processCalData(calData);
-      res.render('index', {
-        cur_temp: weatherData.temperature + weatherData.temperatureUnit,
-        cal_status: calStatus,
-        title: "Cher's Closet",
-      });
-    })
-    .catch((reason) => {
-      console.error(`Error : ${reason}`);
-      res.render('index', {
-        cur_temp: 'unavailable',
-        cal_status: 'Calendar Unavailable',
-        title: "Cher's Closet",
-      });
-    });
+  getApiResults().then((result) => {
+    //add any other vars to result object here
+    //eg result.name = value;
+    res.render('index', result);
+  });
 }
+
+/* GET home page. */
+router.get('/', showDashboard);
 
 module.exports.router = router;
 module.exports.callWeatherApi = callWeatherApi;
 module.exports.callCalendarApi = callCalendarApi;
+module.exports.testQuery = testQuery;
