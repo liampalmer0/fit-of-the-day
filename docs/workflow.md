@@ -46,6 +46,8 @@ Write code and mocha/nightwatch tests
 
 Then run all tests to validate
 
+`npm test`
+
 ---
 
 ## Committing and Pushing 
