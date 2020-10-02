@@ -19,35 +19,60 @@
 - DAO Classes defined here
 
 ## Pages and Features
-
-    |- Dashboard (index)
+    +-------------------------------+
+    | Relies mainly on Main DB      |
+    +-------------------------------+
+    |- Dashboard "root/user/dashboard"
     |  |- Calendar
-    |  |  |- Current Date
+    |  |  |- Show current date
     |  |  |- Events Today and Details (formality, time, etc)
-    |  |
     |  |- Weather
     |  |  |- Shows Temp/feels like, Precip, Wind
     |  |  |- Configurable Location by zip
-    |  |
     |  |- Outfit
-    |  |  |- Generate New
-    |  |  |- Save as preset
-    |  |  |- Lock a certain article and regen.
-    |
-    |- Closet
-    |  |- View all articles
-    |  |- Flag item as dirty
-    |  |- View Single Article
-    |  |  |- View tags, name, props, rating, etc.
-    |  |  |- Edit tags, name, properties, rating, etc
-    |  |
+    |  |  |- Show 3 Generated Outfits
+    |  |  |- Generate new set button
+    |  |  |- Save as preset button (tbd: requires outfit entity)
+    |  |  |- Article Lock Button
+    |  |  |  |- Make article unaffected by regeneration
+    |  |  |- Flag as dirty (overlap feature in Closet/Select)
+    |  |- Navigation & Other functions
+    |  |  |- Go to Closet
+    |  |  |- Go to Account/Settings
+    |  |  |- Indicate Laundry Day
+    |  |  |
+    |- Closet Page "root/user/closetname"
     |  |- Filter/sort by season, type, color, rating, etc.
-    |  |- Insert new article
-    |  |  |- Like view single article but entirely editable
-    |
-    |- Account/Settings
-    |  |- Email, password, connect calendar, set weather zip, etc.
-
+    |  |- Select single or multiple item(s)
+    |  |  |- Delete button
+    |  |  |- Flag as dirty (overlaps feature in Dashboard/Outfit)
+    |  |  |- Cancel button
+    |  |- New Article "../newarticle"
+    |  |  |- Form for Article name, tags, properties, rating, etc.
+    |  |- Article Detail Page "../articlecode"
+    |  |  |- View Article tags, name, props, rating, etc.
+    |  |  |- Edit Article "../edit"
+    |  |  |  |- Form to edit tags, name, properties, rating, etc
+    |  |  |  |- Save Changes button
+    |  |  |  |- Cancel button
+    |  |  |  |
+    +-------------------------------+
+    | Relies mainly on Auxiliary DB |
+    +-------------------------------+
+    |- Account/Settings Page "root/user/settings"
+    |  |- User Account "../account"
+    |  |  |- Edit name, password, email etc.
+    |  |- Application settings "../application"
+    |  |  |- Edit calendar & weather setup
+    |  |  |
+    +-- Requires Password Hashing --+
+    |- Login Page "root/login"
+    |  |- Enter username/password
+    |  |- etc.
+    |- Signup page "root/signup"
+    |  |- etc.
+    |  |
+    
 ## Database Entities
 
 ### User
