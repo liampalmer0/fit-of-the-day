@@ -1,5 +1,5 @@
 var assert = require('assert');
-var dashboard = require('../routes/index');
+var dashboard = require('../../routes/index');
 
 //for later developemnts, should define some kind of mocks for the apis
 // so that a real call is not necessary
