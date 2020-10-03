@@ -6,7 +6,10 @@
   "scripts": {
     "start": "node ./bin/www",
     "debug": "DEBUG=express:* node ./bin/www",
-    "test": "mocha"
+    "test": "mocha ./test/mocha",
+    "nw": "nightwatch -e chrome",
+    "nwff": "nightwatch -e firefox",
+    "nww": "node nightwatch.js -e chrome"
   },
   "repository": {
     "type": "git",
