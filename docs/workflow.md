@@ -46,7 +46,20 @@ Write code and mocha/nightwatch tests
 
 Then run all tests to validate
 
+### Run Mocha Unit Tests
+
 `npm test`
+
+### Run Nightwatch Browser Tests (Chrome)
+*Note: Local server must be running for browser tests*
+
+Linux/MacOS:
+
+`npm run nw`
+
+Windows:
+
+`npm run nww`
 
 ---
 
@@ -70,7 +83,7 @@ Once you finish and test the changes :
   
   or
   
-  `git add *` to add all changed files
+  `git add -A` to add all changed files
 
 - Commit to your local branch
 
