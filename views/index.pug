@@ -1,8 +1,14 @@
 extends layout
 
 block content
+
+  .widgets
+    .weatherWidget 
+      p #{cur_temp}
+    .calWidget
+      p #{cal_status}
+  
   .container
     p(class='sticky') This is a placeholder
-    p(class='sticky weather') The weather is currently #{cur_temp}
-    p(class='sticky calendar') #{cal_status}
-    p(class='sticky query') #{query_res}
+    p(class='sticky') #{query_res}
+    p(class='sticky') This is another placeholder

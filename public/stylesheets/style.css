@@ -4,18 +4,99 @@
 body {
   background-color: #dfdfdf;
 }
-
-.container {
+nav {
   display: grid;
-  min-height: 90vh;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 1em;
+  margin: 1em 0em;
+  text-align: center;
+  border: 2px grey solid;
+}
+.container {
+  margin: 1em 0em;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  min-height: 75vh;
+  border: 2px grey solid;
 }
 .sticky {
-  display: block;
   margin: auto;
   padding: 2em;
-  max-width: 50%;
   background-color: tomato;
   color: white;
   text-align: center;
   box-shadow: 8px 8px 25px rgba(16, 16, 16, 0.3);
+}
+
+/*== DASHBOARD SPECIFIC STYLING ==============================================*/
+.dashboard .widgets {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  text-align: center;
+  border: 2px grey solid;
+}
+.dashboard .widgets div {
+  margin: 1em;
+  padding: 1em;
+  background-color: cornflowerblue;
+  color: white;
+  text-align: center;
+  box-shadow: 8px 8px 25px rgba(16, 16, 16, 0.3);
+}
+
+/*== CLOSET SPECIFIC STYLING =================================================*/
+
+/* for example */
+.closet {
+  background-color: #d3d1df;
+}
+
+/*== ACCOUNT SPECIFIC STYLING ================================================*/
+
+/* for example */
+.account {
+  background-color: #d3dfd1;
+}
+
+/* // Small screen / phone */
+@media only screen and (min-width: 576px) {
+}
+/* // Medium screen / tablet */
+@media only screen and (min-width: 768px) {
+  .container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .sticky {
+    width: 75%;
+    padding: 2em;
+    color: white;
+    text-align: center;
+    box-shadow: 8px 8px 25px rgba(16, 16, 16, 0.3);
+  }
+  /*== DASHBOARD SPECIFIC STYLING ==============================================*/
+
+  /*== CLOSET SPECIFIC STYLING =================================================*/
+  .closet .container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  /*== ACCOUNT SPECIFIC STYLING ================================================*/
+  .account .container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+/* // Large screen / desktop */
+@media only screen and (min-width: 992px) {
+  /*== DASHBOARD SPECIFIC STYLING ==============================================*/
+
+  /*== CLOSET SPECIFIC STYLING =================================================*/
+
+  /*== ACCOUNT SPECIFIC STYLING ================================================*/
+}
+/* // Extra large screen / wide desktop */
+@media only screen and (min-width: 1200px) {
+  /*== DASHBOARD SPECIFIC STYLING ==============================================*/
+
+  /*== CLOSET SPECIFIC STYLING =================================================*/
+
+  /*== ACCOUNT SPECIFIC STYLING ================================================*/
 }

@@ -95,7 +95,7 @@ INSERT INTO article (closet_id, "name", "desc", dirty, garment_type_id, color, d
 VALUES 
 (1, 'Ed Hardy t-shirt','a t shirt', 'f', 1, 'grey', 1, 5),
 (1, 'BAPE camo pants', NULL, 'f', 2, 'orange', 1, 5),
-(1, 'Nike AF1s','a t shirt', 'f', 4, 'white', 1, 5),
+(1, 'Nike AF1s', NULL, 'f', 4, 'white', 1, 5),
 (1, 'Mesh tank top','holy shirt', 'f', 1, 'black', 1, 1),
 (2, 'Casual Jean Shorts', NULL, 'f', 2, 'blue', 1, 4),
 (2, 'Nice Jean Shorts', NULL, 'f', 2, 'blue', 2, 3),
