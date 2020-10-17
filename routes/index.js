@@ -114,6 +114,7 @@ function showDashboard(req, res, next) {
   getApiResults().then((result) => {
     //add any other vars to result object here
     //eg result.name = value;
+    result.pagename = 'dashboard';
     res.render('index', result);
   });
 }
