@@ -42,7 +42,7 @@ function callWeatherApi(testing) {
           });
       } else {
         //uses placeholder JSON data for testing API calls
-        fs.readFile('weather.json', (err, data) => {
+        fs.readFile('./test/json/weather.json', (err, data) => {
           let parsed = JSON.parse(data);
           let current_day = parsed.properties.periods[0];
           return resolve(current_day);
@@ -95,7 +95,7 @@ async function getApiResults() {
     currentTemp = await callWeatherApi(false);
     let calData = await callCalendarApi();
     calStatus = processCalData(calData);
-    queryRes = await testQuery('SELECT * FROM users');
+    queryRes = await testQuery('SELECT * FROM account');
     queryRes = `Query returned ${queryRes.rowCount} row(s)`;
   } catch (err) {
     // next(err);
@@ -114,6 +114,7 @@ function showDashboard(req, res, next) {
   getApiResults().then((result) => {
     //add any other vars to result object here
     //eg result.name = value;
+    result.pagename = 'dashboard';
     res.render('index', result);
   });
 }
