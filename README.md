@@ -15,7 +15,10 @@ Run the following commands:
     cd SeniorDesign
  
     npm install
-    
+
+### Local Database
+Guide can be found [here](./docs/db-setup.md)
+
 ## Run
 
 Navigate to the SeniorDesign directory and run:

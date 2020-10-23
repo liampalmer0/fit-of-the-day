@@ -69,7 +69,7 @@ Once you finish and test the changes :
 
 - Make sure you're on your own branch (not master)
 
-- Pull to make sure you have the most recent code
+- `git fetch` to make sure you have the most recent code
 
 - Merge origin/master into your local branch
   
