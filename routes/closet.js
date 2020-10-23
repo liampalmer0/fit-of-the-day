@@ -19,11 +19,10 @@ function getArticles(usertoken, closetid) {
 
 function showCloset(req, res, next) {
   getArticles().then((result) => {
-    //result should be the object array from dbresult.rows
-    //if it doesnt exist then use empty object
+    console.log(result.rows);
     result = result ? result : {};
     result.pagename = 'closet';
-    res.render('closet', result);
+    res.render('closet', { articles: result.rows });
   });
 }
 
