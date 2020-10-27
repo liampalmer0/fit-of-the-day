@@ -3,7 +3,7 @@ module.exports = {
     browser
       .url('http://localhost:3000')
       .waitForElementVisible('body')
-      .assert.titleContains("Cher's Closet")
+      .assert.titleContains('Fit of the Day')
       .assert.visible('div.container')
       .assert.containsText('p.sticky', 'This is a placeholder');
   },
