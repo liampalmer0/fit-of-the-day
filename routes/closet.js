@@ -20,7 +20,6 @@ function getArticles(usertoken, closetid) {
 function showCloset(req, res, next) {
   getArticles().then((result) => {
     console.log(result.rows);
-    result = result ? result : {};
     result.pagename = 'closet';
     res.render('closet', { articles: result.rows });
   });
