@@ -66,16 +66,7 @@ Windows:
 ## Committing and Pushing 
 
 Once you finish and test the changes :
-
 - Make sure you're on your own branch (not master)
-
-- `git fetch` to make sure you have the most recent code
-
-- Merge origin/master into your local branch
-  
-  `git merge origin/master` 
-
-- Solve any conflicts from the merge
 
 - Stage your changes
   
@@ -96,6 +87,16 @@ Once you finish and test the changes :
       Add longer whiskers
 
       Fix #857
+
+- `git fetch` to make sure you have the most recent code from master
+
+- Rebase your branch onto origin/master
+  
+  `git rebase origin/master`
+
+- Solve any conflicts from the rebase and restage the changes
+
+- Continue the rebase with `git rebase --continue`
 
 - Push to your remote branch
 
