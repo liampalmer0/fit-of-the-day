@@ -8,4 +8,9 @@ echo "$FILES" | xargs ./node_modules/.bin/prettier --write
 # Add back the modified/prettified files to staging
 echo "$FILES" | xargs git add
 
+# encrypt the keys
+git secret add keys.json
+git secret hide
+git add .gitsecret *.secret
+
 exit 0

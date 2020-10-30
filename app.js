@@ -1,6 +1,7 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+var fs = require('fs');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
@@ -10,6 +11,15 @@ var accountRouter = require('./routes/account');
 
 var app = express();
 
+if (process.env.NODE_ENV === 'development') {
+  try {
+    const data = fs.readFileSync('keys.json', 'utf-8');
+    const result = JSON.parse(data);
+    process.env.OWM_KEY = result.OWM_KEY;
+  } catch (err) {
+    console.log(`Environment Variable Setup Failed: \n ${err}`);
+  }
+}
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
