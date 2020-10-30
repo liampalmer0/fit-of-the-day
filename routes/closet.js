@@ -18,11 +18,18 @@ function getArticles(usertoken, closetid) {
 }
 
 function showCloset(req, res, next) {
-  getArticles().then((result) => {
-    console.log(result.rows);
-    result.pagename = 'closet';
-    res.render('closet', { articles: result.rows });
-  });
+  getArticles()
+    .then((result) => {
+      // console.log(result.rows);
+      result.pagename = 'closet';
+      res.render('closet', { articles: result.rows });
+    })
+    .catch((err) => {
+      res.render('error', {
+        message: 'Closet Unavailable',
+        error: { status: err, stack: err.stack },
+      });
+    });
 }
 
 /* GET closet page. */
