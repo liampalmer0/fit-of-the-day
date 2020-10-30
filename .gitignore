@@ -111,3 +111,11 @@ dist
 
 #nightwatch output
 tests_output/
+
+#Backup files
+*.bk
+
+#git-secret
+keys.json
+.gitsecret/keys/random_seed
+!*.secret

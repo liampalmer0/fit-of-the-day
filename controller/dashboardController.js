@@ -3,11 +3,10 @@ const db = require('../db');
 
 function getCoords(zipCode) {
   return new Promise((resolve, reject) => {
-    let apiKey = '...';
     const options = {
       host: 'api.openweathermap.org',
       port: 443,
-      path: `/data/2.5/weather?zip=${zipCode},us&exclude=minutely,alerts&units=imperial&appid=${apiKey}`,
+      path: `/data/2.5/weather?zip=${zipCode},us&exclude=minutely,alerts&units=imperial&appid=${process.env.OWM_KEY}`,
       method: 'GET',
     };
     const req = https.request(options, (res) => {
@@ -40,11 +39,10 @@ function getCoords(zipCode) {
 
 function getWeather(coords) {
   return new Promise((resolve, reject) => {
-    let apiKey = '...';
     const options = {
       host: 'api.openweathermap.org',
       port: 443,
-      path: `/data/2.5/onecall?lat=${coords.lat}&lon=${coords.lon}&exclude=minutely,alerts&units=imperial&appid=${apiKey}`,
+      path: `/data/2.5/onecall?lat=${coords.lat}&lon=${coords.lon}&exclude=minutely,alerts&units=imperial&appid=${process.env.OWM_KEY}`,
       method: 'GET',
     };
     const req = https.request(options, (res) => {
