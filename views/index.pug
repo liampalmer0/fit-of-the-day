@@ -1,18 +1,7 @@
 extends layout
 
 block content
-
-  .widgets
-    .weatherWidget 
-      p #{weather}
-      //- Use weather."option" to call a specific variable
-      //- Options are: city, high, low, current, feelsLike, weatherPattern, tempAverage, rainChance (shown in a %), and icon
-      //- for icon, use the image source http://openweathermap.org/img/w/***.png where *** calls "${weather.icon}"
-
-    .calWidget
-      p #{cal_status}
-  
-  .container
-    p.sticky This is a placeholder
-    p.sticky #{query_res}
-    p.sticky This is another placeholder
+  include includes/public-nav
+  H1 Welcome to Fit of the Day
+  .main
+    p Content here

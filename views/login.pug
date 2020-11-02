@@ -1,0 +1,16 @@
+extends layout
+block content
+  h1 Fit of the Day - #{pagename.replace(/^\w/, (c) => c.toUpperCase())}
+  main
+    if error
+      p.error Incorrect username/password
+    .formblock
+      <form action="/login" method="post" id='loginform'>
+        <label for="username">Username </label>
+        <input id="team_name" type="text" name="uname_field" placeholder="username">
+        <label for="password">Password </label>
+        <input id="password" type="password" name="pass_field" placeholder="password">
+        <input type="submit" value="Login">
+      </form>
+      
+    p New User? <a href="/signup" >Sign Up</a>

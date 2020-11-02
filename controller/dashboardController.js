@@ -125,12 +125,12 @@ async function getApiResults() {
 }
 
 function showDashboard(req, res, next) {
-  getApiResults().then((result) => {
+  getApiResults().then((data) => {
     //add any other vars to result object here
     //eg result.name = value;
-    result.title = 'Fit of the Day';
-    result.pagename = 'dashboard';
-    res.render('index', result);
+    data.title = 'Fit of the Day - Dashboard';
+    data.pagename = 'dashboard';
+    res.render('dashboard', data);
   });
 }
 
