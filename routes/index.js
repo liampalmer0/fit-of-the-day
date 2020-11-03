@@ -1,8 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controller/dashboardController');
 
-/* GET home page. */
-router.get('/', controller.showDashboard);
+router.get('/', (req, res, next) => {
+  let data = {
+    pagename: 'index',
+    title: 'Fit of the Day - Welcome',
+  };
+  res.render('index', data);
+});
 
 module.exports = router;
