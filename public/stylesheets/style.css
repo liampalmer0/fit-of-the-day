@@ -2,6 +2,7 @@
   box-sizing: border-box;
 }
 body {
+  margin: 0em;
   background-color: #dfdfdf;
 }
 nav {
@@ -33,14 +34,43 @@ nav {
   border-radius: 12px;
   padding: 1em;
 }
+
 /*== PUBLIC LAYOUT SPECIFIC STYLING ==========================================*/
 nav.public {
   grid-template-columns: repeat(2, 1fr);
+  text-align: right;
+  margin: 0em;
+  border: none;
+  background-color: black;
+  color: white;
+}
+nav .navtitle {
+  text-align: left;
+}
+.public .authlinks a {
+  padding: 1em 2em;
+  color: white;
 }
 /*== INDEX SPECIFIC STYLING ==================================================*/
 .index {
   display: grid;
   grid-template-columns: 1fr;
+}
+.index header {
+  text-align: center;
+  width: 90%;
+  margin: auto;
+}
+.index main {
+  width: 90%;
+  margin: auto;
+}
+
+.index .carousel {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  text-align: center;
+  /* will need some javascript to make it work */
 }
 /*== LOGIN & SIGNUP SPECIFIC STYLING ===================================*/
 .login h1,
@@ -68,6 +98,10 @@ nav.public {
 .formblock input {
   margin: 0.5em 0em;
   padding: 0.5em;
+}
+.formblock input[type='submit'] {
+  padding: 1em;
+  -webkit-appearance: button;
 }
 .formblock label {
   text-align: left;
