@@ -2,8 +2,20 @@ extends layout
 
 block content
   include includes/internal-nav
-  .container
-    p(class='sticky') This is the closet page
-    ul 
-      each item in articles
-        li= item.name
+  main
+    mixin article(article_path, img_path, name, desc)
+      .article(role='button' tabindex='0')
+        .cardimg
+          img(src=img_path)
+        .cardtext
+          .name= name
+          .desc= desc
+        input(type='hidden', value=article_path)
+    each item in articles
+      +article(item.owner +'/'+ item.closet.replace(/\s/g, '') + '/article?id=' + item.id, 
+        'user_img/liam/' + item.path,
+        item.name, 
+        item.desc)
+        //- hardcoded image paths for now
+
+    script(src='./scripts/closet_page.js', type='text/javascript')
