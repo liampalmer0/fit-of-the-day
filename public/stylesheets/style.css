@@ -1,7 +1,12 @@
+@font-face {
+  font-family: Nunito;
+  src: url(../fonts/nunito/Nunito-Regular.ttf);
+}
 * {
   box-sizing: border-box;
 }
 body {
+  font-family: Nunito, Helvetica, sans-serif;
   margin: 0em;
   background-color: #dfdfdf;
 }
@@ -131,7 +136,36 @@ nav .navtitle {
 
 /* for example */
 .closet {
-  background-color: #d3d1df;
+  background-color: #dfdfdf;
+}
+
+.closet main {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+}
+.closet .article {
+  cursor: pointer;
+  background-color: #f8f8f8;
+  text-align: center;
+  margin: 1em auto;
+  padding: 1em 1em;
+  max-width: 90%;
+  border-radius: 5%;
+  box-shadow: 0px 5px 5px rgba(16, 16, 16, 0.1);
+}
+.closet .cardimg img {
+  width: 100%;
+  height: auto;
+  border-radius: 5%;
+}
+.closet .cardtext {
+  margin-top: 1em;
+  padding: 0em 1em 0em 1em;
+  font-size: 1.3em;
+}
+.closet .cardtext .desc {
+  padding-top: 0.4em;
+  font-size: 0.8em;
 }
 
 /*== ACCOUNT SPECIFIC STYLING ================================================*/
@@ -154,7 +188,14 @@ nav .navtitle {
   /*== DASHBOARD SPECIFIC STYLING ==============================================*/
 
   /*== CLOSET SPECIFIC STYLING =================================================*/
-
+  .closet main {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .closet .article {
+    margin: 1em auto;
+    padding: 1em 1em;
+    max-width: 100%;
+  }
   /*== ACCOUNT SPECIFIC STYLING ================================================*/
 }
 /* // Medium screen / tablet */
@@ -183,6 +224,14 @@ nav .navtitle {
   .closet .container {
     grid-template-columns: repeat(1, 1fr);
   }
+  .closet main {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .closet .article {
+    margin: 1em 1em;
+    padding: 1em 1em;
+    max-width: 100%;
+  }
   /*== ACCOUNT SPECIFIC STYLING ================================================*/
   .account .container {
     grid-template-columns: repeat(1, 1fr);
@@ -201,7 +250,14 @@ nav .navtitle {
   /*== DASHBOARD SPECIFIC STYLING ==============================================*/
 
   /*== CLOSET SPECIFIC STYLING =================================================*/
-
+  .closet main {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .closet .article {
+    margin: 1em 1em;
+    padding: 1em 1em;
+    max-width: 100%;
+  }
   /*== ACCOUNT SPECIFIC STYLING ================================================*/
 }
 /* // Extra large screen / wide desktop */
@@ -217,6 +273,13 @@ nav .navtitle {
   /*== DASHBOARD SPECIFIC STYLING ==============================================*/
 
   /*== CLOSET SPECIFIC STYLING =================================================*/
-
+  .closet main {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .closet .article {
+    margin: 1em 1em;
+    padding: 1em 1em;
+    max-width: 100%;
+  }
   /*== ACCOUNT SPECIFIC STYLING ================================================*/
 }
