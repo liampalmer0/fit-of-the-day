@@ -56,6 +56,10 @@ module.exports = (sequelize, DataTypes) => {
           key: 'rating_id',
         },
       },
+      filepath: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
     },
     {
       sequelize,
