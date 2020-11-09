@@ -1,10 +1,11 @@
 module.exports = {
-  'step one: navigate to dashboard': function (browser) {
+  'step one: navigate to FOTD homepage': function (browser) {
     browser
       .url('http://localhost:3000')
       .waitForElementVisible('body')
-      .assert.titleContains('Fit of the Day')
-      .assert.visible('div.container')
-      .assert.containsText('p.sticky', 'This is a placeholder');
+      .assert.titleContains('Fit of the Day - Welcome')
+      .assert.visible('div.carousel')
+      .assert.containsText('nav', 'Sign in')
+      .assert.containsText('nav', 'Sign Up');
   },
 };
