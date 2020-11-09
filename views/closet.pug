@@ -11,11 +11,14 @@ block content
           .name= name
           .desc= desc
         input(type='hidden', value=article_path)
+    
     each item in articles
-      +article(item.owner +'/'+ item.closet.replace(/\s/g, '') + '/article?id=' + item.id, 
-        'user_img/liam/' + item.path,
-        item.name, 
-        item.desc)
+      +article(`${item.dataValues.closet.dataValues.User.dataValues.username}` +
+        `/${item.dataValues.closet.dataValues.name.replace(/\s/g, '')}` +
+        `/article?id=${item.article_id}`,
+        'user_img/liam/' + item.dataValues.filepath,
+        item.dataValues.name, 
+        item.dataValues.desc)
         //- hardcoded image paths for now
 
     script(src='./scripts/closet_page.js', type='text/javascript')
