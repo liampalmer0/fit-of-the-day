@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       tableName: 'garment_type',
       schema: 'public',
       timestamps: false,
+      underscored: true,
     }
   );
 };

@@ -23,10 +23,10 @@ describe('DashboardAPIs', function () {
     });
   });
 
-  describe('#testQuery', function () {
-    it('should return at least 1 row', async function () {
-      let result = await dashboard.testQuery('SELECT * FROM account');
-      assert(result.rowCount >= 1, 'Row count is less than 1');
-    });
-  });
+  // describe('#testQuery', function () {
+  //   it('should return at least 1 row', async function () {
+  //     let result = await dashboard.testQuery('SELECT * FROM account');
+  //     assert(result.rowCount >= 1, 'Row count is less than 1');
+  //   });
+  // });
 });

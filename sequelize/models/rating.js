@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       tableName: 'rating',
       schema: 'public',
       timestamps: false,
+      underscored: true,
     }
   );
 };

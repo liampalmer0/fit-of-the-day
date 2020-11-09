@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
-          model: 'user',
+          model: 'User',
           key: 'user_id',
         },
       },
@@ -30,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       tableName: 'closet',
       schema: 'public',
       timestamps: false,
+      underscored: true,
     }
   );
 };
