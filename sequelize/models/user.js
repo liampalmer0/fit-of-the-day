@@ -47,6 +47,7 @@ module.exports = (sequelize, DataTypes) => {
       tableName: 'user',
       schema: 'public',
       timestamps: false,
+      underscored: true,
     }
   );
 };
