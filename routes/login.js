@@ -18,6 +18,7 @@ router.post(
     failureRedirect: '/login?error=true',
   }),
   function (req, res) {
+    req.session.username = req.body.username;
     res.redirect('/' + req.body.username + '/dashboard');
   }
 );
