@@ -2,13 +2,18 @@
   font-family: Nunito;
   src: url(../fonts/nunito/Nunito-Regular.ttf);
 }
+:root {
+  --main-bg-color: #ffffff;
+  --main-fg-color: #000000;
+  --fotd-green: #d7e296;
+}
 * {
   box-sizing: border-box;
 }
 body {
   font-family: Nunito, Helvetica, sans-serif;
   margin: 0em;
-  background-color: #dfdfdf;
+  background-color: var(--main-bg-color);
 }
 nav {
   display: grid;
@@ -70,7 +75,6 @@ nav .navtitle {
   width: 90%;
   margin: auto;
 }
-
 .index .carousel {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -175,6 +179,46 @@ nav .navtitle {
   background-color: #d3dfd1;
 }
 
+/*== ARTICLE SPECIFIC STYLING ================================================*/
+.article section.item-card {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin: 0em auto;
+  width: 95%;
+}
+.article section.item-card p.desc {
+  margin-top: 0em;
+}
+.article .item-card .item-image {
+  margin: 0em auto;
+  width: 100%;
+  text-align: center;
+}
+.article .item-card .item-image img {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  object-fit: cover;
+}
+.article .item-card .item-details {
+  display: grid;
+  grid-template-columns: 1fr;
+  box-sizing: border-box;
+  padding: 0em 1em;
+  width: 100%;
+  margin: 0em auto;
+}
+.article .item-card .item-details .options a {
+  display: inline-block;
+  background-color: var(--fotd-green);
+  color: var(--main-fg-color);
+  padding: 0.5em 1em;
+  margin-right: 1em;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 10px;
+}
+
 /* // Small screen / phone */
 @media only screen and (min-width: 576px) {
   /*== PUBLIC LAYOUT SPECIFIC STYLING ==========================================*/
@@ -197,6 +241,13 @@ nav .navtitle {
     max-width: 100%;
   }
   /*== ACCOUNT SPECIFIC STYLING ================================================*/
+  /*== ARTICLE SPECIFIC STYLING ================================================*/
+  .article section.item-card {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .article section.item-card > :nth-child(2) {
+    margin-left: 1em;
+  }
 }
 /* // Medium screen / tablet */
 @media only screen and (min-width: 768px) {
@@ -236,6 +287,10 @@ nav .navtitle {
   .account .container {
     grid-template-columns: repeat(1, 1fr);
   }
+  /*== ARTICLE SPECIFIC STYLING ================================================*/
+  .article section.item-card {
+    grid-template-columns: 40% 60%;
+  }
 }
 /* // Large screen / desktop */
 @media only screen and (min-width: 992px) {
@@ -259,6 +314,10 @@ nav .navtitle {
     max-width: 100%;
   }
   /*== ACCOUNT SPECIFIC STYLING ================================================*/
+  /*== ARTICLE SPECIFIC STYLING ================================================*/
+  .article section.item-card {
+    grid-template-columns: 35% 65%;
+  }
 }
 /* // Extra large screen / wide desktop */
 @media only screen and (min-width: 1200px) {
@@ -282,4 +341,8 @@ nav .navtitle {
     max-width: 100%;
   }
   /*== ACCOUNT SPECIFIC STYLING ================================================*/
+  /*== ARTICLE SPECIFIC STYLING ================================================*/
+  .article section.item-card {
+    grid-template-columns: 30% 70%;
+  }
 }
