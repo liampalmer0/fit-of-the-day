@@ -27,20 +27,13 @@ async function getApiResults() {
 }
 
 function showDashboard(req, res, next) {
-  let urlName = req.baseUrl.split('/')[1];
-  if (urlName !== req.session.username) {
-    res.status(401).send('<h1>Unauthorized</h1>');
-  } else {
-    // console.log(`USERNAME : ${req.session.username}`);
-    getApiResults().then((data) => {
-      //add any other vars to result object here
-      //eg result.name = value;
-      data.title = 'Fit of the Day - Dashboard';
-      data.pagename = 'dashboard';
-      data.username = req.session.username;
-      res.render('dashboard', data);
-    });
-  }
+  getApiResults().then((data) => {
+    //add any other vars to result object here
+    //eg result.name = value;
+    data.title = 'Fit of the Day - Dashboard';
+    data.pagename = 'dashboard';
+    res.render('dashboard', data);
+  });
 }
 
 module.exports = {

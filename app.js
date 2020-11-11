@@ -8,12 +8,9 @@ const session = require('express-session');
 const passport = require('passport');
 
 const indexRouter = require('./routes/index');
-const dashRouter = require('./routes/dashboard');
-const closetRouter = require('./routes/closet');
-const accountRouter = require('./routes/account');
 const signupRouter = require('./routes/signup');
 const loginRouter = require('./routes/login');
-// const articleRouter = require('./routes/article');
+const userRouter = require('./routes/user');
 
 const app = express();
 
@@ -55,12 +52,16 @@ app.use(passport.session());
 
 // set routes
 app.use('/', indexRouter);
-app.use('/*/dashboard', dashRouter);
-app.use('/closet', closetRouter);
-app.use('/account', accountRouter);
 app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
-// app.use('/:user/:closet/article', articleRouter);
+app.use(
+  '/:user',
+  (req, res, next) => {
+    res.locals.username = req.params.user;
+    next();
+  },
+  userRouter
+);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
