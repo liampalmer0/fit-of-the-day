@@ -6,6 +6,7 @@ const accountRouter = require('./account');
 
 // middleware to check the url param username matches the session
 router.use(function checkUser(req, res, next) {
+  res.locals.toParent = '';
   if (res.locals.username !== req.session.username) {
     res.render('error', {
       message: 'Unauthorized',

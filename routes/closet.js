@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { models } = require('../sequelize');
+const articleRouter = require('./article');
 
 async function getArticles(usertoken, closetid) {
   return await models.article.findAll({
@@ -40,5 +41,7 @@ function showCloset(req, res, next) {
 
 /* GET closet page. */
 router.get('/', showCloset);
+
+router.use('/article', articleRouter);
 
 module.exports = router;
