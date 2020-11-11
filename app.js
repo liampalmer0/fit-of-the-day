@@ -1,20 +1,18 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var fs = require('fs');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var session = require('express-session');
-var passport = require('passport');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const fs = require('fs');
+// const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const session = require('express-session');
+const passport = require('passport');
 
-var indexRouter = require('./routes/index');
-var dashRouter = require('./routes/dashboard');
-var closetRouter = require('./routes/closet');
-var accountRouter = require('./routes/account');
-var signupRouter = require('./routes/signup');
-var loginRouter = require('./routes/login');
+const indexRouter = require('./routes/index');
+const signupRouter = require('./routes/signup');
+const loginRouter = require('./routes/login');
+const userRouter = require('./routes/user');
 
-var app = express();
+const app = express();
 
 if (process.env.NODE_ENV !== 'test') {
   app.use(logger('dev'));
@@ -36,7 +34,7 @@ app.use(
   session({
     secret: process.env.SECRET_KEY,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
   })
 );
 // view engine setup
@@ -46,7 +44,7 @@ app.set('view engine', 'pug');
 // app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+// app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(passport.initialize());
@@ -54,11 +52,16 @@ app.use(passport.session());
 
 // set routes
 app.use('/', indexRouter);
-app.use('/*/dashboard', dashRouter);
-app.use('/closet', closetRouter);
-app.use('/account', accountRouter);
 app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
+app.use(
+  '/:user',
+  (req, res, next) => {
+    res.locals.username = req.params.user;
+    next();
+  },
+  userRouter
+);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
