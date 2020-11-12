@@ -13,7 +13,7 @@ async function getArticles(usertoken, closetid) {
         include: [
           {
             attributes: ['username'],
-            model: models.User,
+            model: models.user,
           },
         ],
       },

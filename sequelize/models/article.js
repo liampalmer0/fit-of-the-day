@@ -56,6 +56,16 @@ module.exports = (sequelize, DataTypes) => {
           key: 'rating_id',
         },
       },
+      temp_min: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+      },
+      temp_max: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 120,
+      },
       filepath: {
         type: DataTypes.STRING,
         allowNull: true,

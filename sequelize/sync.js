@@ -1,7 +1,7 @@
-const sequelize = require('sequelize');
+// const Sequelize = require('sequelize');
+const s = require('./index');
 // Testing Connection and Syncing Tables with Models
-sequelize
-  .authenticate()
+s.authenticate()
   .then((err) => {
     console.log('Connection has been established successfully.');
   })
@@ -9,5 +9,5 @@ sequelize
     console.log('Unable to connect to the database:', err);
   })
   .then(() => {
-    sequelize.sync();
+    s.sync({ force: true });
   });

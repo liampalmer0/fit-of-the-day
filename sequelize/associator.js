@@ -2,7 +2,7 @@ module.exports = (sequelize) => {
   // Create Associations
   let models = sequelize.models;
   // Closet belongs to a User
-  models.closet.belongsTo(models.User, {
+  models.closet.belongsTo(models.user, {
     foreignKey: 'user_id',
   });
   // Article belongs to a closet

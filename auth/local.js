@@ -9,10 +9,11 @@ init();
 
 passport.use(
   new LocalStrategy(async (username, password, done) => {
-    models.User.findAll({
-      limit: 1,
-      where: { username: username },
-    })
+    models.user
+      .findAll({
+        limit: 1,
+        where: { username: username },
+      })
       .then((user) => {
         if (!user || user.length === 0) {
           return done(null, false, { message: 'Incorrect username.' });
