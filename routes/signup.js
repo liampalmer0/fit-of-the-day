@@ -10,7 +10,8 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  models.User.create(req.body)
+  models.user
+    .create(req.body)
     .then(() => {
       passport.authenticate('local', (err, user, info) => {
         if (err) {
@@ -24,6 +25,7 @@ router.post('/', (req, res, next) => {
           if (err) {
             return next(err);
           }
+          req.session.username = req.body.username;
           return res.redirect('/' + req.body.username + '/dashboard');
         });
       })(req, res, next);

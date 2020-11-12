@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const { Model } = require('sequelize');
-class User extends Model {
+class user extends Model {
   static async create(values) {
     const salt = await bcrypt.genSalt();
     const hash = await bcrypt.hash(values.password, salt);
@@ -12,7 +12,7 @@ class User extends Model {
   }
 }
 module.exports = (sequelize, DataTypes) => {
-  return User.init(
+  return user.init(
     {
       user_id: {
         autoIncrement: true,
@@ -43,8 +43,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'User',
-      tableName: 'user',
+      modelName: 'user',
+      freezeTableName: true,
       schema: 'public',
       timestamps: false,
       underscored: true,
