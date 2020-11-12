@@ -1,19 +1,18 @@
 const owm = require('../api/openWeatherMap');
 const gcal = require('../api/googleCal');
+const { recRand } = require('../api/recommender');
 
 async function getApiResults() {
   let weather = 'Unavailable';
   let calStatus = 'Calendar Unavailable';
-  let outfits = [
-    { top: 'top1', bottom: 'btm1' },
-    { top: 'top2', bottom: 'btm2' },
-    { single: 'sing1' },
-  ]; //placeholder outfit data
+  let outfits = [];
   try {
     //call APIs
     let coords = await owm.getCoords(60605); // placeholder zip code
     weather = await owm.getWeather(coords);
     calStatus = await gcal.getEvents();
+    outfits = await recRand('liam');
+    //Hard coded username, will be pulled from session later
   } catch (err) {
     // next(err);
     console.log(err);
