@@ -23,4 +23,6 @@ block content
           `/${item.dataValues.closet.dataValues.name.replace(/\s/g, '')}` +
         //- relative image names for later
           '/user_img/' + username + '/' [+ closet + '/'] + item.dataValues.filepath,
-    script(src='/scripts/closet_page.js', type='text/javascript')
+        //- hardcoded image paths for now
+    script(src='./scripts/closet_page.js', type='text/javascript')
+  include includes/footer

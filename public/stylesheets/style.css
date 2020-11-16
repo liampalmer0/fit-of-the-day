@@ -10,10 +10,15 @@
 * {
   box-sizing: border-box;
 }
+:root {
+  --main-bg: #ffffff;
+  --main-fg: #000000;
+}
 body {
   font-family: Nunito, Helvetica, sans-serif;
   margin: 0em;
-  background-color: var(--main-bg-color);
+  background-color: var(--main-bg);
+  color: var(--main-fg);
 }
 nav {
   display: grid;
@@ -21,22 +26,40 @@ nav {
   padding: 1em;
   margin: 1em 0em;
   text-align: center;
-  border: 2px grey solid;
+  color: var(--main-fg);
 }
 .container {
   margin: 1em 0em;
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  min-height: 75vh;
-  border: 2px grey solid;
+  grid-template-columns: repeat(2, 1fr);
+  /* min-height: 75vh; */
+  color: var(--main-fg);
+}
+.sticky2 {
+  padding: 2em;
+  background-color: var(--main-bg);
+  color: var(--main-fg);
+  text-align: center;
+  box-shadow: 8px 8px 25px rgba(16, 16, 16, 0.3);
+  border-radius: 25px;
 }
 .sticky {
   margin: auto;
   padding: 2em;
-  background-color: tomato;
-  color: white;
   text-align: center;
   box-shadow: 8px 8px 25px rgba(16, 16, 16, 0.3);
+  border-radius: 25px;
+}
+footer {
+  display: grid;
+  grid-template-columns: 25% 25% 50%;
+  text-align: center;
+}
+.buttonleft {
+  text-align: left;
+}
+.buttonright {
+  text-align: right;
 }
 .error {
   background-color: #f0d0d0;
@@ -130,18 +153,14 @@ nav .navtitle {
 .dashboard .widgets div {
   margin: 1em;
   padding: 1em;
-  background-color: cornflowerblue;
-  color: white;
+  background-color: var(--main-bg);
+  color: var(--main-fg);
   text-align: center;
   box-shadow: 8px 8px 25px rgba(16, 16, 16, 0.3);
+  border-radius: 10px;
 }
 
 /*== CLOSET SPECIFIC STYLING =================================================*/
-
-/* for example */
-.closet {
-  background-color: #dfdfdf;
-}
 
 .closet main {
   display: grid;
@@ -172,12 +191,7 @@ nav .navtitle {
   font-size: 0.8em;
 }
 
-/*== ACCOUNT SPECIFIC STYLING ================================================*/
-
-/* for example */
-.account {
-  background-color: #d3dfd1;
-}
+/*== SETTINGS SPECIFIC STYLING ================================================*/
 
 /*== ARTICLE SPECIFIC STYLING ================================================*/
 .article section.item-card {
@@ -252,12 +266,11 @@ nav .navtitle {
 /* // Medium screen / tablet */
 @media only screen and (min-width: 768px) {
   .container {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
   .sticky {
     width: 75%;
     padding: 2em;
-    color: white;
     text-align: center;
     box-shadow: 8px 8px 25px rgba(16, 16, 16, 0.3);
   }
@@ -283,8 +296,8 @@ nav .navtitle {
     padding: 1em 1em;
     max-width: 100%;
   }
-  /*== ACCOUNT SPECIFIC STYLING ================================================*/
-  .account .container {
+  /*== SETTINGS SPECIFIC STYLING ================================================*/
+  .settings .container {
     grid-template-columns: repeat(1, 1fr);
   }
   /*== ARTICLE SPECIFIC STYLING ================================================*/
@@ -313,11 +326,15 @@ nav .navtitle {
     padding: 1em 1em;
     max-width: 100%;
   }
+<<<<<<< Updated upstream
   /*== ACCOUNT SPECIFIC STYLING ================================================*/
   /*== ARTICLE SPECIFIC STYLING ================================================*/
   .article section.item-card {
     grid-template-columns: 35% 65%;
   }
+=======
+  /*== SETTINGS SPECIFIC STYLING ================================================*/
+>>>>>>> Stashed changes
 }
 /* // Extra large screen / wide desktop */
 @media only screen and (min-width: 1200px) {
