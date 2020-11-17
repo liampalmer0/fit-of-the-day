@@ -326,15 +326,11 @@ nav .navtitle {
     padding: 1em 1em;
     max-width: 100%;
   }
-<<<<<<< Updated upstream
-  /*== ACCOUNT SPECIFIC STYLING ================================================*/
   /*== ARTICLE SPECIFIC STYLING ================================================*/
   .article section.item-card {
     grid-template-columns: 35% 65%;
   }
-=======
   /*== SETTINGS SPECIFIC STYLING ================================================*/
->>>>>>> Stashed changes
 }
 /* // Extra large screen / wide desktop */
 @media only screen and (min-width: 1200px) {
