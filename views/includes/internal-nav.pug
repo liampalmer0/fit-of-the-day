@@ -1,4 +1,6 @@
 nav
-  a(href= toParent + 'account') Settings/Account 
-  a(href= toParent + 'dashboard') Home 
-  a(href= toParent + 'closet') Closet
+  a(class='buttonleft' href= toParent + 'dashboard')
+    img(src="/icons/smallicon.png")
+  include weather
+  a(class='buttonright' href= toParent + 'closet')
+    img(src="/icons/closeticon.png")

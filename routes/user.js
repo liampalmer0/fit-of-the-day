@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const dashboardRouter = require('./dashboard');
 const closetRouter = require('./closet');
-const accountRouter = require('./account');
+const settingsRouter = require('./settings');
 
 // middleware to check the url param username matches the session
 router.use(function checkUser(req, res, next) {
@@ -18,7 +18,7 @@ router.use(function checkUser(req, res, next) {
 });
 
 router.use('/dashboard', dashboardRouter);
-router.use('/account', accountRouter);
+router.use('/settings', settingsRouter);
 router.use('/closet', closetRouter);
 
 module.exports = router;

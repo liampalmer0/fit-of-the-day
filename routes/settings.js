@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET account page. */
+/* GET settings page. */
 router.get('/', function (req, res, next) {
-  res.render('account', { pagename: 'account' });
+  res.render('settings', { pagename: 'settings' });
 });
 
 module.exports = router;
