@@ -2,19 +2,11 @@ extends layout
 
 block content
   include includes/public-nav
-  header
-    H1 Wow! Those are Clothes!
   main
-    .carousel
-      //- define mixin carouselItem
-      mixin carouselItem
-        .caroitem
-          p item container
-          .caroimg
-            p image
+    h1 Create. Plan. Enjoy.
+    .scroller
+      .scroll.col1
+      .scroll.col2
+      .scroll.col3
       
-      -var carouselpics = [0,1,5];//will be replaced by whatever the server passes
-      
-      //- for each pic from carouselpics create a carouselItem mixin
-      each pic in carouselpics
-        +carouselItem
+  include includes/public-footer
