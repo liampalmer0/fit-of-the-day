@@ -18,11 +18,5 @@ block content
         '/user_img/liam/' + item.dataValues.filepath,
         item.dataValues.name, 
         item.dataValues.desc)
-        //- previously
-          `${item.dataValues.closet.dataValues.User.dataValues.username}/closet` +
-          `/${item.dataValues.closet.dataValues.name.replace(/\s/g, '')}` +
-        //- relative image names for later
-          '/user_img/' + username + '/' [+ closet + '/'] + item.dataValues.filepath,
-        //- hardcoded image paths for now
     script(src='/scripts/closet_page.js', type='text/javascript')
   include includes/footer

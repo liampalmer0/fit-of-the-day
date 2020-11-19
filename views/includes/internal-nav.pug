@@ -1,6 +1,8 @@
-nav
+nav.internal
   a(class='buttonleft' href= toParent + 'dashboard')
     img(src="/icons/smallicon.png")
-  include weather
+  .widgets
+    include weather
+    include calendar
   a(class='buttonright' href= toParent + 'closet')
     img(src="/icons/closeticon.png")

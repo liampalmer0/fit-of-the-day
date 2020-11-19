@@ -3,8 +3,11 @@ extends layout
 block content
   include includes/internal-nav
   main
-    each o in outfits    
-      .container2
-          img(src="/user_img/liam/" + o.top.dataValues.filepath)
-          img(src="/user_img/liam/" + o.bottom.dataValues.filepath)
+    each outfit in outfits    
+      .outfit
+        a(href="closet/article?id="+outfit.top.dataValues.article_id)
+          img(src="/user_img/liam/" + outfit.top.dataValues.filepath)
+        a(href="closet/article?id="+outfit.bottom.dataValues.article_id)
+          img(src="/user_img/liam/" + outfit.bottom.dataValues.filepath)
   include includes/footer
+  
