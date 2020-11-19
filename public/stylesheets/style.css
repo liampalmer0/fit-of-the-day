@@ -219,6 +219,10 @@ footer.public {
   box-shadow: 8px 8px 25px rgba(16, 16, 16, 0.3);
   border-radius: 10px;
 }
+.dashboard main {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+}
 
 /*== CLOSET SPECIFIC STYLING =================================================*/
 
