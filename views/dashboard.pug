@@ -2,6 +2,9 @@ extends layout
 
 block content
   include includes/internal-nav
+  .widgets
+    include includes/weather
+    include includes/calendar
   main
     each outfit in outfits    
       .outfit

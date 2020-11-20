@@ -8,7 +8,7 @@ async function getApiResults() {
   let outfits = [];
   try {
     //call APIs
-    let coords = await owm.getCoords(60605); // placeholder zip code
+    let coords = await owm.getCoords(45202); // placeholder zip code
     weather = await owm.getWeather(coords);
     calStatus = await gcal.getEvents();
     outfits = await recRand('liam');
