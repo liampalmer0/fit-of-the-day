@@ -1,0 +1,31 @@
+form(action=action method="post" id='articleForm')
+  
+  label(for="name") Name
+  input(id="name" type="text" name="name" placeholder="Name")
+  
+  label(for="desc") Description
+  textarea(id="desc" type="text" name="desc" placeholder="Description" rows="6")
+  
+  label(for="color") Color
+  select(id="color" name="color")
+    option(value="red") Red
+    option(value="orange") Orange
+    option(value="yellow") Yellow
+    option(value="green") Green
+    option(value="blue") Blue
+    option(value="black") Black
+    option(value="white") White
+  
+  label(for="type") Type
+  select(id="type" name="type")
+    option(value="top") Top
+    option(value="bottom") Bottom
+    option(value="single") Single
+  
+  label(for="dresscode") Dress Code
+  select(id="dresscode" name="dress_code")
+    option(value="casual") Casual
+    option(value="semi-formal") Semi-formal
+    option(value="formal") Formal
+  
+  input(type="submit" value=submitVal)

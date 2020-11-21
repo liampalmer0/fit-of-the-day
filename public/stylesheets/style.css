@@ -287,6 +287,10 @@ footer.public {
   padding-top: 0.4em;
   font-size: 0.8em;
 }
+.closet .closetControls {
+  text-align: right;
+  padding-right: 2em;
+}
 
 /*== SETTINGS SPECIFIC STYLING ================================================*/
 
@@ -328,6 +332,29 @@ footer.public {
   text-align: center;
   text-decoration: none;
   border-radius: 10px;
+}
+main.newArticle {
+  max-width: 50%;
+  margin: 0em auto;
+}
+main.newArticle .articleCreate > form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+main.newArticle .articleCreate > form > * {
+  padding: 0.2em;
+  margin: 0.5em;
+}
+main.newArticle .articleCreate > form input[type='submit'] {
+  grid-column: 1 / span 2;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: var(--fotd-green);
+  padding: 1em;
+  font-size: 0.8em;
+  border-radius: 10px;
+  border: none;
 }
 
 /* // Small screen / phone */

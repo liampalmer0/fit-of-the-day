@@ -2,6 +2,8 @@ extends layout
 
 block content
   include includes/internal-nav
+  aside.closetControls
+    a(href="closet/article/new") New Article
   main
     mixin article(article_path, img_path, name, desc)
       .article(role='button' tabindex='0')
