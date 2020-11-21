@@ -211,8 +211,19 @@ footer.public {
 .dashboard main {
   display: grid;
   max-width: 90%;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   margin: auto auto 1em auto;
+}
+.dashboard .recommendations {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.dashboard .filter {
+  margin: auto;
+  text-align: center;
+}
+.dashboard .filter label {
+  font-size: 0.8em;
 }
 .dashboard .outfit {
   text-align: center;

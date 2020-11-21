@@ -6,11 +6,25 @@ block content
     include includes/weather
     include includes/calendar
   main
-    each outfit in outfits    
-      .outfit
-        a(href="closet/article?id="+outfit.top.dataValues.article_id)
-          img(src="/user_img/liam/" + outfit.top.dataValues.filepath)
-        a(href="closet/article?id="+outfit.bottom.dataValues.article_id)
-          img(src="/user_img/liam/" + outfit.bottom.dataValues.filepath)
+    .filter
+      <form action="" method="post" id='filterform'>
+        <label for="color">Color:</label>
+        <select id="color" name="color">
+          <option value="Red">Red</option>
+          <option value="Orange">Orange</option>
+          <option value="Yellow">Yellow</option>
+          <option value="Green">Green</option>
+          <option value="Blue">Blue</option>
+          <option value="Black">Black</option>
+        </select>
+        <input type="submit" value="Filter">
+      </form>
+    .recommendations
+      each outfit in outfits
+        .outfit
+          a(href="closet/article?id="+outfit.top.dataValues.article_id)
+            img(src="/user_img/liam/" + outfit.top.dataValues.filepath)
+          a(href="closet/article?id="+outfit.bottom.dataValues.article_id)
+            img(src="/user_img/liam/" + outfit.bottom.dataValues.filepath)
   include includes/footer
   
