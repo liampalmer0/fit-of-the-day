@@ -82,7 +82,7 @@ async function createArticle(req, res, next) {
   });
 
   res.redirect(
-    '../article?id=' + dbres.dataValues.article_id + '?success=true'
+    '../article?id=' + dbres.dataValues.article_id + '&success=true'
   );
 }
 
