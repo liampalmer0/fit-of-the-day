@@ -55,7 +55,6 @@ async function recRandFiltered(username, filters) {
     },
     where: {
       garment_type_id: 1,
-      filepath: { [Op.ne]: 's-null.png' },
       color: color,
     },
     order: Sequelize.literal('RANDOM()'),
@@ -73,7 +72,6 @@ async function recRandFiltered(username, filters) {
     },
     where: {
       garment_type_id: 2,
-      filepath: { [Op.ne]: 'p-null.png' },
       color: color,
     },
     order: Sequelize.literal('RANDOM()'),

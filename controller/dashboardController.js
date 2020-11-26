@@ -59,8 +59,8 @@ function regenFiltered(req, res, next) {
       return data;
     })
     .then((data) => {
-      console.log(data.outfits[2].top);
-      console.log(data.outfits[2].bottom);
+      // console.log(data.outfits[2].top);
+      // console.log(data.outfits[2].bottom);
       data.title = 'Fit of the Day - Dashboard';
       data.pagename = 'dashboard';
       res.render('dashboard', data);
