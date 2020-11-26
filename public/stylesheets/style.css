@@ -8,6 +8,7 @@
 :root {
   --main-bg: #ffffff;
   --main-fg: #000000;
+  --fotd-green: rgb(166, 224, 154);
 }
 body {
   font-family: Nunito, Helvetica, sans-serif;
@@ -15,31 +16,9 @@ body {
   background-color: var(--main-bg);
   color: var(--main-fg);
 }
-nav {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  padding: 1em;
-  margin: 1em 0em;
-  text-align: center;
-  color: var(--main-fg);
-}
-.container {
-  margin: 1em 0em;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  /* min-height: 75vh; */
-  color: var(--main-fg);
-}
-.sticky {
-  margin: auto;
-  padding: 2em;
-  text-align: center;
-  box-shadow: 8px 8px 25px rgba(16, 16, 16, 0.3);
-  border-radius: 25px;
-}
 footer {
   display: grid;
-  grid-template-columns: 25% 25% 50%;
+  grid-template-columns: repeat(3, 1fr);
   text-align: center;
 }
 .buttonleft {
@@ -54,10 +33,35 @@ footer {
   border-radius: 12px;
   padding: 1em;
 }
+/*== INTERNAL NAV SPECIFIC STYLING ==========================================*/
+nav.internal {
+  display: grid;
+  grid-template-columns: min-content 1fr min-content;
+  padding: 0em 1em;
+  margin: 1em 0em;
+  text-align: center;
+  color: var(--main-fg);
+}
+nav.internal .widgets {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  text-align: center;
+  width: 80%;
+  margin: auto;
+}
+nav.internal .widgets div {
+  margin: 0em 1em;
+  background-color: var(--main-bg);
+  color: var(--main-fg);
+  text-align: center;
+  box-shadow: 8px 8px 25px rgba(16, 16, 16, 0.3);
+  border-radius: 10px;
+}
 
 /*== PUBLIC LAYOUT SPECIFIC STYLING ==========================================*/
 nav.public,
 footer.public {
+  display: grid;
   grid-template-columns: repeat(1, 1fr);
   margin: 0em;
   background-color: black;
@@ -204,22 +208,66 @@ footer.public {
   grid-template-columns: 1fr;
 }
 /*== DASHBOARD SPECIFIC STYLING ==============================================*/
-.dashboard .widgets {
+.dashboard main {
+  display: grid;
+  max-width: 90%;
+  grid-template-columns: repeat(1, 1fr);
+  margin: auto auto 1em auto;
+}
+.dashboard .recommendations {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.dashboard .filter {
+  margin: auto;
+  text-align: center;
+}
+.dashboard .filter label {
+  font-size: 0.8em;
+}
+.dashboard .outfit {
+  text-align: center;
+  margin: auto 1em;
+}
+.dashboard .outfit img {
+  width: 100%;
+  max-width: max-content;
+  border-radius: 10px;
+}
+.widgets {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   text-align: center;
-  border: 2px grey solid;
+  width: 75%;
+  margin: auto auto 2em auto;
 }
-.dashboard .widgets div {
-  margin: 1em;
-  padding: 1em;
+.widgets div {
+  display: grid;
+  margin: 0em 1em;
   background-color: var(--main-bg);
   color: var(--main-fg);
   text-align: center;
-  box-shadow: 8px 8px 25px rgba(16, 16, 16, 0.3);
+  box-shadow: 4px 4px 15px rgba(16, 16, 16, 0.3);
   border-radius: 10px;
 }
-
+.widgets .calWidget {
+  padding: 1em;
+}
+.widgets .weatherWidget {
+  grid-template-columns: auto max-content auto;
+  padding: 1em;
+}
+.widgets .weatherWidget span,
+.widgets .calWidget span {
+  margin: auto 1em;
+}
+.widgets .weatherWidget img {
+  margin: 0em auto;
+  max-width: 50px;
+  width: 100%;
+  background-color: darkgray;
+  border-radius: 10px;
+}
 /*== CLOSET SPECIFIC STYLING =================================================*/
 
 .closet main {
@@ -249,6 +297,10 @@ footer.public {
 .closet .cardtext .desc {
   padding-top: 0.4em;
   font-size: 0.8em;
+}
+.closet .closetControls {
+  text-align: right;
+  padding-right: 2em;
 }
 
 /*== SETTINGS SPECIFIC STYLING ================================================*/
@@ -291,6 +343,29 @@ footer.public {
   text-align: center;
   text-decoration: none;
   border-radius: 10px;
+}
+main.newArticle {
+  max-width: 50%;
+  margin: 0em auto;
+}
+main.newArticle .articleCreate > form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+main.newArticle .articleCreate > form > * {
+  padding: 0.2em;
+  margin: 0.5em;
+}
+main.newArticle .articleCreate > form input[type='submit'] {
+  grid-column: 1 / span 2;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: var(--fotd-green);
+  padding: 1em;
+  font-size: 0.8em;
+  border-radius: 10px;
+  border: none;
 }
 
 /* // Small screen / phone */
@@ -335,15 +410,6 @@ footer.public {
 }
 /* // Medium screen / tablet */
 @media only screen and (min-width: 768px) {
-  .container {
-    grid-template-columns: repeat(1, 1fr);
-  }
-  .sticky {
-    width: 75%;
-    padding: 2em;
-    text-align: center;
-    box-shadow: 8px 8px 25px rgba(16, 16, 16, 0.3);
-  }
   /*== PUBLIC LAYOUT SPECIFIC STYLING ==========================================*/
 
   /*== INDEX SPECIFIC STYLING ==================================================*/
@@ -357,9 +423,6 @@ footer.public {
   /*== DASHBOARD SPECIFIC STYLING ==============================================*/
 
   /*== CLOSET SPECIFIC STYLING =================================================*/
-  .closet .container {
-    grid-template-columns: repeat(1, 1fr);
-  }
   .closet main {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -370,7 +433,13 @@ footer.public {
   }
   /*== SETTINGS SPECIFIC STYLING ================================================*/
   .settings .container {
+    display: grid;
     grid-template-columns: repeat(1, 1fr);
+    color: var(--main-fg);
+    width: min-content;
+    margin: auto;
+    border-radius: 25px;
+    box-shadow: 8px 8px 25px rgba(16, 16, 16, 0.3);
   }
   /*== ARTICLE SPECIFIC STYLING ================================================*/
   .article section.item-card {

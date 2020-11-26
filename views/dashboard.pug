@@ -2,19 +2,29 @@ extends layout
 
 block content
   include includes/internal-nav
+  .widgets
+    include includes/weather
+    include includes/calendar
   main
-    //- .widgets
-    //-   .weatherWidget 
-    //-     p #{weather}
-    //-     //- Use weather."option" to call a specific variable
-    //-     //- Options are: city, high, low, current, feelsLike, weatherPattern, tempAverage, rainChance (shown in a %), and icon
-    //-     //- for icon, use the image source http://openweathermap.org/img/w/***.png where *** calls "${weather.icon}"
-
-    //-   .calWidget
-    //-     p #{cal_status}
-    
-    .container
-      p.sticky This is a placeholder
-      p.sticky #{query_res}
-      p.sticky This is another placeholder
+    .filter
+      <form action="" method="post" id='filterform'>
+        <label for="color">Color:</label>
+        <select id="color" name="color">
+          <option value="Red">Red</option>
+          <option value="Orange">Orange</option>
+          <option value="Yellow">Yellow</option>
+          <option value="Green">Green</option>
+          <option value="Blue">Blue</option>
+          <option value="Black">Black</option>
+        </select>
+        <input type="submit" value="Filter">
+      </form>
+    .recommendations
+      each outfit in outfits
+        .outfit
+          a(href="closet/article?id="+outfit.top.dataValues.article_id)
+            img(src="/user_img/liam/" + outfit.top.dataValues.filepath)
+          a(href="closet/article?id="+outfit.bottom.dataValues.article_id)
+            img(src="/user_img/liam/" + outfit.bottom.dataValues.filepath)
   include includes/footer
+  

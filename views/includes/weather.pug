@@ -1,9 +1,10 @@
-div
-  .weatherWidget 
-    p.sticky #{weather}
-    //- Use weather."option" to call a specific variable
-    //- Options are: city, high, low, current, feelsLike, weatherPattern, tempAverage, rainChance (shown in a %), and icon
-    //- for icon, use the image source http://openweathermap.org/img/w/***.png where *** calls "${weather.icon}"
+.weatherWidget 
+  //- p.sticky #{weather.city} #{weather.high}  img(src=`http://openweathermap.org/img/w/${weather.icon}.png`)
+  span #{weather.city} 
+  img(src='http://openweathermap.org/img/wn/' + weather.icon + '.png')
+  span #{weather.current} ºF
 
-  .calWidget
-    p.sticky #{cal_status}
+  //- Use weather."option" to call a specific variable
+  //- Options are: city, high, low, current, feelsLike, weatherPattern, tempAverage, rainChance (shown in a %), and icon
+  //- for icon, use the image source http://openweathermap.org/img/w/***.png where *** calls "${weather.icon}"
+
