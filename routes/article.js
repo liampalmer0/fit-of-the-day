@@ -12,9 +12,11 @@ async function getArticle(article_id) {
 
 function showArticle(req, res, next) {
   res.locals.toParent = '../';
+  let success = req.query.success ? req.query.success : '';
   getArticle(req.query.id)
     .then((rows) => {
       let data = {};
+      data.success = success;
       data.title = `FOTD - ${rows[0].name}`;
       data.pagename = 'article';
       data.article = {

@@ -9,6 +9,7 @@ router.use(function checkUser(req, res, next) {
   res.locals.toParent = '';
   if (res.locals.username !== req.session.username) {
     res.render('error', {
+      title: 'FOTD - Unauthorized',
       message: 'Unauthorized',
       error: { status: 'User authentication failed', stack: '' },
     });

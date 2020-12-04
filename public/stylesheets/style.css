@@ -46,15 +46,33 @@ nav.internal .widgets {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   text-align: center;
-  width: 80%;
-  margin: auto;
+  width: 90%;
+  margin: auto auto 2em auto;
+  border-radius: 10px;
 }
 nav.internal .widgets div {
+  display: grid;
   margin: 0em 1em;
-  background-color: var(--main-bg);
-  color: var(--main-fg);
   text-align: center;
-  box-shadow: 8px 8px 25px rgba(16, 16, 16, 0.3);
+  box-shadow: 0px 1px 15px rgba(16, 16, 16, 0.2);
+  border-radius: 10px;
+}
+nav.internal .widgets .calWidget {
+  padding: 1em;
+}
+nav.internal .widgets .weatherWidget {
+  grid-template-columns: auto max-content auto;
+  padding: 1em;
+}
+nav.internal .widgets .weatherWidget span,
+nav.internal .widgets .calWidget span {
+  margin: auto 1em;
+}
+nav.internal .widgets .weatherWidget img {
+  margin: 0em auto;
+  max-width: 50px;
+  width: 100%;
+  background-color: white;
   border-radius: 10px;
 }
 
@@ -212,19 +230,43 @@ footer.public {
   display: grid;
   max-width: 90%;
   grid-template-columns: repeat(1, 1fr);
-  margin: auto auto 1em auto;
+  margin: auto auto 2em auto;
 }
 .dashboard .recommendations {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 }
 .dashboard .filter {
-  margin: auto;
+  width: 100%;
+  display: grid;
+  margin: auto auto 1em auto;
+  grid-template-columns: subgrid;
   text-align: center;
+  padding: 1em;
+}
+.dashboard #filterform {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) 10%;
+}
+.dashboard #filterform div {
+  margin-right: auto;
 }
 .dashboard .filter label {
+  display: none;
+  font-size: 0.8em;
+  font-weight: bold;
+  text-align: right;
+  margin: auto 1em;
+}
+.dashboard .filter input[type='submit'] {
+  background-color: var(--fotd-green);
+  border-radius: 10px;
+  border: none;
+  padding: 0.5em 1em;
+  margin: auto;
   font-size: 0.8em;
 }
+
 .dashboard .outfit {
   text-align: center;
   margin: auto 1em;
@@ -232,40 +274,6 @@ footer.public {
 .dashboard .outfit img {
   width: 100%;
   max-width: max-content;
-  border-radius: 10px;
-}
-.widgets {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  text-align: center;
-  width: 75%;
-  margin: auto auto 2em auto;
-}
-.widgets div {
-  display: grid;
-  margin: 0em 1em;
-  background-color: var(--main-bg);
-  color: var(--main-fg);
-  text-align: center;
-  box-shadow: 4px 4px 15px rgba(16, 16, 16, 0.3);
-  border-radius: 10px;
-}
-.widgets .calWidget {
-  padding: 1em;
-}
-.widgets .weatherWidget {
-  grid-template-columns: auto max-content auto;
-  padding: 1em;
-}
-.widgets .weatherWidget span,
-.widgets .calWidget span {
-  margin: auto 1em;
-}
-.widgets .weatherWidget img {
-  margin: 0em auto;
-  max-width: 50px;
-  width: 100%;
-  background-color: darkgray;
   border-radius: 10px;
 }
 /*== CLOSET SPECIFIC STYLING =================================================*/
@@ -343,6 +351,15 @@ footer.public {
   text-align: center;
   text-decoration: none;
   border-radius: 10px;
+}
+.article p.success {
+  width: 95%;
+  background-color: #c8eeb9;
+  border: #729e60 solid 1px;
+  border-radius: 12px;
+  padding: 1em;
+  text-align: center;
+  margin: 0em auto;
 }
 main.newArticle {
   max-width: 50%;
