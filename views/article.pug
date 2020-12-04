@@ -3,6 +3,8 @@ extends layout
 block content
   include includes/internal-nav
   main
+    if success
+      p.success New article created successfully
     section.item-card
       .item-image
         img(src='/user_img/liam/'+article.filepath)
