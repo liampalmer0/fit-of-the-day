@@ -1,9 +1,11 @@
 nav.internal
-  a(class='buttonleft' href= toParent + 'dashboard')
+  a(class='iconhome' href= toParent + 'dashboard')
     img(src="/icons/smallicon.png")
   .widgets
     if (pagename === 'dashboard')
       include weather
       include calendar
-  a(class='buttonright' href= toParent + 'closet')
-    img(src="/icons/closeticon.png")
+  a(class='navlinks' href= toParent + "dashboard") Dashboard
+  a(class='navlinks' href= toParent + "closet") Closet
+  a(class='navlinks' href= toParent + "settings") More
+  a(class='navlinks' href= toParent + "settings") Logout
