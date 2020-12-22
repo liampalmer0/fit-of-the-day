@@ -1,9 +1,20 @@
+/**
+ *  ML Data Creator
+ *
+ *  Currently matches each row of temp data with each of the
+ *  possible top/bottom outfit combos. Then it
+ *  assigns a binary rating based on :
+ *    (avg_fit_temp - 10) < day_temp < (avg_fit_temp + 10)
+ *
+ *
+ */
+
 const fs = require('fs');
 const csv = require('csv-parser');
 const sequelize = require('../../sequelize');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const csvWriter = createCsvWriter({
-  path: __dirname + '/unrated-data.csv',
+  path: __dirname + '/rated-data.csv',
   header: [
     { id: 'date', title: 'Date' },
     { id: 'topid', title: 'TopId' },
@@ -77,6 +88,13 @@ function run() {
             name = `${outfit.top_name} X ${outfit.btm_name}`;
             maxTemp = (outfit.t_temp_max + outfit.b_temp_max) / 2;
             minTemp = (outfit.t_temp_min + outfit.b_temp_min) / 2;
+            // Simple Rating based on avg +/-10 deg
+            let avgFitTemp = (maxTemp + minTemp) / 2;
+            if (dayTemp < avgFitTemp - 10 || dayTemp > avgFitTemp + 10) {
+              chosen = 0;
+            } else {
+              chosen = 1;
+            }
             combined.push({
               date: date,
               topid: topid,
