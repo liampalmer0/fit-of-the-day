@@ -23,8 +23,12 @@
   },
   "homepage": "https://github.com/liampalmer0/SeniorDesign#readme",
   "dependencies": {
+    "@tensorflow/tfjs": "^2.8.0",
+    "@tensorflow/tfjs-node": "^2.8.0",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "~1.4.4",
+    "csv-parser": "^3.0.0",
+    "csv-writer": "^1.6.0",
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "express-session": "^1.17.1",
