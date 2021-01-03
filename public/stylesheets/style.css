@@ -342,6 +342,9 @@ footer.public {
 /*== SETTINGS SPECIFIC STYLING ================================================*/
 
 /*== ARTICLE SPECIFIC STYLING ================================================*/
+.article main {
+  margin-bottom: 1em;
+}
 .article section.item-card {
   display: grid;
   grid-template-columns: 1fr;
@@ -370,24 +373,29 @@ footer.public {
   width: 100%;
   margin: 0em auto;
 }
-.article .item-card .item-details .options a {
-  display: inline-block;
+.article .item-card .item-details .options {
+  display: flex;
+  justify-content: space-between;
+}
+.article .item-card .item-details .options > * {
   background-color: var(--fotd-green);
   color: var(--main-fg-color);
   padding: 0.5em 1em;
-  margin-right: 1em;
+  margin: auto 0.5em;
   text-align: center;
   text-decoration: none;
-  border-radius: 10px;
+  border-radius: 8px;
+  width: 100%;
 }
-.article p.success {
+.article p.success,
+.closet p.success {
   width: 95%;
   background-color: #c8eeb9;
   border: #729e60 solid 1px;
   border-radius: 12px;
   padding: 1em;
   text-align: center;
-  margin: 0em auto;
+  margin: 0.5em auto;
 }
 main.newArticle {
   max-width: 50%;
@@ -413,7 +421,82 @@ main.newArticle .articleForm a[role='button'] {
   text-align: center;
   text-decoration: none;
 }
-
+/* == Article Delete Dialog =========================== */
+.article .dialog {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.article .dialog .dialogContent {
+  display: grid;
+  background-color: var(--main-bg);
+  margin: 15% auto;
+  /* border: 1px solid var(--fotd-green); */
+  border-radius: 12px;
+  width: 90%;
+  box-shadow: 0px 0px 10px rgba(16, 16, 16, 0.55);
+}
+.article .dialog .dialogContent button {
+  font-family: inherit;
+  color: #aaaaaa;
+  background-color: #eeeeee;
+  font-weight: bold;
+  text-decoration: none;
+}
+.article .dialog .dialogContent button:hover {
+  cursor: pointer;
+}
+.article .dialog .dialogContent > * {
+  padding: 1em;
+}
+.article .dialog .dialogContent .header {
+  padding: 0.5em 1em;
+  border-radius: 10px 10px 0px 0px;
+  background-color: #eee;
+  display: flex;
+  justify-content: space-between;
+}
+.article .dialog .dialogContent .header h3 {
+  display: inline-block;
+  margin: auto 0em;
+}
+.article .dialog .dialogContent .dialogForm {
+  padding: 1em;
+  display: flex;
+}
+.article .dialog .dialogContent .dialogForm > button {
+  color: var(--main-fg);
+  font-size: 1em;
+  margin-right: 1em;
+  padding: 0.2em 1em;
+  border: 1px #aaa solid;
+  border-radius: 5px;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+}
+.article .dialog .dialogContent .dialogForm .confirm:hover,
+.article .dialog .dialogContent .dialogForm .confirm:focus,
+.article .dialog .dialogContent .dialogForm .confirm:active {
+  color: #ffffff;
+  background-color: #e24d4d;
+  transition: background-color ease-in-out 0.1s;
+}
+.article .dialog .close {
+  font-size: 1.3em;
+  padding: 0em 0.5em;
+  border: none;
+}
+.article .dialog .close:hover,
+.article .dialog .close:focus,
+.article .dialog .close:active {
+  color: black;
+  cursor: pointer;
+}
 /* // Small screen / phone */
 @media only screen and (min-width: 576px) {
   /*== PUBLIC LAYOUT SPECIFIC STYLING ==========================================*/
@@ -453,6 +536,10 @@ main.newArticle .articleForm a[role='button'] {
   .article section.item-card > :nth-child(2) {
     margin-left: 1em;
   }
+  /* == Article Delete Dialog =========================== */
+  .article .dialog .dialogContent {
+    width: 75%;
+  }
 }
 /* // Medium screen / tablet */
 @media only screen and (min-width: 768px) {
@@ -491,6 +578,15 @@ main.newArticle .articleForm a[role='button'] {
   .article section.item-card {
     grid-template-columns: 40% 60%;
   }
+  .article .item-card .item-details .options {
+    display: flex;
+    justify-content: flex-start;
+    width: 50%;
+  }
+  /* == Article Delete Dialog =========================== */
+  .article .dialog .dialogContent {
+    width: 60%;
+  }
 }
 /* // Large screen / desktop */
 @media only screen and (min-width: 992px) {
@@ -519,6 +615,10 @@ main.newArticle .articleForm a[role='button'] {
   .article section.item-card {
     grid-template-columns: 35% 65%;
   }
+  /* == Article Delete Dialog =========================== */
+  .article .dialog .dialogContent {
+    width: 50%;
+  }
   /*== SETTINGS SPECIFIC STYLING ================================================*/
 }
 /* // Extra large screen / wide desktop */
@@ -546,5 +646,9 @@ main.newArticle .articleForm a[role='button'] {
   /*== ARTICLE SPECIFIC STYLING ================================================*/
   .article section.item-card {
     grid-template-columns: 30% 70%;
+  }
+  /* == Article Delete Dialog =========================== */
+  .article .dialog .dialogContent {
+    width: 40%;
   }
 }

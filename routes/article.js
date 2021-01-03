@@ -118,9 +118,8 @@ async function createArticle(req, res, next) {
   );
 }
 
-async function editArticle(req, res) {
+async function editArticle(req, res, next) {
   //create article from req.body
-
   if (req.body.type === 'top') {
     type = 1;
     filepath = 's-null.png';
@@ -135,15 +134,20 @@ async function editArticle(req, res) {
   if (req.body.dress_code === 'casual') dress_code = 1;
   else if (req.body.dress_code === 'semi-formal') dress_code = 2;
   else dress_code = 3;
-
   try {
     await models.article.update(
       {
+        // closet_id: '4',
         name: req.body.name,
         desc: req.body.desc,
+        // dirty: 'f',
         garment_type_id: type,
         color: req.body.color,
         dress_code_id: dress_code,
+        // rating_id: '5',
+        // temp_min: '0',
+        // temp_max: '100',
+        filepath: filepath,
       },
       {
         where: {
@@ -153,8 +157,28 @@ async function editArticle(req, res) {
     );
     res.redirect('../article?id=' + req.query.id + '&success=true');
   } catch (err) {
-    console.log(err);
+    console.log(`${err.message}\n${err.name}\n${err.stack}`);
   }
+}
+function deleteArticle(req, res, next) {
+  console.log('deleting article ' + req.query.id);
+  //should add code to prevent anyone from deleting with article id put into query string manually
+  models.article
+    .destroy({
+      where: {
+        article_id: req.query.id,
+      },
+    })
+    .then((output) => {
+      console.log(output);
+      req.session.success = true;
+      res.redirect(`/${req.session.username}/closet`);
+    })
+    .catch((err) => {
+      console.log(`${err.message}\n${err.name}\n${err.stack}`);
+      req.session.success = false;
+      res.redirect(`/${req.session.username}/closet`);
+    });
 }
 
 /* GET article page. */
@@ -167,5 +191,7 @@ router.post('/new', createArticle);
 router.get('/edit', showEdit);
 
 router.post('/edit', editArticle);
+
+router.post('/delete', deleteArticle);
 
 module.exports = router;
