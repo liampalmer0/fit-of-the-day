@@ -1,31 +1,55 @@
-form(action=action method="post" id='articleForm')
+form(action=action method="post" id="articleForm")
   
   label(for="name") Name
-  input(id="name" type="text" name="name" placeholder="Name")
+  if article
+    input(id="name" type="text" name="name" placeholder="Name" required value=article.name)
+  else
+    input(id="name" type="text" name="name" placeholder="Name" required)
   
   label(for="desc") Description
-  textarea(id="desc" type="text" name="desc" placeholder="Description" rows="6")
+  if article
+    textarea(id="desc" type="text" name="desc" placeholder="Description" rows="6")=article.desc
+  else
+    textarea(id="desc" type="text" name="desc" placeholder="Description" rows="6")
   
+  - const colors = ["red", "orange", "yellow", "green", "blue", "purple", "brown", "black", "white", "multiple"]
   label(for="color") Color
   select(id="color" name="color")
-    option(value="red") Red
-    option(value="orange") Orange
-    option(value="yellow") Yellow
-    option(value="green") Green
-    option(value="blue") Blue
-    option(value="black") Black
-    option(value="white") White
+    each color in colors
+      if article
+        if article.color === color
+          option(value=color selected)=color
+        else 
+          option(value=color)=color
+      else 
+        option(value=color)=color
   
+  - const types = ["top", "bottom", "one piece"]
   label(for="type") Type
   select(id="type" name="type")
-    option(value="top") Top
-    option(value="bottom") Bottom
-    option(value="single") Single
-  
+    each g_type in types
+      if article
+        if article.garment_type === g_type
+          option(value=g_type selected)=g_type
+        else 
+          option(value=g_type)=g_type  
+      else  
+        option(value=g_type)=g_type 
+
+
+  - const dresscodes = ["casual", "semi-formal", "formal"]
   label(for="dresscode") Dress Code
   select(id="dresscode" name="dress_code")
-    option(value="casual") Casual
-    option(value="semi-formal") Semi-formal
-    option(value="formal") Formal
+    each dresscode in dresscodes
+      if article
+        if article.dress_code === dresscode
+          option(value=dresscode selected)=dresscode
+        else
+          option(value=dresscode)=dresscode
+      else
+        option(value=dresscode)=dresscode
+
   
-  input(type="submit" value=submitVal)
+  a(role="button" href="javascript:history.back()") Cancel
+
+  input(type="submit" value=submitVal )  
