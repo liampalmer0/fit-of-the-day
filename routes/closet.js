@@ -24,8 +24,9 @@ async function getArticles(usertoken, closetid) {
 function showCloset(req, res, next) {
   getArticles(0, 4)
     .then((query) => {
-      // console.log(query[0]);
       let data = {};
+      data.success = req.session.success ? req.session.success : false;
+      req.session.success = false;
       data.title = 'FOTD - Closet';
       data.pagename = 'closet';
       data.articles = query;

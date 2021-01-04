@@ -2,6 +2,8 @@ extends layout
 
 block content
   include includes/internal-nav
+  if success
+    p.success Article deleted successfully
   aside.closetControls
     a(href="closet/article/new") New Article
   main
