@@ -2,9 +2,9 @@ form(action=action method="post" id="articleForm")
   
   label(for="name") Name
   if article
-    input(id="name" type="text" name="name" placeholder="Name" required value=article.name)
+    input(id="name" type="text" name="name" placeholder="Name" required value=article.name autofocus)
   else
-    input(id="name" type="text" name="name" placeholder="Name" required)
+    input(id="name" type="text" name="name" placeholder="Name" required autofocus)
   
   label(for="desc") Description
   if article
