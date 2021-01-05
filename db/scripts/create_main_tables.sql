@@ -91,6 +91,8 @@ CREATE TABLE article (
   color VARCHAR(50),
   dress_code_id INTEGER REFERENCES dress_code,
   rating_id INTEGER REFERENCES rating,
+  temp_min INTEGER NOT NULL,
+  temp_max INTEGER NOT NULL,
   filepath VARCHAR(250) NULL
 );
 -- INSERT INTO article (closet_id, "name", "desc", dirty, garment_type_id, color, dress_code_id, rating_id, filepath)

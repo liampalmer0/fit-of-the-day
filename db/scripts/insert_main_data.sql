@@ -57,13 +57,13 @@ VALUES
 (4, 'White Shirt', 'A very good white shirt', 'f', 1, 'white', 1, 5, 60, 80, 's-white.png'),
 (4, 'Blue Chino', 'Very good blue chinos', 'f', 2, 'blue', 1, 5, 20, 75, 'p-c-blue.png'),
 (4, 'Black Chino', 'Very good black chinos', 'f', 2, 'black', 1, 5, 20, 75, 'p-c-black.png'),
-(4, 'Overcoat', 'A collared winter Coat', 'f', 1, 'black', 2, 5, 0, 45, 'null.png'),
-(4, 'Long Sleeve', 'A long sleeve shirt', 'f', 1, 'tan', 1, 5, 40, 65, 'null.png'),
-(4, 'Hoodie', 'A pullover hoodie', 'f', 1, 'grey', 1, 5, 40, 65, 'null.png'),
-(4, 'Sweater', 'Knit sweater', 'f', 1, 'red', 1, 5, 35, 55, 'null.png'),
-(4, 'Coat', 'A lightweight coat', 'f', 1, 'blue', 1, 5, 20, 55, 'null.png'),
-(4, 'Shorts', 'Cotton shorts', 'f', 2, 'tan', 1, 5, 70, 100, 'null.png'),
-(4, 'Track pants', 'black track pants', 'f', 2, 'black', 1, 5, 35, 75, 'null.png');
+(4, 'Overcoat', 'A collared winter Coat', 'f', 1, 'black', 2, 5, 0, 45, 's-null.png'),
+(4, 'Long Sleeve', 'A long sleeve shirt', 'f', 1, 'tan', 1, 5, 40, 65, 's-null.png'),
+(4, 'Hoodie', 'A pullover hoodie', 'f', 1, 'grey', 1, 5, 40, 65, 's-null.png'),
+(4, 'Sweater', 'Knit sweater', 'f', 1, 'red', 1, 5, 35, 55, 's-null.png'),
+(4, 'Coat', 'A lightweight coat', 'f', 1, 'blue', 1, 5, 20, 55, 's-null.png'),
+(4, 'Shorts', 'Cotton shorts', 'f', 2, 'tan', 1, 5, 70, 100, 'p-null.png'),
+(4, 'Track pants', 'black track pants', 'f', 2, 'black', 1, 5, 35, 75, 'p-null.png');
 /*------------------------------------------*\
 |*             TEST STATEMENT               *|
 \*------------------------------------------*/

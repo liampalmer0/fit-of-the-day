@@ -12,7 +12,14 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
   models.user
     .create(req.body)
-    .then(() => {
+    .then((newUser) => {
+      return models.closet.create({
+        user_id: newUser.dataValues.user_id,
+        name: 'Default Closet',
+        desc: 'The starter closet',
+      });
+    })
+    .then((closet) => {
       passport.authenticate('local', (err, user, info) => {
         if (err) {
           return next(err);

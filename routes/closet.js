@@ -1,28 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const { models } = require('../sequelize');
 const articleRouter = require('./article');
-
-async function getArticles(usertoken, closetid) {
-  return await models.article.findAll({
-    include: [
-      {
-        model: models.closet,
-        attributes: ['name'],
-        where: { closet_id: closetid },
-        include: [
-          {
-            attributes: ['username'],
-            model: models.user,
-          },
-        ],
-      },
-    ],
-  });
-}
+const { getArticles, getClosetId } = require('../controller/closetController');
 
 function showCloset(req, res, next) {
-  getArticles(0, 4)
+  getClosetId(req.session.username)
+    .then((closetId) => {
+      return getArticles(req.session.username, closetId);
+    })
     .then((query) => {
       let data = {};
       data.success = req.session.success ? req.session.success : false;
