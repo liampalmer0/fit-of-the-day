@@ -2,8 +2,6 @@ const owm = require('../api/openWeatherMap');
 const gcal = require('../api/googleCal');
 const { recRand, recRandFiltered } = require('../api/recommender');
 
-const testUser = 'liam';
-
 async function getApiResults() {
   let weather = 'Unavailable';
   let calStatus = 'Calendar Unavailable';
@@ -13,7 +11,6 @@ async function getApiResults() {
     let coords = await owm.getCoords(45202); // placeholder zip code
     weather = await owm.getWeather(coords);
     calStatus = await gcal.getEvents();
-    //Hard coded username, will be pulled from session later
   } catch (err) {
     // next(err);
     console.log(err);
@@ -25,12 +22,12 @@ async function getApiResults() {
     };
   }
 }
-async function getRandRecs(filtered, body) {
+async function getRandRecs(username, filtered, body) {
   try {
     if (!filtered) {
-      return await recRand(testUser);
+      return await recRand(username);
     } else {
-      return await recRandFiltered(testUser, [body.color]);
+      return await recRandFiltered(username, [body.color]);
     }
   } catch (err) {
     console.log(err);
@@ -40,7 +37,10 @@ function showDashboard(req, res, next) {
   getApiResults()
     .then(async (data) => {
       // console.log(data)
-      data.outfits = await getRandRecs(false);
+      let outfits = await getRandRecs(req.session.username, false);
+      if (outfits != 0) {
+        data.outfits = outfits;
+      }
       return data;
     })
     .then((data) => {
@@ -55,7 +55,7 @@ function showDashboard(req, res, next) {
 function regenFiltered(req, res, next) {
   getApiResults()
     .then(async (data) => {
-      data.outfits = await getRandRecs(true, req.body);
+      data.outfits = await getRandRecs(req.session.user, true, req.body);
       return data;
     })
     .then((data) => {
