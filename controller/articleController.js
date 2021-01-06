@@ -192,6 +192,7 @@ async function editArticle(req, res, next) {
             model: models.user,
             attributes: ['username'],
             where: { username: req.session.username },
+            required: true,
           },
         },
         where: {
@@ -236,6 +237,8 @@ function deleteArticle(req, res, next) {
     });
 }
 module.exports = {
+  getArticle: getArticle,
+  getClosetId: getClosetId,
   showArticle: showArticle,
   showCreate: showCreate,
   createArticle: createArticle,
