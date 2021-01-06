@@ -1,0 +1,27 @@
+const minTempSlider = document.getElementById('tempmin');
+const maxTempSlider = document.getElementById('tempmax');
+const minTemp = document.getElementById('minval');
+const maxTemp = document.getElementById('maxval');
+const submit = document.querySelector("input[type='submit']");
+const tempAlert = document.querySelector('.tempAlert');
+minTemp.innerHTML = minTempSlider.value;
+maxTemp.innerHTML = maxTempSlider.value;
+
+function check(min, max) {
+  if (parseInt(min) > parseInt(max)) {
+    submit.disabled = true;
+    tempAlert.style.display = 'block';
+  } else {
+    submit.disabled = false;
+    tempAlert.style.display = 'none';
+  }
+}
+// update the slider val on change
+minTempSlider.oninput = function () {
+  minTemp.innerHTML = this.value;
+  check(minTemp.innerHTML, maxTemp.innerHTML);
+};
+maxTempSlider.oninput = function () {
+  maxTemp.innerHTML = this.value;
+  check(minTemp.innerHTML, maxTemp.innerHTML);
+};

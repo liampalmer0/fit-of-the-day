@@ -12,7 +12,7 @@ block content
         header
           h1(class='name') #{article.name}
         p(class='desc') #{article.desc}
-        div This item is :
+        div Details :
           ul
             li #{article.color}
             if article.dirty
@@ -21,6 +21,8 @@ block content
               li clean
             li #{article.garment_type}
             li #{article.dress_code}
+            li Min. temp. : #{article.temp_min}
+            li Max. temp. : #{article.temp_max}
         .options
           a(role='button' href='article/edit?id='+article.article_id) Edit
           a(id='deleteBtn' role='button' href='#') Delete
