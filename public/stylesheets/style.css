@@ -397,20 +397,25 @@ footer.public {
   text-align: center;
   margin: 0.5em auto;
 }
-main.newArticle {
+.createArticle main,
+.editArticle main {
   max-width: 50%;
   margin: 0em auto;
 }
-main.newArticle .articleForm > form {
+.createArticle main .articleForm > form,
+.editArticle main .articleForm > form {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
-main.newArticle .articleForm > form > * {
+.createArticle main .articleForm > form > *,
+.editArticle main .articleForm > form > * {
   padding: 0.2em;
   margin: 0.5em;
 }
-main.newArticle .articleForm > form input[type='submit'],
-main.newArticle .articleForm a[role='button'] {
+.createArticle main .articleForm > form input[type='submit'],
+.createArticle main .articleForm a[role='button'],
+.editArticle main .articleForm > form input[type='submit'],
+.editArticle main .articleForm a[role='button'] {
   font-family: Nunito, Helvetica, sans-serif;
   background-color: var(--fotd-green);
   padding: 1em;
@@ -420,6 +425,33 @@ main.newArticle .articleForm a[role='button'] {
   color: var(--main-fg);
   text-align: center;
   text-decoration: none;
+}
+.createArticle main .articleForm > form .slider,
+.editArticle main .articleForm > form .slider {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.createArticle main .articleForm > form .slider input[type='range'],
+.editArticle main .articleForm > form .slider input[type='range'] {
+  width: 100%;
+}
+.createArticle main .articleForm > form .slider span,
+.editArticle main .articleForm > form .slider span {
+  width: 4em;
+  text-align: right;
+}
+.createArticle main .articleForm > form input[type='submit']:disabled,
+.editArticle main .articleForm > form input[type='submit']:disabled {
+  background-color: #aaa;
+}
+.createArticle main .articleForm > form .tempAlert,
+.editArticle main .articleForm > form .tempAlert {
+  display: none;
+  background-color: #fda3a3a4;
+  grid-column: 1 / span 2;
+  border-radius: 8px;
+  padding: 0.5em 1em;
 }
 /* == Article Delete Dialog =========================== */
 .article .dialog {

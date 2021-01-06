@@ -49,7 +49,36 @@ form(action=action method="post" id="articleForm")
       else
         option(value=dresscode)=dresscode
 
+  label(for="dirty") Dirty
+  div
+    if article
+      if article.dirty
+        input(type="checkbox" id="dirty" name="dirty" value='dirty' checked)
+      else 
+        input(type="checkbox" id="dirty" name="dirty" value='dirty')
+    else
+      input(type="checkbox" id="dirty" name="dirty" value='dirty')
+
+  label(for="tempmin") Minimum Temp. (ºF)
+  .slider
+    if article
+      input(type="range" id="tempmin" name="tempmin" min="-25" max="125" value=article.temp_min)
+    else
+      input(type="range" id="tempmin" name="tempmin" min="-25" max="125" value="75")
+    span(id="minval")
+  label(for="tempmax") Maximum Temp. (ºF)
+  .slider 
+    if article
+      input(type="range" id="tempmax" name="tempmax" min="-25" max="125" value=article.temp_max)
+    else
+      input(type="range" id="tempmax" name="tempmax" min="-25" max="125" value="75")
+    span(id="maxval") 75
   
+  p.tempAlert Minimum Temperature is greater than Maximum Temperature
+
   a(role="button" href="javascript:history.back()") Cancel
 
   input(type="submit" value=submitVal )  
+
+  script(src='/scripts/article_form_page.js', type='text/javascript')
+  
