@@ -12,7 +12,7 @@ describe('Article Controller', function () {
   });
 
   describe('#getClosetId(username)', function () {
-    it("should return all articles for user 'lamp'", async function () {
+    it("should return the closet_id for user 'lamp'", async function () {
       let closetId = await controller.getClosetId(username);
       assert.strictEqual(closetId, 4);
     });
