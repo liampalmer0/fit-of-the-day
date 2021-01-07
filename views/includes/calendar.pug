@@ -1,2 +1,6 @@
-.calWidget
+if cal_status
+  .calWidget
     span #{cal_status}
+else
+  .widget_error
+    span Error: Calendar Unavailable

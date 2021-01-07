@@ -3,7 +3,7 @@ const gcal = require('../api/googleCal');
 const { recRand, recRandFiltered } = require('../api/recommender');
 
 async function getApiResults() {
-  let weather = 'Unavailable';
+  let weather = 'Weather Unavailable';
   let calStatus = 'Calendar Unavailable';
   let outfits = [];
   try {
@@ -13,7 +13,9 @@ async function getApiResults() {
     calStatus = await gcal.getEvents();
   } catch (err) {
     // next(err);
-    console.log(err);
+    if (process.env.NODE_ENV === 'development') {
+      console.log(err);
+    }
   } finally {
     return {
       weather: weather,
@@ -30,7 +32,9 @@ async function getRandRecs(username, filtered, body) {
       return await recRandFiltered(username, [body.color]);
     }
   } catch (err) {
-    console.log(err);
+    if (process.env.NODE_ENV === 'development') {
+      console.log(err);
+    }
   }
 }
 function showDashboard(req, res, next) {
@@ -66,7 +70,9 @@ function regenFiltered(req, res, next) {
       res.render('dashboard', data);
     })
     .catch((err) => {
-      console.log(err);
+      if (process.env.NODE_ENV === 'development') {
+        console.log(err);
+      }
     });
 }
 

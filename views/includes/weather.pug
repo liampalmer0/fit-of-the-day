@@ -1,8 +1,11 @@
-.weatherWidget 
-  //- p.sticky #{weather.city} #{weather.high}  img(src=`http://openweathermap.org/img/w/${weather.icon}.png`)
-  span #{weather.city} 
-  img(src='http://openweathermap.org/img/wn/' + weather.icon + '.png')
-  span #{weather.current} ºF
+.weatherWidget
+  unless weather == 'Weather Unavailable'
+    span #{weather.city} 
+    img(src='http://openweathermap.org/img/wn/' + weather.icon + '.png')
+    span #{weather.current} ºF
+  else
+    .widget_error
+      p Error: Weather Unavailable
 
   //- Use weather."option" to call a specific variable
   //- Options are: city, high, low, current, feelsLike, weatherPattern, tempAverage, rainChance (shown in a %), and icon

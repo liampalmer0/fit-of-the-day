@@ -4,38 +4,37 @@ block content
   include includes/internal-nav
   main
     .filter
-      <form action="" method="post" id='filterform'>
-        <label for="type">Type:</label>
-        <select id="type" name="type">
-          <option value="" selected >-- type --</option>
-          <option value="topbtm">Top/Bottom</option>
-          <option value="single">Single</option>
-        </select>
-        <label for="drscode">Dress Code:</label>
-        <select id="drscode" name="drscode">
-          <option value="" selected >-- dress code --</option>
-          <option value="casual">Casual</option>
-          <option value="semi">Semi-formal</option>
-          <option value="formal">Formal</option>
-        </select>
-        <label for="color">Color:</label>
-        <select id="color" name="color">
-          <option value="" selected >-- color --</option>
-          <option value="Red">Red</option>
-          <option value="Orange">Orange</option>
-          <option value="Yellow">Yellow</option>
-          <option value="Green">Green</option>
-          <option value="Blue">Blue</option>
-          <option value="Black">Black</option>
-        </select>
-        <input type="submit" value="Filter">
-      </form>
-    .recommendations
-      if outfits
+      form(action="" method="post" id='filterform')
+        label(for="type") Type:
+        select(id="type" name="type")
+          option(value="" selected ) -- type --
+          option(value="topbtm") Top/Bottom
+          option(value="single") Single
+        label(for="drscode") Dress Code:
+        select(id="drscode" name="drscode")
+          option(value="" selected) -- dress code --
+          option(value="casual") Casual
+          option(value="semi") Semi-formal
+          option(value="formal") Formal
+        label(for="color") Color:
+        select(id="color" name="color")
+          option(value="" selected ) -- color --
+          option(value="Red") Red
+          option(value="Orange") Orange
+          option(value="Yellow") Yellow
+          option(value="Green") Green
+          option(value="Blue") Blue
+          option(value="Black") Black
+        input(type="submit" value="Filter")
+    if outfits
+      .recommendations
         each outfit in outfits
           .outfit
             a(href="closet/article?id="+outfit.top.dataValues.article_id)
               img(src="/user_img/liam/" + outfit.top.dataValues.filepath)
             a(href="closet/article?id="+outfit.bottom.dataValues.article_id)
               img(src="/user_img/liam/" + outfit.bottom.dataValues.filepath)
+    else
+      .error
+        p Error: Article data unavailable. Please try again later.
     
