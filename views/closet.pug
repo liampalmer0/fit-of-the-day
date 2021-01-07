@@ -2,8 +2,15 @@ extends layout
 
 block content
   include includes/internal-nav
-  if success
-    p.success Article deleted successfully
+  .message
+    if success
+      if success.delete
+        p.success Article deleted successfully
+    else if error
+      if error.create
+        p.error Error: Article could not be created
+      else if error.delete
+        p.error Error: Article could not be deleted
   aside.closetControls
     a(href="closet/article/new") New Article
   main
@@ -15,11 +22,14 @@ block content
           .name= name
           .desc= desc
         input(type='hidden', value=article_path)
-    
-    each item in articles
-      +article(
-        `/article?id=${item.article_id}`,
-        '/user_img/liam/' + item.dataValues.filepath,
-        item.dataValues.name, 
-        item.dataValues.desc)
+    if articles
+      each item in articles
+        +article(
+          `/article?id=${item.article_id}`,
+          '/user_img/liam/' + item.dataValues.filepath,
+          item.dataValues.name, 
+          item.dataValues.desc)
+    else
+      .error
+        p Error: Closet data unavailable. Please try again later.
     script(src='/scripts/closet_page.js', type='text/javascript')

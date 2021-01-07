@@ -25,7 +25,6 @@ router.post('/', (req, res, next) => {
           return next(err);
         }
         if (!user) {
-          // respond(res, 401, info.message);
           return res.redirect('/signup?error=true');
         }
         req.logIn(user, function (err) {
@@ -38,12 +37,8 @@ router.post('/', (req, res, next) => {
       })(req, res, next);
     })
     .catch((err) => {
-      // respond(res, 500, 'Error lol');
       return res.redirect('/signup?error=true');
     });
 });
-// function respond(res, code, statusMsg) {
-//   res.status(code).json({ status: statusMsg });
-// }
 
 module.exports = router;

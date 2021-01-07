@@ -2,6 +2,9 @@ extends layout
 
 block content 
   include includes/internal-nav
+  .message
+    if error
+      p.error Error: Article data unavailable
   main.editArticle
     h1 Edit Article
     .articleForm 

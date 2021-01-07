@@ -32,11 +32,32 @@ footer {
   text-decoration: none;
   font-size: 20px;
 }
+.message > * {
+  width: 95%;
+  padding: 0.5em;
+  margin: 0.5em auto;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+}
+.success {
+  background-color: #c8eeb9;
+  border: #729e60 solid 1px;
+}
 .error {
   background-color: #f0d0d0;
   border: #f58484 solid 1px;
-  border-radius: 12px;
-  padding: 1em;
+}
+.dashboard main > .error,
+.closet main > .error,
+.article main > .error {
+  grid-column: 1/-1;
+  width: 95%;
+  margin: 0.5em auto;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
 }
 /*== INTERNAL NAV SPECIFIC STYLING ==========================================*/
 nav.internal {
@@ -54,12 +75,6 @@ nav.internal .widgets {
   width: 90%;
   margin: auto auto 2em auto;
   border-radius: 10px;
-
-  /* grid-template-columns: repeat(1, 1fr);
-  text-align: left;
-  width: 80%;
-  margin: auto;
-  color: black; */
 }
 nav.internal .widgets div {
   display: grid;
@@ -386,16 +401,6 @@ footer.public {
   text-decoration: none;
   border-radius: 8px;
   width: 100%;
-}
-.article p.success,
-.closet p.success {
-  width: 95%;
-  background-color: #c8eeb9;
-  border: #729e60 solid 1px;
-  border-radius: 12px;
-  padding: 1em;
-  text-align: center;
-  margin: 0.5em auto;
 }
 .createArticle main,
 .editArticle main {

@@ -30,9 +30,10 @@ passport.use(
         return done(null, true);
       })
       .catch((err) => {
-        if (err) {
-          return done(err);
+        if (process.env.NODE_ENV === 'development') {
+          console.log(err);
         }
+        return done(null, false, { message: 'Unspecified Error.' });
       });
   })
 );

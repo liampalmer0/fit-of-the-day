@@ -2,41 +2,52 @@ extends layout
 
 block content
   include includes/internal-nav
-  main
+  .message
     if success
-      p.success New article created successfully
-    section.item-card
-      .item-image
-        img(src='/user_img/liam/'+article.filepath)
-      .item-details
-        header
-          h1(class='name') #{article.name}
-        p(class='desc') #{article.desc}
-        div Details :
-          ul
-            li #{article.color}
-            if article.dirty
-              li dirty
-            else
-              li clean
-            li #{article.garment_type}
-            li #{article.dress_code}
-            li Min. temp. : #{article.temp_min}
-            li Max. temp. : #{article.temp_max}
-        .options
-          a(role='button' href='article/edit?id='+article.article_id) Edit
-          a(id='deleteBtn' role='button' href='#') Delete
+      if success.create
+        p.success New article created successfully
+      else if success.edit
+        p.success Article updated successfully
+    else if error.edit
+      p.error Error: Article update failed
+  main
+    if article
+      section.item-card
+        .item-image
+          img(src='/user_img/liam/'+article.filepath)
+        .item-details
+          header
+            h1(class='name') #{article.name}
+          p(class='desc') #{article.desc}
+          div Details :
+            ul
+              li #{article.color}
+              if article.dirty
+                li dirty
+              else
+                li clean
+              li #{article.garment_type}
+              li #{article.dress_code}
+              li Min. temp. : #{article.temp_min}
+              li Max. temp. : #{article.temp_max}
+          .options
+            a(role='button' href='article/edit?id='+article.article_id) Edit
+            a(id='deleteBtn' role='button' href='#') Delete
+    else
+      .error
+        p Error: Article data unavailable. Please try again later.
         
-  .dialog
-    .dialogContent
-      .header
-        h3 Delete Article : #{article.name}
-        button(class='close' type='button') &times;
-      .msg
-        p Are you sure you want to delete '#{article.name}?
-      form(class='dialogForm' action='article/delete?id='+article.article_id method='post')
-        button(class='confirm' type='submit') Delete
-        button(class='cancel' type='button') Cancel
+  if article
+    .dialog
+      .dialogContent
+        .header
+          h3 Delete Article : #{article.name}
+          button(class='close' type='button') &times;
+        .msg
+          p Are you sure you want to delete '#{article.name}?
+        form(class='dialogForm' action='article/delete?id='+article.article_id method='post')
+          button(class='confirm' type='submit') Delete
+          button(class='cancel' type='button') Cancel
 
   script(src='/scripts/article_page.js', type='text/javascript')
         
