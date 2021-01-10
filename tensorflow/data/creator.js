@@ -10,11 +10,13 @@
  */
 
 const fs = require('fs');
+const path = require('path');
 const csv = require('csv-parser');
 const sequelize = require('../../sequelize');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+
 const csvWriter = createCsvWriter({
-  path: __dirname + '/rated-data.csv',
+  path: path.join(__dirname, '/rated-data.csv'),
   header: [
     { id: 'date', title: 'Date' },
     { id: 'topid', title: 'TopId' },
@@ -23,8 +25,8 @@ const csvWriter = createCsvWriter({
     { id: 'daytemp', title: 'DayTemp' },
     { id: 'maxtemp', title: 'MaxOutfitTemp' },
     { id: 'mintemp', title: 'MinOutfitTemp' },
-    { id: 'chosen', title: 'Chosen' },
-  ],
+    { id: 'chosen', title: 'Chosen' }
+  ]
 });
 
 async function getOutfits() {
@@ -55,11 +57,11 @@ async function getOutfits() {
 function run() {
   getOutfits()
     .then((outfitData) => {
-      var weather = [];
-      var results = { weather: weather, outfits: outfitData[0] };
+      const weather = [];
+      const results = { weather, outfits: outfitData[0] };
       return new Promise((resolve, reject) => {
         try {
-          fs.createReadStream(__dirname + '/temperatures.csv')
+          fs.createReadStream(path.joing(__dirname, '/temperatures.csv'))
             .pipe(csv())
             .on('data', (data) => weather.push(data))
             .on('end', () => {
@@ -70,58 +72,60 @@ function run() {
         }
       });
     })
-    .then((results) => {
-      return new Promise((resolve, reject) => {
-        var combined = [];
-        results.weather.forEach((day) => {
-          var date = day['Measurement Timestamp'],
-            dayTemp = (parseFloat(day['Wet Bulb Temperature']) * 9) / 5 + 32,
-            name,
-            topid,
-            btmid,
-            maxTemp,
-            minTemp,
-            chosen = -1;
-          results.outfits.forEach((outfit) => {
-            topid = outfit.top_id;
-            btmid = outfit.btm_id;
-            name = `${outfit.top_name} X ${outfit.btm_name}`;
-            maxTemp = (outfit.t_temp_max + outfit.b_temp_max) / 2;
-            minTemp = (outfit.t_temp_min + outfit.b_temp_min) / 2;
-            // Simple Rating based on avg +/-10 deg
-            let avgFitTemp = (maxTemp + minTemp) / 2;
-            if (dayTemp < avgFitTemp - 10 || dayTemp > avgFitTemp + 10) {
-              chosen = 0;
-            } else {
-              chosen = 1;
-            }
-            combined.push({
-              date: date,
-              topid: topid,
-              btmid: btmid,
-              xname: name,
-              daytemp: dayTemp,
-              maxtemp: maxTemp,
-              mintemp: minTemp,
-              chosen: chosen,
+    .then(
+      (results) =>
+        new Promise((resolve) => {
+          const combined = [];
+          results.weather.forEach((day) => {
+            const date = day['Measurement Timestamp'];
+            const dayTemp =
+              (parseFloat(day['Wet Bulb Temperature']) * 9) / 5 + 32;
+            let name;
+            let topid;
+            let btmid;
+            let maxTemp;
+            let minTemp;
+            let chosen = -1;
+            results.outfits.forEach((outfit) => {
+              topid = outfit.top_id;
+              btmid = outfit.btm_id;
+              name = `${outfit.top_name} X ${outfit.btm_name}`;
+              maxTemp = (outfit.t_temp_max + outfit.b_temp_max) / 2;
+              minTemp = (outfit.t_temp_min + outfit.b_temp_min) / 2;
+              // Simple Rating based on avg +/-10 deg
+              const avgFitTemp = (maxTemp + minTemp) / 2;
+              if (dayTemp < avgFitTemp - 10 || dayTemp > avgFitTemp + 10) {
+                chosen = 0;
+              } else {
+                chosen = 1;
+              }
+              combined.push({
+                date,
+                topid,
+                btmid,
+                xname: name,
+                daytemp: dayTemp,
+                maxtemp: maxTemp,
+                mintemp: minTemp,
+                chosen
+              });
             });
           });
-        });
-        resolve(combined);
-      });
-    })
+          resolve(combined);
+        })
+    )
     .then((data) => {
       csvWriter
         .writeRecords(data)
         .then(() =>
           console.log(
-            `..............................................\n` +
-              `......______....______...._______....______...\n` +
-              `...../  __  \\../  __  \\../  ___  \\../  __  \\..\n` +
-              `..../  / /  /./  / /  /./  /../  /./  /_/  /..\n` +
-              `.../  /_/  /./  /_/  /./  /../  /./  _____/...\n` +
-              `../_______/..\\______/./__/../__/..\\_____/.....\n` +
-              `..............................................`
+            '..............................................\n' +
+              '......______....______...._______....______...\n' +
+              '...../  __  \\../  __  \\../  ___  \\../  __  \\..\n' +
+              '..../  / /  /./  / /  /./  /../  /./  /_/  /..\n' +
+              '.../  /_/  /./  /_/  /./  /../  /./  _____/...\n' +
+              '../_______/..\\______/./__/../__/..\\_____/.....\n' +
+              '..............................................'
           )
         );
     })

@@ -1,4 +1,5 @@
 const express = require('express');
+
 const router = express.Router();
 const {
   showArticle,
@@ -6,7 +7,7 @@ const {
   createArticle,
   showEdit,
   editArticle,
-  deleteArticle,
+  deleteArticle
 } = require('../controller/articleController');
 
 /* GET article page. */

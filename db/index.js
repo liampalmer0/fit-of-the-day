@@ -1,18 +1,16 @@
 const { Pool } = require('pg');
 
-//Connection settings will be changed once server is setup
+// Connection settings will be changed once server is setup
 const pool = new Pool({
   user: 'cher',
   host: 'localhost',
   database: 'fotd',
   password: 'horowitz',
-  port: 5432,
+  port: 5432
 });
 
 module.exports = {
-  query: (text, params) => {
-    return pool.query(text, params);
-  },
+  query: (text, params) => pool.query(text, params)
 };
 
 // ===================================================================

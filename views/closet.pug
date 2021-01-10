@@ -12,16 +12,16 @@ block content
       else if error.delete
         p.error Error: Article could not be deleted
   aside.closetControls
-    a(href="closet/article/new") New Article
+    a(id="newArticle" href="closet/article/new") New Article
   main
-    mixin article(article_path, img_path, name, desc)
+    mixin article(articlePath, imgPath, name, desc)
       .article(role='button' tabindex='0')
         .cardimg
-          img(src=img_path)
+          img(src=imgPath)
         .cardtext
           .name= name
           .desc= desc
-        input(type='hidden', value=article_path)
+        input(type='hidden', value=articlePath)
     if articles
       each item in articles
         +article(

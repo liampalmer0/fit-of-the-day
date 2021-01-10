@@ -1,28 +1,27 @@
-module.exports = (sequelize, DataTypes) => {
-  return sequelize.define(
+module.exports = (sequelize, DataTypes) =>
+  sequelize.define(
     'dress_code',
     {
-      dress_code_id: {
+      'dress_code_id': {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
-        primaryKey: true,
+        primaryKey: true
       },
       name: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: false
       },
       desc: {
         type: DataTypes.STRING,
-        allowNull: true,
-      },
+        allowNull: true
+      }
     },
     {
       sequelize,
       tableName: 'dress_code',
       schema: 'public',
       timestamps: false,
-      underscored: true,
+      underscored: true
     }
   );
-};

@@ -1,44 +1,44 @@
 const express = require('express');
+
 const router = express.Router();
 const { models } = require('../sequelize');
 const passport = require('../auth/local');
 
 router.get('/', (req, res, next) => {
-  let error = req.query.error ? req.query.error : '';
-  let data = { pagename: 'signup', title: 'Sign Up', error: error };
+  const error = req.query.error ? req.query.error : '';
+  const data = { pagename: 'signup', title: 'Sign Up', error };
   res.render('signup', data);
 });
 
 router.post('/', (req, res, next) => {
   models.user
     .create(req.body)
-    .then((newUser) => {
-      return models.closet.create({
-        user_id: newUser.dataValues.user_id,
+    .then((newUser) =>
+      models.closet.create({
+        // prettier-ignore
+        'user_id': newUser.dataValues.user_id,
         name: 'Default Closet',
-        desc: 'The starter closet',
-      });
-    })
-    .then((closet) => {
-      passport.authenticate('local', (err, user, info) => {
+        desc: 'The starter closet'
+      })
+    )
+    .then(() => {
+      passport.authenticate('local', (err, user) => {
         if (err) {
           return next(err);
         }
         if (!user) {
           return res.redirect('/signup?error=true');
         }
-        req.logIn(user, function (err) {
+        req.logIn(user, (err) => {
           if (err) {
             return next(err);
           }
           req.session.username = req.body.username;
-          return res.redirect('/' + req.body.username + '/dashboard');
+          return res.redirect(`/${req.body.username}/dashboard`);
         });
       })(req, res, next);
     })
-    .catch((err) => {
-      return res.redirect('/signup?error=true');
-    });
+    .catch(() => res.redirect('/signup?error=true'));
 });
 
 module.exports = router;
