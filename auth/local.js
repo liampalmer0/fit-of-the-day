@@ -12,7 +12,7 @@ passport.use(
     models.user
       .findAll({
         limit: 1,
-        where: { username: username },
+        where: { username }
       })
       .then((user) => {
         if (!user || user.length === 0) {

@@ -26,12 +26,12 @@ block content
                 li dirty
               else
                 li clean
-              li #{article.garment_type}
-              li #{article.dress_code}
-              li Min. temp. : #{article.temp_min}
-              li Max. temp. : #{article.temp_max}
+              li #{article.garmentType}
+              li #{article.dressCode}
+              li Min. temp. : #{article.tempMin}
+              li Max. temp. : #{article.tempMax}
           .options
-            a(role='button' href='article/edit?id='+article.article_id) Edit
+            a(role='button' href='article/edit?id='+article.articleId) Edit
             a(id='deleteBtn' role='button' href='#') Delete
     else
       .error
@@ -45,7 +45,7 @@ block content
           button(class='close' type='button') &times;
         .msg
           p Are you sure you want to delete '#{article.name}?
-        form(class='dialogForm' action='article/delete?id='+article.article_id method='post')
+        form(class='dialogForm' action='article/delete?id='+article.articleId method='post')
           button(class='confirm' type='submit') Delete
           button(class='cancel' type='button') Cancel
 

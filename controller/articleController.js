@@ -15,7 +15,7 @@ function categoricalToId(type, dresscode) {
 
   return [type, dresscode];
 }
-async function getArticle(article_id, username) {
+async function getArticle(articleId, username) {
   return await models.article.findAll({
     include: [
       { all: true },
@@ -24,32 +24,34 @@ async function getArticle(article_id, username) {
         include: {
           model: models.user,
           attributes: ['username'],
-          where: { username: username },
-          required: true,
+          where: { username },
+          required: true
         },
-        required: true,
-      },
+        required: true
+      }
     ],
-    where: { article_id: article_id },
+    // prettier-ignore
+    where: { 'article_id': articleId }
   });
 }
 async function getClosetId(username) {
-  let closet = await models.closet.findOne({
+  const closet = await models.closet.findOne({
     attributes: ['closet_id'],
     include: {
       model: models.user,
       attributes: ['username'],
-      where: { username: username },
-      required: true,
-    },
+      where: { username },
+      required: true
+    }
   });
   return closet.dataValues.closet_id;
 }
+
 async function createArticle(req, res, next) {
-  //create article from req.body
-  let catIds = categoricalToId(req.body.type, req.body.dress_code);
+  // create article from req.body
+  const catIds = categoricalToId(req.body.type, req.body.dressCode);
   let filepath = '';
-  let dirty = req.body.dirty ? 't' : 'f';
+  const dirty = req.body.dirty ? 't' : 'f';
 
   if (!req.body.filepath) {
     if (catIds[0] === 1) filepath = 's-null.png';
@@ -59,21 +61,22 @@ async function createArticle(req, res, next) {
   }
 
   try {
-    let closetId = await getClosetId(req.session.username);
-    let dbRes = await models.article.create({
-      closet_id: closetId,
+    const closetId = await getClosetId(req.session.username);
+    // prettier-ignore
+    const dbRes = await models.article.create({
+      'closet_id': closetId,
       name: req.body.name,
       desc: req.body.desc,
-      dirty: dirty,
-      garment_type_id: catIds[0],
+      dirty,
+      'garment_type_id': catIds[0],
       color: req.body.color,
-      dress_code_id: catIds[1],
-      rating_id: '5',
-      temp_min: req.body.tempmin,
-      temp_max: req.body.tempmax,
-      filepath: filepath,
+      'dress_code_id': catIds[1],
+      'rating_id': '5',
+      'temp_min': req.body.tempMin,
+      'temp_max': req.body.tempMax,
+      filepath
     });
-    req.session.success = { create: true };
+    req.session.success = { create: true, edit: false };
     req.session.error = false;
     res.redirect(`../article?id=${dbRes.dataValues.article_id}`);
   } catch (err) {
@@ -81,14 +84,14 @@ async function createArticle(req, res, next) {
       console.log(err);
     }
     req.session.success = false;
-    req.session.error = { create: true };
-    res.redirect(`/${req.session.username}/closet`);
+    req.session.error = { create: true, edit: false };
   }
+  res.redirect(`/${req.session.username}/closet`);
 }
 async function editArticle(req, res, next) {
-  let catIds = categoricalToId(req.body.type, req.body.dress_code);
+  const catIds = categoricalToId(req.body.type, req.body.dressCode);
   let filepath = '';
-  let dirty = req.body.dirty ? 't' : 'f';
+  const dirty = req.body.dirty ? 't' : 'f';
 
   if (!req.body.filepath) {
     if (catIds[0] === 1) filepath = 's-null.png';
@@ -98,18 +101,19 @@ async function editArticle(req, res, next) {
   }
 
   try {
+    // prettier-ignore
     await models.article.update(
       {
         name: req.body.name,
         desc: req.body.desc,
-        dirty: dirty,
-        garment_type_id: catIds[0],
+        dirty,
+        'garment_type_id': catIds[0],
         color: req.body.color,
-        dress_code_id: catIds[1],
+        'dress_code_id': catIds[1],
         // rating_id: '5',
-        temp_min: req.body.tempmin,
-        temp_max: req.body.tempmax,
-        filepath: filepath,
+        'temp_min': req.body.tempMin,
+        'temp_max': req.body.tempMax,
+        filepath
       },
       {
         include: {
@@ -119,15 +123,15 @@ async function editArticle(req, res, next) {
             model: models.user,
             attributes: ['username'],
             where: { username: req.session.username },
-            required: true,
-          },
+            required: true
+          }
         },
         where: {
-          article_id: req.query.id,
-        },
+          'article_id': req.query.id
+        }
       }
     );
-    req.session.success = { edit: true };
+    req.session.success = { create: false, edit: true };
     req.session.error = false;
     res.redirect(`../article?id=${req.query.id}`);
   } catch (err) {
@@ -135,7 +139,7 @@ async function editArticle(req, res, next) {
       console.log(`${err.message}\n${err.name}\n${err.stack}`);
     }
     req.session.success = false;
-    req.session.error = { edit: true };
+    req.session.error = { create: false, edit: true };
     res.redirect(`../article?id=${req.query.id}`);
   }
 }
@@ -151,14 +155,16 @@ async function deleteArticle(req, res, next) {
               model: models.user,
               attributes: ['username'],
               where: { username: req.session.username },
-              required: true,
-            },
+              required: true
+            }
           ],
-        },
+          required: true
+        }
       ],
+      // prettier-ignore
       where: {
-        article_id: req.query.id,
-      },
+        'article_id': req.query.id
+      }
     });
     req.session.success = { delete: true };
     req.session.error = false;
@@ -174,27 +180,27 @@ async function deleteArticle(req, res, next) {
 }
 function showArticle(req, res, next) {
   res.locals.toParent = '../';
-  let success = req.session.success;
-  let error = req.session.error;
+  const success = req.session.success ? req.session.success : false;
+  const error = req.session.error ? req.session.error : false;
   getArticle(req.query.id, req.session.username)
     .then((rows) => {
-      let data = {
+      const data = {
         title: `FOTD - ${rows[0].name}`,
         pagename: 'article',
-        success: success,
-        error: error,
+        success,
+        error,
         article: {
-          article_id: rows[0].article_id,
+          articleId: rows[0].article_id,
           name: rows[0].name,
           desc: rows[0].desc,
           color: rows[0].color,
           dirty: rows[0].dirty,
-          garment_type: rows[0].garment_type.dataValues.name,
-          dress_code: rows[0].dress_code.dataValues.name,
-          temp_min: rows[0].temp_min,
-          temp_max: rows[0].temp_max,
-          filepath: rows[0].filepath,
-        },
+          garmentType: rows[0].garment_type.dataValues.name,
+          dressCode: rows[0].dress_code.dataValues.name,
+          tempMin: rows[0].temp_min,
+          tempMax: rows[0].temp_max,
+          filepath: rows[0].filepath
+        }
       };
       res.render('article', data);
     })
@@ -202,20 +208,21 @@ function showArticle(req, res, next) {
       if (process.env.NODE_ENV === 'development') {
         console.log(err);
       }
-      let data = {
-        title: `FOTD - Error`,
+      const data = {
+        title: 'FOTD - Error',
         pagename: 'article',
-        success: success,
-        error: error,
+        success,
+        error
       };
       res.render('article', data);
     });
 }
 function showCreate(req, res, next) {
-  let data = {
+  const data = {
+    title: 'FOTD - Create Article',
     pagename: 'createArticle',
     action: 'new',
-    submitVal: 'Create',
+    submitVal: 'Create'
   };
   res.locals.toParent = '../../';
   res.render('create-article', data);
@@ -223,21 +230,21 @@ function showCreate(req, res, next) {
 function showEdit(req, res, next) {
   getArticle(req.query.id, req.session.username)
     .then((rows) => {
-      let data = {
+      const data = {
         title: `FOTD - Edit ${rows[0].name}`,
         pagename: 'editArticle',
         article: {
-          article_id: rows[0].article_id,
+          articleId: rows[0].article_id,
           name: rows[0].name,
           desc: rows[0].desc,
           color: rows[0].color,
           dirty: rows[0].dirty,
-          garment_type: rows[0].garment_type.dataValues.name,
-          dress_code: rows[0].dress_code.dataValues.name,
-          temp_min: rows[0].temp_min,
-          temp_max: rows[0].temp_max,
-          filepath: rows[0].filepath,
-        },
+          garmentType: rows[0].garment_type.dataValues.name,
+          dressCode: rows[0].dress_code.dataValues.name,
+          tempMin: rows[0].temp_min,
+          tempMax: rows[0].temp_max,
+          filepath: rows[0].filepath
+        }
       };
       data.action = '';
       data.submitVal = 'Save';
@@ -249,20 +256,20 @@ function showEdit(req, res, next) {
         console.log(err);
       }
       res.render('edit-article', {
-        title: `FOTD - Edit - Error`,
+        title: 'FOTD - Edit - Error',
         pagename: 'editArticle',
-        error: true,
+        error: true
       });
     });
 }
 
 module.exports = {
-  getArticle: getArticle,
-  getClosetId: getClosetId,
-  showArticle: showArticle,
-  showCreate: showCreate,
-  createArticle: createArticle,
-  showEdit: showEdit,
-  editArticle: editArticle,
-  deleteArticle: deleteArticle,
+  getArticle,
+  getClosetId,
+  showArticle,
+  showCreate,
+  createArticle,
+  showEdit,
+  editArticle,
+  deleteArticle
 };

@@ -1,7 +1,6 @@
 const deleteBtn = document.querySelector('#deleteBtn');
 const dialog = document.querySelector('.dialog');
 const close = document.querySelector('.close');
-const confirm = document.querySelector('.confirm');
 const cancel = document.querySelector('.cancel');
 
 // Show delete dialog
@@ -16,7 +15,7 @@ function hideDelete() {
 }
 // Add eventHandlers to elem for mouse click and keyboard input events
 function addClickHandlers(elem, eventHandler) {
-  elem.addEventListener('click', (event) => {
+  elem.addEventListener('click', () => {
     eventHandler();
   });
   // handler for space bar and enter key
@@ -33,7 +32,7 @@ function setupBtnHandlers() {
   addClickHandlers(cancel, hideDelete);
   // Hide dialog if click outside of dialog
   window.onclick = function (event) {
-    if (event.target == dialog) {
+    if (event.target === dialog) {
       dialog.style.display = 'none';
     }
   };

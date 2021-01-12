@@ -1,36 +1,35 @@
-module.exports = (sequelize, DataTypes) => {
-  return sequelize.define(
+module.exports = (sequelize, DataTypes) =>
+  sequelize.define(
     'closet',
     {
-      closet_id: {
+      'closet_id': {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
-        primaryKey: true,
+        primaryKey: true
       },
-      user_id: {
+      'user_id': {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
           model: 'user',
-          key: 'user_id',
-        },
+          key: 'user_id'
+        }
       },
       name: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: false
       },
       desc: {
         type: DataTypes.STRING,
-        allowNull: true,
-      },
+        allowNull: true
+      }
     },
     {
       sequelize,
       tableName: 'closet',
       schema: 'public',
       timestamps: false,
-      underscored: true,
+      underscored: true
     }
   );
-};

@@ -1,24 +1,23 @@
-module.exports = (sequelize, DataTypes) => {
-  return sequelize.define(
+module.exports = (sequelize, DataTypes) =>
+  sequelize.define(
     'rating',
     {
-      rating_id: {
+      'rating_id': {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
-        primaryKey: true,
+        primaryKey: true
       },
-      rating_value: {
+      'rating_value': {
         type: DataTypes.INTEGER,
-        allowNull: false,
-      },
+        allowNull: false
+      }
     },
     {
       sequelize,
       tableName: 'rating',
       schema: 'public',
       timestamps: false,
-      underscored: true,
+      underscored: true
     }
   );
-};

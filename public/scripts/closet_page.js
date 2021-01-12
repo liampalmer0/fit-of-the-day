@@ -1,8 +1,8 @@
 function handleDivButtons() {
-  var articles = document.querySelectorAll('.article');
-  var articlePaths = document.querySelectorAll('.article > input');
+  const articles = document.querySelectorAll('.article');
+  const articlePaths = document.querySelectorAll('.article > input');
   for (let i = 0; i < articles.length; i++) {
-    articles[i].addEventListener('click', (event) => {
+    articles[i].addEventListener('click', () => {
       window.location.href += articlePaths[i].value;
     });
     articles[i].addEventListener('keydown', (event) => {

@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const { Model } = require('sequelize');
+
 class user extends Model {
   static async create(values) {
     const salt = await bcrypt.genSalt();
@@ -7,39 +8,39 @@ class user extends Model {
     return super.create({
       email: values.email,
       username: values.username,
-      password: hash,
+      password: hash
     });
   }
 }
-module.exports = (sequelize, DataTypes) => {
-  return user.init(
+module.exports = (sequelize, DataTypes) =>
+  user.init(
     {
-      user_id: {
+      'user_id': {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
-        primaryKey: true,
+        primaryKey: true
       },
       email: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: false
       },
       username: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: false
       },
       fname: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: true
       },
       lname: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: true
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false,
-      },
+        allowNull: false
+      }
     },
     {
       sequelize,
@@ -47,7 +48,6 @@ module.exports = (sequelize, DataTypes) => {
       freezeTableName: true,
       schema: 'public',
       timestamps: false,
-      underscored: true,
+      underscored: true
     }
   );
-};

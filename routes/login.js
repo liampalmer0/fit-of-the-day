@@ -1,13 +1,14 @@
 const express = require('express');
+
 const router = express.Router();
 const passport = require('../auth/local');
 
 router.get('/', (req, res, next) => {
-  let error = req.query.error;
-  let data = {
+  const { error } = req.query;
+  const data = {
     pagename: 'login',
     title: 'FOTD - Login',
-    error: error,
+    error
   };
   res.render('login', data);
 });
@@ -15,11 +16,11 @@ router.get('/', (req, res, next) => {
 router.post(
   '/',
   passport.authenticate('local', {
-    failureRedirect: '/login?error=true',
+    failureRedirect: '/login?error=true'
   }),
-  function (req, res) {
+  (req, res) => {
     req.session.username = req.body.username;
-    res.redirect('/' + req.body.username + '/dashboard');
+    res.redirect(`/${req.body.username}/dashboard`);
   }
 );
 

@@ -1,16 +1,16 @@
 const { models } = require('../sequelize');
 
 function showCloset(req, res, next) {
-  let success = req.session.success;
-  let error = req.session.error;
+  const { success } = req.session;
+  const { error } = req.session;
   getArticles(req.session.username)
     .then((query) => {
-      let data = {
+      const data = {
         title: 'FOTD - Closet',
         pagename: 'closet',
-        success: success,
-        error: error,
-        articles: query,
+        success,
+        error,
+        articles: query
       };
       req.session.success = false;
       req.session.error = false;
@@ -20,11 +20,11 @@ function showCloset(req, res, next) {
       if (process.env.NODE_ENV === 'development') {
         console.log(err);
       }
-      let data = {
+      const data = {
         title: 'FOTD - Closet - Error',
         pagename: 'closet',
-        success: success,
-        error: error,
+        success,
+        error
       };
       req.session.success = false;
       req.session.error = false;
@@ -41,16 +41,16 @@ async function getArticles(username) {
           {
             attributes: ['username'],
             model: models.user,
-            where: { username: username },
-            required: true,
-          },
+            where: { username },
+            required: true
+          }
         ],
-        required: true,
-      },
-    ],
+        required: true
+      }
+    ]
   });
 }
 module.exports = {
-  showCloset: showCloset,
-  getArticles: getArticles,
+  showCloset,
+  getArticles
 };

@@ -1,6 +1,7 @@
 const tf = require('@tensorflow/tfjs');
 require('@tensorflow/tfjs-node');
 const fs = require('fs');
+const path = require('path');
 const csv = require('csv-parser');
 
 /**
@@ -9,9 +10,9 @@ const csv = require('csv-parser');
  */
 async function cleanData() {
   return new Promise((resolve, reject) => {
-    let results = [];
+    const results = [];
     try {
-      fs.createReadStream(__dirname + '/data/rated-data.csv')
+      fs.createReadStream(path.join(__dirname, '/data/rated-data.csv'))
         .pipe(csv())
         .on('data', (data) => results.push(data))
         .on('end', () => {
@@ -21,7 +22,7 @@ async function cleanData() {
             parseFloat(d.DayTemp),
             parseFloat(d.MaxOutfitTemp),
             parseFloat(d.MinOutfitTemp),
-            parseFloat(d.Chosen),
+            parseFloat(d.Chosen)
           ]);
           resolve(cleaned);
         });
@@ -70,12 +71,12 @@ function convertToTensor(data) {
       labels: trainy,
       testData: {
         inputs: testx,
-        labels: testy,
+        labels: testy
       },
       inputMax,
       inputMin,
       labelMax,
-      labelMin,
+      labelMin
     };
   });
 }
@@ -102,10 +103,10 @@ async function train(model, inputs, labels) {
   const config = {
     shuffle: true,
     batchSize: 200,
-    epochs: 5,
+    epochs: 5
   };
   // Train
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 100; i += 1) {
     await model.fit(inputs, labels, config);
   }
 }
@@ -113,22 +114,22 @@ async function train(model, inputs, labels) {
 function run() {
   cleanData()
     .then(async (cleaned) => {
-      let tensors = convertToTensor(cleaned);
-      let model = createModel();
+      const tensors = convertToTensor(cleaned);
+      const model = createModel();
       model.compile({
         optimizer: tf.train.adam(),
-        loss: tf.losses.meanSquaredError,
+        loss: tf.losses.meanSquaredError
       });
       console.log(tf.memory().numTensors);
       await train(model, tensors.inputs, tensors.labels);
-      return { model: model, testData: tensors.testData };
+      return { model, testData: tensors.testData };
     })
     .then(async (result) => {
-      let model = result.model;
-      let testData = result.testData;
-      let preds = model.predict(testData.inputs);
-      let predAr = await preds.data();
-      let labelAr = await testData.labels.data();
+      const { model } = result;
+      const { testData } = result;
+      const preds = model.predict(testData.inputs);
+      const predAr = await preds.data();
+      const labelAr = await testData.labels.data();
       let right = 0;
       let wrong = 0;
       let total = 0;
@@ -144,11 +145,11 @@ function run() {
         total++;
       }
       console.log(
-        `Prediction Results:\n` +
+        'Prediction Results:\n' +
           `Right:${Math.round((right / total) * 100)}%\n` +
           `Wrong:${Math.round((wrong / total) * 100)}%`
       );
-      await model.save(`file:///${__dirname}/robo-cher`);
+      await model.save(path.join('file:///', __dirname, '/robo-cher'));
     })
     .catch((err) => {
       console.log(err);

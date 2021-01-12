@@ -2,11 +2,11 @@ const passport = require('passport');
 // const { models } = require('../sequelize');
 
 module.exports = () => {
-  passport.serializeUser(function (user, done) {
+  passport.serializeUser((user, done) => {
     done(null, user);
   });
 
-  passport.deserializeUser(function (user, done) {
+  passport.deserializeUser((user, done) => {
     done(null, user);
   });
   // passport.serializeUser((user, done) => {

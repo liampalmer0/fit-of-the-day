@@ -1,82 +1,81 @@
-module.exports = (sequelize, DataTypes) => {
-  return sequelize.define(
+module.exports = (sequelize, DataTypes) =>
+  sequelize.define(
     'article',
     {
-      article_id: {
+      'article_id': {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
-        primaryKey: true,
+        primaryKey: true
       },
-      closet_id: {
+      'closet_id': {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
           model: 'closet',
-          key: 'closet_id',
-        },
+          key: 'closet_id'
+        }
       },
       name: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: false
       },
       desc: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: true
       },
       dirty: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
+        allowNull: false
       },
-      garment_type_id: {
+      'garment_type_id': {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
           model: 'garment_type',
-          key: 'garment_type_id',
-        },
+          key: 'garment_type_id'
+        }
       },
       color: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: true
       },
-      dress_code_id: {
+      'dress_code_id': {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
           model: 'dress_code',
-          key: 'dress_code_id',
-        },
+          key: 'dress_code_id'
+        }
       },
-      rating_id: {
+      'rating_id': {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
           model: 'rating',
-          key: 'rating_id',
-        },
+          key: 'rating_id'
+        }
       },
-      temp_min: {
+      'temp_min': {
         type: DataTypes.INTEGER,
         allowNull: false,
-        defaultValue: 0,
+        defaultValue: 0
       },
-      temp_max: {
+      'temp_max': {
         type: DataTypes.INTEGER,
         allowNull: false,
-        defaultValue: 120,
+        defaultValue: 120
       },
       filepath: {
         type: DataTypes.STRING,
-        allowNull: true,
-      },
+        allowNull: true
+      }
     },
     {
       sequelize,
       tableName: 'article',
       schema: 'public',
       timestamps: false,
-      underscored: true,
+      underscored: true
     }
   );
-};

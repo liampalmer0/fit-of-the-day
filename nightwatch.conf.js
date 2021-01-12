@@ -1,26 +1,26 @@
 module.exports = {
   // An array of folders (excluding subfolders) where your tests are located;
   // if this is not specified, the test source must be passed as the second argument to the test runner.
-  src_folders: ['test/nightwatch'],
+  'src_folders': ['test/nightwatch/tests'],
 
-  test_settings: {
+  'test_settings': {
     default: {
-      launch_url: 'http://localhost',
+      'launch_url': 'http://localhost'
     },
 
     chrome: {
       desiredCapabilities: {
         browserName: 'chrome',
-        chromeOptions: {},
+        chromeOptions: {}
       },
       webdriver: {
-        start_process: true,
+        'start_process': true,
         port: 4444,
-        server_path: require('chromedriver').path,
-        cli_args: [
+        'server_path': require('chromedriver').path,
+        'cli_args': [
           // --verbose
-        ],
-      },
+        ]
+      }
     },
 
     firefox: {
@@ -33,19 +33,19 @@ module.exports = {
             args: [
               // '-headless',
               // '-verbose'
-            ],
-          },
-        },
+            ]
+          }
+        }
       },
       webdriver: {
-        start_process: true,
+        'start_process': true,
         port: 4444,
-        server_path: require('geckodriver').path,
-        cli_args: [
+        'server_path': require('geckodriver').path,
+        'cli_args': [
           //     // very verbose geckodriver logs
           //     // '-vv'
-        ],
-      },
-    },
-  },
+        ]
+      }
+    }
+  }
 };

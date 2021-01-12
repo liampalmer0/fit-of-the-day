@@ -2,7 +2,7 @@
 const s = require('./index');
 // Testing Connection and Syncing Tables with Models
 s.authenticate()
-  .then((err) => {
+  .then(() => {
     console.log('Connection has been established successfully.');
   })
   .catch((err) => {

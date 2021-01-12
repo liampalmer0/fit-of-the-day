@@ -1,5 +1,5 @@
-const minTempSlider = document.getElementById('tempmin');
-const maxTempSlider = document.getElementById('tempmax');
+const minTempSlider = document.getElementById('tempMin');
+const maxTempSlider = document.getElementById('tempMax');
 const minTemp = document.getElementById('minval');
 const maxTemp = document.getElementById('maxval');
 const submit = document.querySelector("input[type='submit']");

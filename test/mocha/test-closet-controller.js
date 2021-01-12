@@ -1,11 +1,11 @@
-var assert = require('assert');
+const assert = require('assert');
 const controller = require('../../controller/closetController');
 
 const username = 'lamp';
-describe('Closet Controller', function () {
-  describe('#getArticles(username)', function () {
-    it("should return all articles for user 'lamp'", async function () {
-      let articles = await controller.getArticles(username);
+describe('Closet Controller', () => {
+  describe('#getArticles(username)', () => {
+    it("should return all articles for user 'lamp'", async () => {
+      const articles = await controller.getArticles(username);
       assert.strictEqual(articles.length, 22);
     });
   });

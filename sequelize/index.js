@@ -1,14 +1,15 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const associator = require('./associator');
 const fs = require('fs');
+const associator = require('./associator');
+
 const keys = JSON.parse(fs.readFileSync('keys.json', 'utf-8'));
-const config = keys.db.config;
+const { config } = keys.db;
 
 // In production the connection URL should be in an environment var
 // const sequelize = new Sequelize(process.env.DB_CONNECTION_URL);
 const sequelize = new Sequelize(config.database, config.user, config.password, {
   dialect: config.dialect,
-  host: config.host,
+  host: config.host
 });
 
 const modelDefiners = [
@@ -17,7 +18,7 @@ const modelDefiners = [
   require('./models/garment_type'),
   require('./models/dress_code'),
   require('./models/rating'),
-  require('./models/article'),
+  require('./models/article')
   // Add more models here...
   // require('./models/item'),
 ];
