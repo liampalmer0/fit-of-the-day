@@ -3,7 +3,7 @@ const controller = require('../../controller/articleController');
 
 const username = 'lamp';
 describe('Article Controller', () => {
-  describe('#getArticle(article_id, username)', () => {
+  describe('#getArticle(articleId, username)', () => {
     it('should return data on article with id = 1', async () => {
       const rows = await controller.getArticle(1, username);
       assert.strictEqual(rows[0].dataValues.name, 'Green Shirt');
@@ -12,7 +12,7 @@ describe('Article Controller', () => {
   });
 
   describe('#getClosetId(username)', () => {
-    it("should return the closet_id for user 'lamp'", async () => {
+    it("should return the closet id for user 'lamp'", async () => {
       const closetId = await controller.getClosetId(username);
       assert.strictEqual(closetId, 4);
     });

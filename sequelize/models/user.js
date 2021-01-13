@@ -40,6 +40,10 @@ module.exports = (sequelize, DataTypes) =>
       password: {
         type: DataTypes.STRING,
         allowNull: false
+      },
+      zipcode: {
+        type: DataTypes.STRING(25),
+        allowNull: true
       }
     },
     {
