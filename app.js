@@ -6,6 +6,7 @@ const fs = require('fs');
 const logger = require('morgan');
 const session = require('express-session');
 const passport = require('passport');
+const sequelize = require('./sequelize');
 
 const indexRouter = require('./routes/index');
 const signupRouter = require('./routes/signup');
@@ -17,7 +18,10 @@ const app = express();
 if (process.env.NODE_ENV !== 'test') {
   app.use(logger('dev'));
 }
-if (process.env.NODE_ENV === 'development') {
+if (
+  process.env.NODE_ENV === 'development' ||
+  process.env.NODE_ENV === 'production'
+) {
   try {
     const data = fs.readFileSync('keys.json', 'utf-8');
     const result = JSON.parse(data);
@@ -49,6 +53,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+sequelize
+  .authenticate()
+  .then(() => {
+    sequelize.sync();
+  })
+  .catch((err) => {
+    console.log('Database sync Error:', err);
+  });
 
 // set routes
 app.use('/', indexRouter);
