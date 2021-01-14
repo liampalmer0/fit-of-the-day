@@ -54,6 +54,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
 
+// sync database
 sequelize
   .authenticate()
   .then(() => {
@@ -67,11 +68,18 @@ sequelize
 app.use('/', indexRouter);
 app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
+app.get('/logout', function (req, res) {
+  req.logout();
+  res.redirect('/');
+});
 app.use(
   '/:user',
   (req, res, next) => {
-    res.locals.username = req.params.user;
-    next();
+    if (req.user) {
+      next();
+    } else {
+      next(new Error('Authorization Failed'));
+    }
   },
   userRouter
 );
