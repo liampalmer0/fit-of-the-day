@@ -96,7 +96,7 @@ CREATE TABLE article (
   color VARCHAR(50),
   dress_code_id INTEGER REFERENCES dress_code,
   rating_id INTEGER REFERENCES rating,
-  temp_min INTEGER NOT NULL,
+  temp_min INTEGER NOT NULL, 
   temp_max INTEGER NOT NULL,
   filepath VARCHAR(250) NULL
 );
