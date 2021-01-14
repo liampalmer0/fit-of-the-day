@@ -6,6 +6,7 @@ const fs = require('fs');
 const logger = require('morgan');
 const session = require('express-session');
 const passport = require('passport');
+const sequelize = require('./sequelize');
 
 const indexRouter = require('./routes/index');
 const signupRouter = require('./routes/signup');
@@ -17,7 +18,10 @@ const app = express();
 if (process.env.NODE_ENV !== 'test') {
   app.use(logger('dev'));
 }
-if (process.env.NODE_ENV === 'development') {
+if (
+  process.env.NODE_ENV === 'development' ||
+  process.env.NODE_ENV === 'production'
+) {
   try {
     const data = fs.readFileSync('keys.json', 'utf-8');
     const result = JSON.parse(data);
@@ -50,15 +54,32 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
 
+// sync database
+sequelize
+  .authenticate()
+  .then(() => {
+    sequelize.sync();
+  })
+  .catch((err) => {
+    console.log('Database sync Error:', err);
+  });
+
 // set routes
 app.use('/', indexRouter);
 app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
+app.get('/logout', function (req, res) {
+  req.logout();
+  res.redirect('/');
+});
 app.use(
   '/:user',
   (req, res, next) => {
-    res.locals.username = req.params.user;
-    next();
+    if (req.user) {
+      next();
+    } else {
+      next(new Error('Authorization Failed'));
+    }
   },
   userRouter
 );

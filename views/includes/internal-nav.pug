@@ -5,7 +5,7 @@ nav.internal
     if (pagename === 'dashboard')
       include weather
       include calendar
-  a(class='navlinks' href= toParent + "dashboard") Dashboard
-  a(class='navlinks' href= toParent + "closet") Closet
+  a(name='dashboard' class='navlinks' href= toParent + "dashboard") Dashboard
+  a(name='closet' class='navlinks' href= toParent + "closet") Closet
   a(class='navlinks' href= toParent + "settings") More
-  a(class='navlinks' href= toParent + "settings") Logout
+  a(name='logout' class='navlinks' href= "/logout") Logout

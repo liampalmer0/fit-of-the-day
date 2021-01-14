@@ -23,17 +23,23 @@ async function getRandomByType(username, typeId, count = 3) {
   });
 }
 async function recRand(username) {
-  const tops = await getRandomByType(username, typeIds.top);
-  const bottoms = await getRandomByType(username, typeIds.btm);
-  if (tops.length < 3 || bottoms.length < 3) {
-    console.log('TODO : FIX : not enough data to show recs ');
+  try {
+    const tops = await getRandomByType(username, typeIds.top);
+    const bottoms = await getRandomByType(username, typeIds.btm);
+    if (tops.length < 3 || bottoms.length < 3) {
+      throw new Error('FIX ME : not enough data to show recs');
+    }
+    return [
+      { top: tops[0], bottom: bottoms[0] },
+      { top: tops[1], bottom: bottoms[1] },
+      { top: tops[2], bottom: bottoms[2] }
+    ];
+  } catch (err) {
+    if (process.env.NODE_ENV === 'development') {
+      console.log(err);
+    }
     return 0;
   }
-  return [
-    { top: tops[0], bottom: bottoms[0] },
-    { top: tops[1], bottom: bottoms[1] },
-    { top: tops[2], bottom: bottoms[2] }
-  ];
 }
 
 async function recRandFiltered(username, filters) {

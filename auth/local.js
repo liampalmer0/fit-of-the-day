@@ -12,6 +12,7 @@ passport.use(
     models.user
       .findAll({
         limit: 1,
+        attributes: ['username', 'password'],
         where: { username }
       })
       .then((user) => {

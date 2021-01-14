@@ -3,14 +3,22 @@ const fs = require('fs');
 const associator = require('./associator');
 
 const keys = JSON.parse(fs.readFileSync('keys.json', 'utf-8'));
-const { config } = keys.db;
+const { dev, prod } = keys.db.config;
 
 // In production the connection URL should be in an environment var
 // const sequelize = new Sequelize(process.env.DB_CONNECTION_URL);
-const sequelize = new Sequelize(config.database, config.user, config.password, {
-  dialect: config.dialect,
-  host: config.host
-});
+var sequelize = {};
+if (process.env.NODE_ENV === 'development') {
+  sequelize = new Sequelize(dev.database, dev.user, dev.password, {
+    dialect: dev.dialect,
+    host: dev.host
+  }); 
+} else if (process.env.NODE_ENV === 'production') {
+  sequelize = new Sequelize(prod.database, prod.user, prod.password, {
+    dialect: prod.dialect,
+    host: prod.host
+  });
+}
 
 const modelDefiners = [
   require('./models/user'),

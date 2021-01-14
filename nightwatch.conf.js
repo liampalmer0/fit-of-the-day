@@ -5,7 +5,7 @@ module.exports = {
 
   'test_settings': {
     default: {
-      'launch_url': 'http://localhost'
+      'launch_url': 'http://localhost:3000'
     },
 
     chrome: {
@@ -18,7 +18,7 @@ module.exports = {
         port: 4444,
         'server_path': require('chromedriver').path,
         'cli_args': [
-          // --verbose
+          //'--verbose'
         ]
       }
     },
