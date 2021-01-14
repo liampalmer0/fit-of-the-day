@@ -1,36 +1,39 @@
-const assert = require('assert');
+const { expect } = require('chai');
 const controller = require('../../controller/articleController');
 
-const username = 'lamp';
-describe('Article Controller', () => {
-  describe('#getArticle(articleId, username)', () => {
-    it('should return data on article with id = 1', async () => {
+const username = 'tester';
+describe('Article Controller', function () {
+  describe('#getArticle(articleId, username)', function () {
+    it('should return data on article with id === 1', async function () {
       const rows = await controller.getArticle(1, username);
-      assert.strictEqual(rows[0].dataValues.name, 'Green Shirt');
-      assert.strictEqual(rows[0].dataValues.color, 'green');
+      expect(rows[0].dataValues.name).to.equal('Green Shirt');
+      expect(rows[0].dataValues.color).to.equal('green');
     });
   });
 
-  describe('#getClosetId(username)', () => {
-    it("should return the closet id for user 'lamp'", async () => {
+  describe('#getArticle(articleId, username): Incorrect username', function () {
+    it('should return no rows', async function () {
+      const rows = await controller.getArticle(1, 'notTester');
+      expect(rows).to.be.empty;
+    });
+  });
+
+  describe('#getClosetId(username)', function () {
+    it("should return the closet id for user 'tester'", async function () {
       const closetId = await controller.getClosetId(username);
-      assert.strictEqual(closetId, 4);
+      expect(closetId).to.equal(1);
     });
   });
 
-  // describe('#showArticle(req, res, next)', function () {
-  //   it("should do something");
-  // });
-
-  // describe('#showCreate', function () {
-  //   it('should do something');
-  // });
+  describe('#categoricalToId(type, dresscode) bottom & casual', function () {
+    it('should return array with values [2, 1]', async function () {
+      const ids = controller.categoricalToId('bottom', 'casual');
+      expect(ids[0]).to.equal(2);
+      expect(ids[1]).to.equal(1);
+    });
+  });
 
   // describe('#createArticle', function () {
-  //   it('should do something');
-  // });
-
-  // describe('#showEdit', function () {
   //   it('should do something');
   // });
 

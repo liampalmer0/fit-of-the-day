@@ -1,15 +1,14 @@
-const assert = require('assert');
+const { expect } = require('chai');
 const rec = require('../../api/recommender');
 
-const username = 'lamp';
+const username = 'tester';
 
-describe('Recommender', () => {
-  describe('#getRandomRecommendations(username)', () => {
-    it("should return array of 3 outfits for the user 'lamp'", async () => {
+describe('Recommender', function () {
+  describe('#getRandomRecommendations(username)', function () {
+    it("should return array of 3 outfits for the user 'tester'", async function () {
       const outfits = await rec.recRand(username);
-      assert.strictEqual(outfits.length, 3);
-      assert.ok(outfits[0].top, 'index 0 missing top');
-      assert.ok(outfits[0].bottom, 'index 0 missing bottom');
+      expect(outfits).to.have.lengthOf(3);
+      expect(outfits[0]).to.have.all.keys('top', 'bottom');
     });
   });
 });

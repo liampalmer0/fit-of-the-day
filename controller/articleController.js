@@ -180,10 +180,15 @@ async function deleteArticle(req, res, next) {
 }
 function showArticle(req, res, next) {
   res.locals.toParent = '../';
-  const success = req.session.success ? req.session.success : false;
-  const error = req.session.error ? req.session.error : false;
+  let success = req.session.success ? req.session.success : false;
+  let error = req.session.error ? req.session.error : false;
   getArticle(req.query.id, req.session.username)
     .then((rows) => {
+      if (rows.length === 0) {
+        success = false;
+        error = true;
+        throw new Error('User not authorized for the requested article');
+      }
       const data = {
         title: `FOTD - ${rows[0].name}`,
         pagename: 'article',
@@ -230,6 +235,9 @@ function showCreate(req, res, next) {
 function showEdit(req, res, next) {
   getArticle(req.query.id, req.session.username)
     .then((rows) => {
+      if (rows.length === 0) {
+        throw new Error('User not authorized for the requested article');
+      }
       const data = {
         title: `FOTD - Edit ${rows[0].name}`,
         pagename: 'editArticle',
@@ -271,5 +279,6 @@ module.exports = {
   createArticle,
   showEdit,
   editArticle,
-  deleteArticle
+  deleteArticle,
+  categoricalToId
 };
