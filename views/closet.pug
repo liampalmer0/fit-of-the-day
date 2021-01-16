@@ -13,7 +13,7 @@ block content
         p.error Error: Article could not be deleted
   aside.closetControls
     a(id="newArticle" href="closet/article/new") New Article
-    form(action=action method="post" id="closetFilterForm")
+    form(method="post" id="closetFilterForm")
       label(for="color") Color
       select(id="color" name="color")
         option(value="*" selected) -- color --
@@ -31,16 +31,16 @@ block content
       label(for="type") Type
       select(id="type" name="type")
         option(value="*" selected) -- type --
-        option(value="top") Top
-        option(value="bottom") Bottom
-        option(value="one piece") One-Piece
+        option(value="1") Top
+        option(value="2") Bottom
+        option(value="3") One-Piece
 
       label(for="dresscode") Dress Code
-      select(id="dresscode" name="dress_code")
+      select(id="dresscode" name="dresscode")
         option(value="*" selected) -- dress code --
-        option(value="casual") Casual
-        option(value="semi-formal") Semi-Formal
-        option(value="formal") Formal
+        option(value="1") Casual
+        option(value="2") Semi-Formal
+        option(value="3") Formal
 
       label(for="clean") Clean
       select(id="clean" name="clean")
@@ -48,37 +48,17 @@ block content
         option(value="f") Clean
         option(value="t") Dirty
 
-      label(for="temp_min") Temp-Minimum
-      <div class="slidecontainerMin">
-        <input type="range" min="-15" max="120" value="-15" class="slider" id="temp_min" name="temp_min">
-        <p>Value: <span id="minVal"></span></p>
-      </div>
+      label(for="tempMin") Temp. Minimum
+      div.slidecontainerMin
+        input(type="range" min="-15" max="120" value="-15" class="slider" id="tempMin" name="tempMin")
+        span#minVal
 
-      label(for="temp_max") Temp-Maximum
-      <div class="slidecontainerMax">
-        <input type="range" min="-15" max="120" value="120" class="slider" id="temp_max" name="temp_max">
-        <p>Value: <span id="maxVal"></span></p>
-      </div>
+      label(for="tempMax") Temp. Maximum
+      div.slidecontainerMax
+        input(type="range" min="-15" max="120" value="120" class="slider" id="tempMax" name="tempMax")
+        span#maxVal
 
-      input(type="submit" value="Filter")
-
+      input(id="submitFilters" type="submit" value="Filter")
   main
-    mixin article(articlePath, imgPath, name, desc)
-      .article(role='button' tabindex='0')
-        .cardimg
-          img(src=imgPath)
-        .cardtext
-          .name= name
-          .desc= desc
-        input(type='hidden', value=articlePath)
-    if articles
-      each item in articles
-        +article(
-          `/article?id=${item.article_id}`,
-          '/user_img/liam/' + item.dataValues.filepath,
-          item.dataValues.name, 
-          item.dataValues.desc)
-    else
-      .error
-        p Error: Closet data unavailable. Please try again later.
-    script(src='/scripts/closet_page.js', type='text/javascript')
+    include includes/closet-articles
+  script(src="/scripts/closet_page.js", type="text/javascript")
