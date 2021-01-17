@@ -53,31 +53,34 @@ async function getArticles(username, where = {}) {
   });
 }
 
-function createWhereFromFilters(filters) {
-  // prettier-ignore
-  let where = {
-    'temp_min': { [Op.gte]: filters.tempMin },
-    'temp_max': { [Op.lte]: filters.tempMax }
-  };
-
-  if (filters.color !== '*') {
+function createWhere(filters = {}) {
+  let where = {};
+  if (filters.tempMin) {
+    // prettier-ignore
+    where['temp_min'] = { [Op.gte]: filters.tempMin };
+  }
+  if (filters.tempMax) {
+    // prettier-ignore
+    where['temp_max'] = { [Op.lte]: filters.tempMax };
+  }
+  if (filters.color !== '' && filters.color) {
     where.color = filters.color;
   }
-  if (filters.type !== '*') {
+  if (filters.type !== '' && filters.type) {
     where['garment_type_id'] = filters.type;
   }
-  if (filters.dresscode !== '*') {
+  if (filters.dresscode !== '' && filters.dresscode) {
     where['dress_code_id'] = filters.dresscode;
   }
-  if (filters.clean !== '*') {
-    where.dirty = filters.clean;
+  if (filters.dirty !== '' && filters.dirty) {
+    where.dirty = filters.dirty;
   }
 
   return where;
 }
 
 async function filterCloset(req, res, next) {
-  getArticles(req.session.username, createWhereFromFilters(req.body))
+  getArticles(req.session.username, createWhere(req.body))
     .then((query) => {
       res.render('includes/closet-articles', { articles: query });
     })
@@ -93,5 +96,5 @@ module.exports = {
   showCloset,
   getArticles,
   filterCloset,
-  createWhereFromFilters
+  createWhere
 };

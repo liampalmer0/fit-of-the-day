@@ -37,7 +37,7 @@ function loadDoc() {
   let type = document.querySelector('#type').value;
   let tempMin = document.querySelector('#tempMin').value;
   let tempMax = document.querySelector('#tempMax').value;
-  let clean = document.querySelector('#clean').value;
+  let dirty = document.querySelector('#dirty').value;
   let xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState === 4 && this.status === 200) {
@@ -49,7 +49,7 @@ function loadDoc() {
   xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   xhttp.send(
     `color=${color}&type=${type}&dresscode=${dresscode}` +
-      `&clean=${clean}&tempMin=${tempMin}&tempMax=${tempMax}`
+      `&dirty=${dirty}&tempMin=${tempMin}&tempMax=${tempMax}`
   );
 }
 

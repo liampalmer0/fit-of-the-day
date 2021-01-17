@@ -16,7 +16,7 @@ block content
     form(method="post" id="closetFilterForm")
       label(for="color") Color
       select(id="color" name="color")
-        option(value="*" selected) -- color --
+        option(value="" selected) -- color --
         option(value="red") Red 
         option(value="orange") Orange 
         option(value="yellow") Yellow 
@@ -30,33 +30,34 @@ block content
 
       label(for="type") Type
       select(id="type" name="type")
-        option(value="*" selected) -- type --
+        option(value="" selected) -- type --
         option(value="1") Top
         option(value="2") Bottom
         option(value="3") One-Piece
 
       label(for="dresscode") Dress Code
       select(id="dresscode" name="dresscode")
-        option(value="*" selected) -- dress code --
+        option(value="" selected) -- dress code --
         option(value="1") Casual
         option(value="2") Semi-Formal
         option(value="3") Formal
 
-      label(for="clean") Clean
-      select(id="clean" name="clean")
-        option(value="*" selected) -- clean --
+      label(for="dirty") Clean
+      select(id="dirty" name="dirty")
+        option(value="" selected) -- all --
         option(value="f") Clean
         option(value="t") Dirty
+      fieldset.temperatureSliders
+        legend Temperature Range
+        label(for="tempMin") Min.
+        .sliderContainer
+          input(type="range" min="-15" max="120" value="-15" class="slider" id="tempMin" name="tempMin")
+          span#minVal
 
-      label(for="tempMin") Temp. Minimum
-      div.slidecontainerMin
-        input(type="range" min="-15" max="120" value="-15" class="slider" id="tempMin" name="tempMin")
-        span#minVal
-
-      label(for="tempMax") Temp. Maximum
-      div.slidecontainerMax
-        input(type="range" min="-15" max="120" value="120" class="slider" id="tempMax" name="tempMax")
-        span#maxVal
+        label(for="tempMax") Max.
+        .sliderContainer
+          input(type="range" min="-15" max="120" value="120" class="slider" id="tempMax" name="tempMax")
+          span#maxVal
 
       input(id="submitFilters" type="submit" value="Filter")
   main
