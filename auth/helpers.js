@@ -5,5 +5,5 @@ async function compareHash(userPassword, databasePassword) {
 }
 
 module.exports = {
-  compareHash,
+  compareHash
 };

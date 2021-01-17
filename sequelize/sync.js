@@ -1,7 +1,7 @@
 // const Sequelize = require('sequelize');
 const myArgs = process.argv.slice(2);
-const force = myArgs[0] === 'force' ? true : false;
-const alter = myArgs[0] === 'alter' ? true : false;
+const force = myArgs[0] === 'force';
+const alter = myArgs[0] === 'alter';
 
 const s = require('./index');
 // Testing Connection and Syncing Tables with Models
@@ -24,5 +24,3 @@ s.authenticate()
       s.sync();
     }
   });
-
-  

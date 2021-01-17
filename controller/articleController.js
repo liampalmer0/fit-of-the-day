@@ -9,9 +9,13 @@ function categoricalToId(type, dresscode) {
     type = 3;
   }
 
-  if (dresscode === 'casual') dresscode = 1;
-  else if (dresscode === 'semi-formal') dresscode = 2;
-  else dresscode = 3;
+  if (dresscode === 'casual') {
+    dresscode = 1;
+  } else if (dresscode === 'semi-formal') {
+    dresscode = 2;
+  } else {
+    dresscode = 3;
+  }
 
   return [type, dresscode];
 }
@@ -54,8 +58,11 @@ async function createArticle(req, res, next) {
   const dirty = req.body.dirty ? 't' : 'f';
 
   if (!req.body.filepath) {
-    if (catIds[0] === 1) filepath = 's-null.png';
-    else filepath = 'p-null.png';
+    if (catIds[0] === 1) {
+      filepath = 's-null.png';
+    } else {
+      filepath = 'p-null.png';
+    }
   } else {
     filepath = req.body.filepath;
   }
@@ -94,8 +101,11 @@ async function editArticle(req, res, next) {
   const dirty = req.body.dirty ? 't' : 'f';
 
   if (!req.body.filepath) {
-    if (catIds[0] === 1) filepath = 's-null.png';
-    else filepath = 'p-null.png';
+    if (catIds[0] === 1) {
+      filepath = 's-null.png';
+    } else {
+      filepath = 'p-null.png';
+    }
   } else {
     filepath = req.body.filepath;
   }

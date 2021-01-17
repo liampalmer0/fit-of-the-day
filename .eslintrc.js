@@ -16,6 +16,19 @@ module.exports = {
     quotes: ['error', 'single', { avoidEscape: true }],
     semi: ['error', 'always'],
     'no-unused-vars': ['error', { argsIgnorePattern: 'next' }],
-    camelcase: ['error']
+    camelcase: ['error'],
+    eqeqeq: ['error', 'always'],
+    'dot-location': ['error', 'property'],
+    curly: ['error'],
+    'comma-style': ['error', 'last'],
+    'no-loop-func': 'error',
+    'comma-dangle': ['error', 'never'],
+    'eol-last': ['error', 'always'],
+    'func-call-spacing': ['error', 'never'],
+    'key-spacing': ['error', { mode: 'strict' }],
+    'arrow-body-style': ['error', 'as-needed'],
+    'no-multi-assign': 'error',
+    allowIndentationTabs: 0,
+    'no-unneeded-ternary': 'error'
   }
 };
