@@ -8,10 +8,10 @@ const init = require('./passport');
 init();
 
 passport.use(
-  new LocalStrategy(async (username, password, done) => {
+  new LocalStrategy(function (username, password, done) {
+    username = username.trim().toLowerCase();
     models.user
-      .findAll({
-        limit: 1,
+      .findOne({
         attributes: ['username', 'password'],
         where: { username }
       })
@@ -19,16 +19,14 @@ passport.use(
         if (!user || user.length === 0) {
           return done(null, false, { message: 'Incorrect username.' });
         }
-        return authHelpers.compareHash(
-          password,
-          user[0].getDataValue('password')
-        );
-      })
-      .then((match) => {
-        if (!match) {
-          return done(null, false, { message: 'Incorrect password.' });
-        }
-        return done(null, true);
+        authHelpers
+          .compareHash(password, user.getDataValue('password'))
+          .then((match) => {
+            if (!match) {
+              return done(null, false, { message: 'Incorrect password.' });
+            }
+            return done(null, true);
+          });
       })
       .catch((err) => {
         if (process.env.NODE_ENV === 'development') {

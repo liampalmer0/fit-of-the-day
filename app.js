@@ -78,7 +78,7 @@ app.use(
     if (req.user) {
       next();
     } else {
-      next(new Error('Authorization Failed'));
+      res.redirect('/');
     }
   },
   userRouter

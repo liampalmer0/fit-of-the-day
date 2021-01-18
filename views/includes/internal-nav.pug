@@ -1,11 +1,11 @@
-nav.internal
+nav(role='navigation').internal
   a(class='iconhome' href= toParent + 'dashboard')
-    img(src="/icons/smallicon.png")
+    img(src='/icons/smallicon.png' alt='Fit of the Day badge logo')
   .widgets
     if (pagename === 'dashboard')
       include weather
       include calendar
-  a(name='dashboard' class='navlinks' href= toParent + "dashboard") Dashboard
-  a(name='closet' class='navlinks' href= toParent + "closet") Closet
-  a(class='navlinks' href= toParent + "settings") More
-  a(name='logout' class='navlinks' href= "/logout") Logout
+  a(name='dashboard' class='navlinks' href= toParent + 'dashboard') Dashboard
+  a(name='closet' class='navlinks' href= toParent + 'closet') Closet
+  a(class='navlinks' href= toParent + 'settings') More
+  a(name='logout' class='navlinks' href= '/logout') Logout

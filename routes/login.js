@@ -19,8 +19,8 @@ router.post(
     failureRedirect: '/login?error=true'
   }),
   (req, res) => {
-    req.session.username = req.body.username;
-    res.redirect(`/${req.body.username}/dashboard`);
+    req.session.username = req.body.username.trim().toLowerCase();
+    res.redirect(`/${req.session.username}/dashboard`);
   }
 );
 
