@@ -5,7 +5,7 @@ block content
   .message
     if error
       p.error Error: Article data unavailable
-  main.editArticle
+  main(role='main').editArticle
     h1 Edit Article
     .articleForm 
       include includes/article-form

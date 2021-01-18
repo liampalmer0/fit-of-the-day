@@ -2,38 +2,38 @@ extends layout
 
 block content
   include includes/internal-nav
-  main
+  main(role='main')
     .filter
-      form(action="" method="post" id='filterform')
-        label(for="type") Type:
-        select(id="type" name="type")
-          option(value="*" selected ) -- type --
-          option(value="topbtm") Top/Bottom
-          option(value="single") Single
-        label(for="drscode") Dress Code:
-        select(id="drscode" name="drscode")
-          option(value="*" selected) -- dress code --
-          option(value="casual") Casual
-          option(value="semi") Semi-formal
-          option(value="formal") Formal
-        label(for="color") Color:
-        select(id="color" name="color")
-          option(value="*" selected ) -- color --
-          option(value="Red") Red
-          option(value="Orange") Orange
-          option(value="Yellow") Yellow
-          option(value="Green") Green
-          option(value="Blue") Blue
-          option(value="Black") Black
-        input(type="submit" value="Filter")
+      form(action='' method='post' id='filterform')
+        label(for='type') Type:
+        select(id='type' name='type')
+          option(value='' selected ) -- type --
+          option(value='topbtm') Top/Bottom
+          option(value='single') Single
+        label(for='drscode') Dress Code:
+        select(id='drscode' name='drscode')
+          option(value='' selected) -- dress code --
+          option(value='casual') Casual
+          option(value='semi') Semi-formal
+          option(value='formal') Formal
+        label(for='color') Color:
+        select(id='color' name='color')
+          option(value='' selected ) -- color --
+          option(value='Red') Red
+          option(value='Orange') Orange
+          option(value='Yellow') Yellow
+          option(value='Green') Green
+          option(value='Blue') Blue
+          option(value='Black') Black
+        input(type='submit' value='Filter')
     if outfits
       .recommendations
         each outfit in outfits
           .outfit
-            a(href="closet/article?id="+outfit.top.dataValues.article_id)
-              img(src="/user_img/liam/" + outfit.top.dataValues.filepath)
-            a(href="closet/article?id="+outfit.bottom.dataValues.article_id)
-              img(src="/user_img/liam/" + outfit.bottom.dataValues.filepath)
+            a(href='closet/article?id='+outfit.top.dataValues.article_id)
+              img(src='/user_img/liam/' + outfit.top.dataValues.filepath alt='A preview image of the article')
+            a(href='closet/article?id='+outfit.bottom.dataValues.article_id)
+              img(src='/user_img/liam/' + outfit.bottom.dataValues.filepath alt='A preview image of the article')
     else
       .error
         p Error: Article data unavailable. Please try again later.

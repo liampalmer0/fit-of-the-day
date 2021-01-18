@@ -1,20 +1,20 @@
-form(action=action method="post" id="articleForm")
+form(action=action method='post' id='articleForm')
   
-  label(for="name") Name
+  label(for='name') Name
   if article
-    input(id="name" type="text" name="name" placeholder="Name" required value=article.name autofocus)
+    input(id='name' type='text' name='name' placeholder='Name' required value=article.name autofocus)
   else
-    input(id="name" type="text" name="name" placeholder="Name" required autofocus)
+    input(id='name' type='text' name='name' placeholder='Name' required autofocus)
   
-  label(for="desc") Description
+  label(for='desc') Description
   if article
-    textarea(id="desc" type="text" name="desc" placeholder="Description" rows="6")=article.desc
+    textarea(id='desc' type='text' name='desc' placeholder='Description' rows='6')=article.desc
   else
-    textarea(id="desc" type="text" name="desc" placeholder="Description" rows="6")
+    textarea(id='desc' type='text' name='desc' placeholder='Description' rows='6')
   
-  - const colors = ["red", "orange", "yellow", "green", "blue", "purple", "brown", "black", "white", "multiple"]
-  label(for="color") Color
-  select(id="color" name="color")
+  - const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'brown', 'black', 'white', 'multiple']
+  label(for='color') Color
+  select(id='color' name='color')
     each color in colors
       if article
         if article.color === color
@@ -24,22 +24,22 @@ form(action=action method="post" id="articleForm")
       else 
         option(value=color)=color
   
-  - const types = ["top", "bottom", "one piece"]
-  label(for="type") Type
-  select(id="type" name="type")
+  - const types = ['top', 'bottom', 'one piece']
+  label(for='type') Type
+  select(id='type' name='type')
     each gType in types
       if article
         if article.garmentType === gType
           option(value=gType selected)=gType
         else 
-          option(value=gType)=gType  
+          option(value=gType)=gType
       else  
         option(value=gType)=gType 
 
 
-  - const dressCodes = ["casual", "semi-formal", "formal"]
-  label(for="dressCode") Dress Code
-  select(id="dressCode" name="dressCode")
+  - const dressCodes = ['casual', 'semi-formal', 'formal']
+  label(for='dressCode') Dress Code
+  select(id='dressCode' name='dressCode')
     each dressCode in dressCodes
       if article
         if article.dressCode === dressCode
@@ -49,36 +49,36 @@ form(action=action method="post" id="articleForm")
       else
         option(value=dressCode)=dressCode
 
-  label(for="dirty") Dirty
+  label(for='dirty') Dirty
   div
     if article
       if article.dirty
-        input(type="checkbox" id="dirty" name="dirty" value='dirty' checked)
+        input(type='checkbox' id='dirty' name='dirty' value='dirty' checked)
       else 
-        input(type="checkbox" id="dirty" name="dirty" value='dirty')
+        input(type='checkbox' id='dirty' name='dirty' value='dirty')
     else
-      input(type="checkbox" id="dirty" name="dirty" value='dirty')
+      input(type='checkbox' id='dirty' name='dirty' value='dirty')
 
-  label(for="tempMin") Minimum Temp. (ºF)
+  label(for='tempMin') Minimum Temp. (ºF)
   .slider
     if article
-      input(type="range" id="tempMin" name="tempMin" min="-25" max="125" value=article.tempMin)
+      input(type='range' id='tempMin' name='tempMin' min='-25' max='125' value=article.tempMin)
     else
-      input(type="range" id="tempMin" name="tempMin" min="-25" max="125" value="75")
-    span(id="minval")
-  label(for="tempMax") Maximum Temp. (ºF)
+      input(type='range' id='tempMin' name='tempMin' min='-25' max='125' value='75')
+    span(id='minval')
+  label(for='tempMax') Maximum Temp. (ºF)
   .slider 
     if article
-      input(type="range" id="tempMax" name="tempMax" min="-25" max="125" value=article.tempMax)
+      input(type='range' id='tempMax' name='tempMax' min='-25' max='125' value=article.tempMax)
     else
-      input(type="range" id="tempMax" name="tempMax" min="-25" max="125" value="75")
-    span(id="maxval") 75
+      input(type='range' id='tempMax' name='tempMax' min='-25' max='125' value='75')
+    span(id='maxval') 75
   
   p.tempAlert Minimum Temperature is greater than Maximum Temperature
 
-  a(role="button" href="javascript:history.back()") Cancel
+  a(role='button' href='javascript:history.back()') Cancel
 
-  input(type="submit" value=submitVal )  
+  input(type='submit' value=submitVal )
 
   script(src='/scripts/article_form_page.js', type='text/javascript')
   

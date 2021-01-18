@@ -44,7 +44,7 @@ block content
           h3 Delete Article : #{article.name}
           button(class='close' type='button') &times;
         .msg
-          p Are you sure you want to delete '#{article.name}?
+          p Are you sure you want to delete '#{article.name}'?
         form(class='dialogForm' action='article/delete?id='+article.articleId method='post')
           button(class='confirm' type='submit') Delete
           button(class='cancel' type='button') Cancel
