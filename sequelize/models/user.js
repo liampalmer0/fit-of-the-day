@@ -15,7 +15,7 @@ class user extends Model {
 module.exports = (sequelize, DataTypes) =>
   user.init(
     {
-      'user_id': {
+      'userId': {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -52,6 +52,6 @@ module.exports = (sequelize, DataTypes) =>
       freezeTableName: true,
       schema: 'public',
       timestamps: false,
-      underscored: true
+      underscored: false
     }
   );

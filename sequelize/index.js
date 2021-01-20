@@ -23,8 +23,8 @@ if (process.env.NODE_ENV === 'development') {
 const modelDefiners = [
   require('./models/user'),
   require('./models/closet'),
-  require('./models/garment_type'),
-  require('./models/dress_code'),
+  require('./models/garmentType'),
+  require('./models/dressCode'),
   require('./models/rating'),
   require('./models/article')
   // Add more models here...

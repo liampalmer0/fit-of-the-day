@@ -15,8 +15,7 @@ router.post('/', (req, res, next) => {
     .create(req.body)
     .then((newUser) =>
       models.closet.create({
-        // prettier-ignore
-        'user_id': newUser.dataValues.user_id,
+        userId: newUser.dataValues.userId,
         name: 'Default Closet',
         desc: 'The starter closet'
       })

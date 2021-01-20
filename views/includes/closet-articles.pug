@@ -9,7 +9,7 @@ mixin article(articlePath, imgPath, name, desc)
 if articles
   each item in articles
     +article(
-      `/article?id=${item.article_id}`,
+      `/article?id=${item.articleId}`,
       '/user_img/liam/' + item.dataValues.filepath,
       item.dataValues.name, 
       item.dataValues.desc

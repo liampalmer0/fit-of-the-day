@@ -30,9 +30,9 @@ block content
       .recommendations
         each outfit in outfits
           .outfit
-            a(href='closet/article?id='+outfit.top.dataValues.article_id)
+            a(href='closet/article?id='+outfit.top.dataValues.articleId)
               img(src='/user_img/liam/' + outfit.top.dataValues.filepath alt='A preview image of the article')
-            a(href='closet/article?id='+outfit.bottom.dataValues.article_id)
+            a(href='closet/article?id='+outfit.bottom.dataValues.articleId)
               img(src='/user_img/liam/' + outfit.bottom.dataValues.filepath alt='A preview image of the article')
     else
       .error

@@ -34,13 +34,12 @@ async function getArticle(articleId, username) {
         required: true
       }
     ],
-    // prettier-ignore
-    where: { 'article_id': articleId }
+    where: { articleId: articleId }
   });
 }
 async function getClosetId(username) {
   const closet = await models.closet.findOne({
-    attributes: ['closet_id'],
+    attributes: ['closetId'],
     include: {
       model: models.user,
       attributes: ['username'],
@@ -48,7 +47,7 @@ async function getClosetId(username) {
       required: true
     }
   });
-  return closet.dataValues.closet_id;
+  return closet.dataValues.closetId;
 }
 
 async function createArticle(req, res, next) {
@@ -68,26 +67,24 @@ async function createArticle(req, res, next) {
       filepath = req.body.filepath;
     }
     const closetId = await getClosetId(req.session.username);
-    // prettier-ignore
     const dbRes = await models.article.create({
-      'closet_id': closetId,
+      closetId: closetId,
       name: req.body.name,
       desc: req.body.desc,
       dirty,
-      'garment_type_id': catIds[0],
+      garmentTypeId: catIds[0],
       color: req.body.color,
-      'dress_code_id': catIds[1],
-      'rating_id': '5',
-      'temp_min': req.body.tempMin,
-      'temp_max': req.body.tempMax,
+      dressCodeId: catIds[1],
+      ratingId: '5',
+      tempMin: req.body.tempMin,
+      tempMax: req.body.tempMax,
       filepath
     });
     req.session.opStatus = {
       success: { msg: 'Article created successfully' },
       error: false
     };
-
-    res.redirect(`../article?id=${dbRes.dataValues.article_id}`);
+    res.redirect(`/${req.session.username}/closet/article?id=${dbRes.dataValues.articleId}`);
   } catch (err) {
     if (process.env.NODE_ENV === 'development') {
       console.log(err);
@@ -96,8 +93,8 @@ async function createArticle(req, res, next) {
       success: false,
       error: { msg: 'Article creation failed' }
     };
+    res.redirect(`/${req.session.username}/closet`);
   }
-  res.redirect(`/${req.session.username}/closet`);
 }
 async function editArticle(req, res, next) {
   try {
@@ -114,24 +111,23 @@ async function editArticle(req, res, next) {
     } else {
       filepath = req.body.filepath;
     }
-    // prettier-ignore
     await models.article.update(
       {
         name: req.body.name,
         desc: req.body.desc,
         dirty,
-        'garment_type_id': catIds[0],
+        garmentTypeId: catIds[0],
         color: req.body.color,
-        'dress_code_id': catIds[1],
-        // rating_id: '5',
-        'temp_min': req.body.tempMin,
-        'temp_max': req.body.tempMax,
+        dressCodeId: catIds[1],
+        // ratingId: '5',
+        tempMin: req.body.tempMin,
+        tempMax: req.body.tempMax,
         filepath
       },
       {
         include: {
           model: models.closet,
-          attributes: ['closet_id'],
+          attributes: ['closetId'],
           include: {
             model: models.user,
             attributes: ['username'],
@@ -140,7 +136,7 @@ async function editArticle(req, res, next) {
           }
         },
         where: {
-          'article_id': req.query.id
+          articleId: req.query.id
         }
       }
     );
@@ -148,7 +144,7 @@ async function editArticle(req, res, next) {
       success: { msg: 'Article updated successfully' },
       error: false
     };
-    res.redirect(`../article?id=${req.query.id}`);
+    res.redirect(`/${req.session.username}/closet/article?id=${req.query.id}`);
   } catch (err) {
     if (process.env.NODE_ENV === 'development') {
       console.log(`${err.message}\n${err.name}\n${err.stack}`);
@@ -157,7 +153,7 @@ async function editArticle(req, res, next) {
       success: false,
       error: { msg: 'Article update failed' }
     };
-    res.redirect(`../article?id=${req.query.id}`);
+    res.redirect(`/${req.session.username}/closet/article?id=${req.query.id}`);
   }
 }
 async function deleteArticle(req, res, next) {
@@ -166,7 +162,7 @@ async function deleteArticle(req, res, next) {
       include: [
         {
           model: models.closet,
-          attributes: ['closet_id'],
+          attributes: ['closetId'],
           include: [
             {
               model: models.user,
@@ -178,9 +174,8 @@ async function deleteArticle(req, res, next) {
           required: true
         }
       ],
-      // prettier-ignore
       where: {
-        'article_id': req.query.id
+        articleId: req.query.id
       }
     });
     req.session.opStatus = {
@@ -196,7 +191,7 @@ async function deleteArticle(req, res, next) {
       success: false,
       error: { msg: 'Article deletion failed' }
     };
-    res.redirect(`../article?id=${req.query.id}`);
+    res.redirect(`/${req.session.username}/closet/article?id=${req.query.id}`);
   }
 }
 function showArticle(req, res, next) {
@@ -215,15 +210,15 @@ function showArticle(req, res, next) {
         success,
         error,
         article: {
-          articleId: rows[0].article_id,
+          articleId: rows[0].articleId,
           name: rows[0].name,
           desc: rows[0].desc,
           color: rows[0].color,
           dirty: rows[0].dirty,
-          garmentType: rows[0].garment_type.dataValues.name,
-          dressCode: rows[0].dress_code.dataValues.name,
-          tempMin: rows[0].temp_min,
-          tempMax: rows[0].temp_max,
+          garmentType: rows[0].garmentType.dataValues.name,
+          dressCode: rows[0].dressCode.dataValues.name,
+          tempMin: rows[0].tempMin,
+          tempMax: rows[0].tempMax,
           filepath: rows[0].filepath
         }
       };
@@ -264,15 +259,15 @@ function showEdit(req, res, next) {
         title: `FOTD - Edit ${rows[0].name}`,
         pagename: 'editArticle',
         article: {
-          articleId: rows[0].article_id,
+          articleId: rows[0].articleId,
           name: rows[0].name,
           desc: rows[0].desc,
           color: rows[0].color,
           dirty: rows[0].dirty,
-          garmentType: rows[0].garment_type.dataValues.name,
-          dressCode: rows[0].dress_code.dataValues.name,
-          tempMin: rows[0].temp_min,
-          tempMax: rows[0].temp_max,
+          garmentType: rows[0].garmentType.dataValues.name,
+          dressCode: rows[0].dressCode.dataValues.name,
+          tempMin: rows[0].tempMin,
+          tempMax: rows[0].tempMax,
           filepath: rows[0].filepath
         }
       };

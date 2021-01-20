@@ -2,18 +2,18 @@ module.exports = (sequelize, DataTypes) =>
   sequelize.define(
     'closet',
     {
-      'closet_id': {
+      'closetId': {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true
       },
-      'user_id': {
+      'userId': {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
           model: 'user',
-          key: 'user_id'
+          key: 'userId'
         }
       },
       name: {
@@ -30,6 +30,6 @@ module.exports = (sequelize, DataTypes) =>
       tableName: 'closet',
       schema: 'public',
       timestamps: false,
-      underscored: true
+      underscored: false
     }
   );
