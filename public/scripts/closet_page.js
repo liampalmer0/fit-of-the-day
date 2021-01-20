@@ -31,7 +31,7 @@ function setupSliders() {
   };
 }
 
-function loadDoc() {
+function postFilter() {
   let color = document.querySelector('#color').value;
   let dresscode = document.querySelector('#dresscode').value;
   let type = document.querySelector('#type').value;
@@ -53,13 +53,34 @@ function loadDoc() {
   );
 }
 
-window.onload = function () {
-  handleDivButtons();
-  setupSliders();
+function laundryDay() {
+  let xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState === 4 && this.status === 200) {
+      document.querySelector('main').innerHTML = this.responseText;
+      handleDivButtons();
+    }
+  };
+  xhttp.open('GET', 'closet/laundryDay', true);
+  xhttp.send();
+}
+
+function setupAjax() {
   document
     .querySelector('#submitFilters')
     .addEventListener('click', (event) => {
       event.preventDefault();
-      loadDoc();
+      postFilter();
     });
+
+  document.querySelector('#laundryDay').addEventListener('click', (event) => {
+    event.preventDefault();
+    laundryDay();
+  });
+}
+
+window.onload = function () {
+  handleDivButtons();
+  setupSliders();
+  setupAjax();
 };

@@ -92,9 +92,40 @@ async function filterCloset(req, res, next) {
     });
 }
 
+async function laundryDay(req, res, next) {
+  try {
+    let closet = await models.closet.findOne({
+      attributes: ['closet_id'],
+      include: {
+        model: models.user,
+        attributes: ['username'],
+        where: { username: req.session.username },
+        required: true
+      }
+    });
+    await models.article.update(
+      {
+        dirty: 'f'
+      },
+      { where: { dirty: 't', closet_id: closet.dataValues.closet_id } }
+    );
+
+    res.redirect('/' + req.session.username + '/closet');
+  } catch (err) {
+    if (process.env.NODE_ENV === 'development') {
+      console.log(err);
+    }
+    res.redirect('/' + req.session.username + '/closet');
+    res.status().send({
+      message: 'There was an error.'
+    });
+  }
+}
+
 module.exports = {
   showCloset,
   getArticles,
   filterCloset,
-  createWhere
+  createWhere,
+  laundryDay
 };
