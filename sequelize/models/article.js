@@ -2,18 +2,18 @@ module.exports = (sequelize, DataTypes) =>
   sequelize.define(
     'article',
     {
-      'article_id': {
+      'articleId': {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true
       },
-      'closet_id': {
+      'closetId': {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
           model: 'closet',
-          key: 'closet_id'
+          key: 'closetId'
         }
       },
       name: {
@@ -28,40 +28,41 @@ module.exports = (sequelize, DataTypes) =>
         type: DataTypes.BOOLEAN,
         allowNull: false
       },
-      'garment_type_id': {
+      'garmentTypeId': {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
-          model: 'garment_type',
-          key: 'garment_type_id'
+          model: 'garmentType',
+          key: 'garmentTypeId'
         }
       },
-      color: {
-        type: DataTypes.STRING,
+      'color': {
+        type: DataTypes.INTEGER,
+        defaultValue: 10936474,
         allowNull: true
       },
-      'dress_code_id': {
+      'dressCodeId': {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
-          model: 'dress_code',
-          key: 'dress_code_id'
+          model: 'dressCode',
+          key: 'dressCodeId'
         }
       },
-      'rating_id': {
+      'ratingId': {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
           model: 'rating',
-          key: 'rating_id'
+          key: 'ratingId'
         }
       },
-      'temp_min': {
+      'tempMin': {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0
       },
-      'temp_max': {
+      'tempMax': {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 120
@@ -76,6 +77,6 @@ module.exports = (sequelize, DataTypes) =>
       tableName: 'article',
       schema: 'public',
       timestamps: false,
-      underscored: true
+      underscored: false
     }
   );

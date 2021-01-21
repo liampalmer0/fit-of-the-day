@@ -27,7 +27,7 @@ describe('.createWhere', function () {
       tempMax: '120'
     });
     expect(Object.keys(where)).to.have.lengthOf(2);
-    expect(where).to.have.all.keys(['temp_min', 'temp_max']);
+    expect(where).to.have.all.keys(['tempMin', 'tempMax']);
   });
 
   it('should create a where clause', function () {
@@ -47,10 +47,10 @@ describe('.createWhere', function () {
     });
     expect(Object.keys(where)).to.have.lengthOf(6);
     expect(where).to.deep.property('color', color);
-    expect(where).to.deep.property('garment_type_id', type);
-    expect(where).to.deep.property('dress_code_id', dresscode);
+    expect(where).to.deep.property('garmentTypeId', type);
+    expect(where).to.deep.property('dressCodeId', dresscode);
     expect(where).to.deep.property('dirty', dirty);
-    expect(where).to.have.property('temp_min');
-    expect(where).to.have.property('temp_max');
+    expect(where).to.have.property('tempMin');
+    expect(where).to.have.property('tempMax');
   });
 });

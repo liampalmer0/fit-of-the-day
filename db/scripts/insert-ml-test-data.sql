@@ -1,8 +1,8 @@
-INSERT INTO closet ("user_id", "name", "desc")
+INSERT INTO closet ("userId", "name", "desc")
 VALUES
 (6, 'TensorCloset', NULL);
 
-INSERT INTO article (closet_id, "name", "desc", dirty, garment_type_id, color, dress_code_id, rating_id, temp_min, temp_max, filepath)
+INSERT INTO article (closetId, "name", "desc", dirty, garmentTypeId, color, dressCodeId, ratingId, tempMin, tempMax, filepath)
 VALUES 
 (5, 'TShirt', '', 'f', 1, 'white', 1, 5, 60, 80, 's-white.png'),
 (5, 'Longsleeve', '', 'f', 1, 'tan', 1, 5, 40, 65, 'null.png'),

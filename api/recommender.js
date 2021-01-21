@@ -5,19 +5,18 @@ const typeIds = { top: 1, btm: 2, oneP: 3 };
 async function getRandomByType(username, typeId, count = 3) {
   return await models.article.findAll({
     include: {
-      attributes: ['closet_id', 'user_id'],
+      attributes: ['closetId', 'userId'],
       model: models.closet,
       include: [
         {
-          attributes: ['user_id', 'username'],
+          attributes: ['userId', 'username'],
           model: models.user,
           where: { username }
         }
       ],
       required: true
     },
-    // prettier-ignore
-    where: { 'garment_type_id': typeId },
+    where: { garmentTypeId: typeId },
     order: Sequelize.literal('RANDOM()'),
     limit: count
   });
@@ -64,8 +63,7 @@ async function recRandFiltered(username, filters) {
       required: true
     },
     where: {
-      // prettier-ignore
-      'garment_type_id': 1,
+      garmentTypeId: 1,
       color
     },
     order: Sequelize.literal('RANDOM()'),
@@ -84,8 +82,7 @@ async function recRandFiltered(username, filters) {
       required: true
     },
     where: {
-      // prettier-ignore
-      'garment_type_id': 2,
+      garmentTypeId: 2,
       color
     },
     order: Sequelize.literal('RANDOM()'),

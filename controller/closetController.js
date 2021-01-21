@@ -56,21 +56,19 @@ async function getArticles(username, where = {}) {
 function createWhere(filters = {}) {
   let where = {};
   if (filters.tempMin) {
-    // prettier-ignore
-    where['temp_min'] = { [Op.gte]: filters.tempMin };
+    where.tempMin = { [Op.gte]: filters.tempMin };
   }
   if (filters.tempMax) {
-    // prettier-ignore
-    where['temp_max'] = { [Op.lte]: filters.tempMax };
+    where.tempMax = { [Op.lte]: filters.tempMax };
   }
   if (filters.color !== '' && filters.color) {
     where.color = filters.color;
   }
   if (filters.type !== '' && filters.type) {
-    where['garment_type_id'] = filters.type;
+    where.garmentTypeId = filters.type;
   }
   if (filters.dresscode !== '' && filters.dresscode) {
-    where['dress_code_id'] = filters.dresscode;
+    where.dressCodeId = filters.dresscode;
   }
   if (filters.dirty !== '' && filters.dirty) {
     where.dirty = filters.dirty;
@@ -95,7 +93,7 @@ async function filterCloset(req, res, next) {
 async function laundryDay(req, res, next) {
   try {
     let closet = await models.closet.findOne({
-      attributes: ['closet_id'],
+      attributes: ['closetId'],
       include: {
         model: models.user,
         attributes: ['username'],
@@ -107,8 +105,7 @@ async function laundryDay(req, res, next) {
       {
         dirty: 'f'
       },
-      // prettier-ignore
-      { where: { dirty: 't', 'closet_id': closet.dataValues.closet_id } }
+      { where: { dirty: 't', closetId: closet.dataValues.closetId } }
     );
     req.session.opStatus.success = { msg: 'Closet updated successfully' };
     req.session.opStatus.error = false;

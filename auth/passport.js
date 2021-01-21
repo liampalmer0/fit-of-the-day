@@ -17,7 +17,7 @@ module.exports = () => {
   //   models.user
   //     .findAll({
   //       limit: 1,
-  //       where: { user_id: id },
+  //       where: { userId: id },
   //     })
   //     .then((user) => {
   //       done(null, user);

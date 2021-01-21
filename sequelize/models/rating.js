@@ -2,13 +2,13 @@ module.exports = (sequelize, DataTypes) =>
   sequelize.define(
     'rating',
     {
-      'rating_id': {
+      'ratingId': {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true
       },
-      'rating_value': {
+      'ratingValue': {
         type: DataTypes.INTEGER,
         allowNull: false
       }
@@ -18,6 +18,6 @@ module.exports = (sequelize, DataTypes) =>
       tableName: 'rating',
       schema: 'public',
       timestamps: false,
-      underscored: true
+      underscored: false
     }
   );

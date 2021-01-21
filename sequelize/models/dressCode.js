@@ -1,8 +1,8 @@
 module.exports = (sequelize, DataTypes) =>
   sequelize.define(
-    'dress_code',
+    'dressCode',
     {
-      'dress_code_id': {
+      'dressCodeId': {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -19,9 +19,9 @@ module.exports = (sequelize, DataTypes) =>
     },
     {
       sequelize,
-      tableName: 'dress_code',
+      tableName: 'dressCode',
       schema: 'public',
       timestamps: false,
-      underscored: true
+      underscored: false
     }
   );

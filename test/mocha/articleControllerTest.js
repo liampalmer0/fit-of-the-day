@@ -7,7 +7,7 @@ describe('Article Controller', function () {
     it('should return data on article with id === 1', async function () {
       const rows = await controller.getArticle(1, username);
       expect(rows[0].dataValues.name).to.equal('Green Shirt');
-      expect(rows[0].dataValues.color).to.equal('green');
+      // expect(rows[0].dataValues.color).to.equal('green');
     });
   });
 
