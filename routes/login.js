@@ -20,6 +20,7 @@ router.post(
   }),
   (req, res) => {
     req.session.username = req.body.username.trim().toLowerCase();
+    req.session.opStatus = {};
     res.redirect(`/${req.session.username}/dashboard`);
   }
 );

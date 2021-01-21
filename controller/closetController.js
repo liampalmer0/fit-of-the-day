@@ -2,8 +2,8 @@ const { models } = require('../sequelize');
 const { Op } = require('sequelize');
 
 function showCloset(req, res, next) {
-  const { success } = req.session;
-  const { error } = req.session;
+  const success = req.session.opStatus.success;
+  const error = req.session.opStatus.error;
   getArticles(req.session.username)
     .then((query) => {
       const data = {
@@ -13,8 +13,8 @@ function showCloset(req, res, next) {
         error,
         articles: query
       };
-      req.session.success = false;
-      req.session.error = false;
+      req.session.opStatus.success = false;
+      req.session.opStatus.error = false;
       res.render('closet', data);
     })
     .catch((err) => {
@@ -24,11 +24,11 @@ function showCloset(req, res, next) {
       const data = {
         title: 'FOTD - Closet - Error',
         pagename: 'closet',
-        success,
-        error
+        success: false,
+        error: { msg: 'Closet data unavailable. Please try again later.' }
       };
-      req.session.success = false;
-      req.session.error = false;
+      req.session.opStatus.success = false;
+      req.session.opStatus.error = false;
       res.render('closet', data);
     });
 }
@@ -107,17 +107,19 @@ async function laundryDay(req, res, next) {
       {
         dirty: 'f'
       },
-      { where: { dirty: 't', closet_id: closet.dataValues.closet_id } }
+      // prettier-ignore
+      { where: { dirty: 't', 'closet_id': closet.dataValues.closet_id } }
     );
-
+    req.session.opStatus.success = { msg: 'Closet updated successfully' };
+    req.session.opStatus.error = false;
     res.redirect('/' + req.session.username + '/closet');
   } catch (err) {
     if (process.env.NODE_ENV === 'development') {
       console.log(err);
     }
-    req.session.success = false;
-    req.session.error = { create: false, edit: true };
-    res.redirect(`../article?id=${req.query.id}`);
+    req.session.opStatus.success = false;
+    req.session.opStatus.error = { msg: 'Closet update failed' };
+    res.redirect('/' + req.session.username + '/closet');
   }
 }
 

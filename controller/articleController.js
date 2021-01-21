@@ -53,21 +53,20 @@ async function getClosetId(username) {
 
 async function createArticle(req, res, next) {
   // create article from req.body
-  const catIds = categoricalToId(req.body.type, req.body.dressCode);
-  let filepath = '';
-  const dirty = req.body.dirty ? 't' : 'f';
-
-  if (!req.body.filepath) {
-    if (catIds[0] === 1) {
-      filepath = 's-null.png';
-    } else {
-      filepath = 'p-null.png';
-    }
-  } else {
-    filepath = req.body.filepath;
-  }
-
   try {
+    const catIds = categoricalToId(req.body.type, req.body.dressCode);
+    let filepath = '';
+    const dirty = req.body.dirty ? 't' : 'f';
+
+    if (!req.body.filepath) {
+      if (catIds[0] === 1) {
+        filepath = 's-null.png';
+      } else {
+        filepath = 'p-null.png';
+      }
+    } else {
+      filepath = req.body.filepath;
+    }
     const closetId = await getClosetId(req.session.username);
     // prettier-ignore
     const dbRes = await models.article.create({
@@ -83,34 +82,38 @@ async function createArticle(req, res, next) {
       'temp_max': req.body.tempMax,
       filepath
     });
-    req.session.success = { create: true, edit: false };
-    req.session.error = false;
+    req.session.opStatus = {
+      success: { msg: 'Article created successfully' },
+      error: false
+    };
+
     res.redirect(`../article?id=${dbRes.dataValues.article_id}`);
   } catch (err) {
     if (process.env.NODE_ENV === 'development') {
       console.log(err);
     }
-    req.session.success = false;
-    req.session.error = { create: true, edit: false };
+    req.session.opStatus = {
+      success: false,
+      error: { msg: 'Article creation failed' }
+    };
   }
   res.redirect(`/${req.session.username}/closet`);
 }
 async function editArticle(req, res, next) {
-  const catIds = categoricalToId(req.body.type, req.body.dressCode);
-  let filepath = '';
-  const dirty = req.body.dirty ? 't' : 'f';
-
-  if (!req.body.filepath) {
-    if (catIds[0] === 1) {
-      filepath = 's-null.png';
-    } else {
-      filepath = 'p-null.png';
-    }
-  } else {
-    filepath = req.body.filepath;
-  }
-
   try {
+    const catIds = categoricalToId(req.body.type, req.body.dressCode);
+    let filepath = '';
+    const dirty = req.body.dirty ? 't' : 'f';
+
+    if (!req.body.filepath) {
+      if (catIds[0] === 1) {
+        filepath = 's-null.png';
+      } else {
+        filepath = 'p-null.png';
+      }
+    } else {
+      filepath = req.body.filepath;
+    }
     // prettier-ignore
     await models.article.update(
       {
@@ -141,15 +144,19 @@ async function editArticle(req, res, next) {
         }
       }
     );
-    req.session.success = { create: false, edit: true };
-    req.session.error = false;
+    req.session.opStatus = {
+      success: { msg: 'Article updated successfully' },
+      error: false
+    };
     res.redirect(`../article?id=${req.query.id}`);
   } catch (err) {
     if (process.env.NODE_ENV === 'development') {
       console.log(`${err.message}\n${err.name}\n${err.stack}`);
     }
-    req.session.success = false;
-    req.session.error = { create: false, edit: true };
+    req.session.opStatus = {
+      success: false,
+      error: { msg: 'Article update failed' }
+    };
     res.redirect(`../article?id=${req.query.id}`);
   }
 }
@@ -176,28 +183,31 @@ async function deleteArticle(req, res, next) {
         'article_id': req.query.id
       }
     });
-    req.session.success = { delete: true };
-    req.session.error = false;
+    req.session.opStatus = {
+      success: { msg: 'Article deleted successfully' },
+      error: false
+    };
     res.redirect(`/${req.session.username}/closet`);
   } catch (err) {
     if (process.env.NODE_ENV === 'development') {
       console.log(`${err.message}\n${err.name}\n${err.stack}`);
     }
-    req.session.success = false;
-    req.session.error = { delete: true };
+    req.session.opStatus = {
+      success: false,
+      error: { msg: 'Article deletion failed' }
+    };
     res.redirect(`../article?id=${req.query.id}`);
   }
 }
 function showArticle(req, res, next) {
   res.locals.toParent = '../';
-  let success = req.session.success ? req.session.success : false;
-  let error = req.session.error ? req.session.error : false;
+  let success = req.session.opStatus.success;
+  let error = req.session.opStatus.error;
   getArticle(req.query.id, req.session.username)
     .then((rows) => {
       if (rows.length === 0) {
         success = false;
-        error = true;
-        throw new Error('User not authorized for the requested article');
+        error = { msg: 'Article could not be found' };
       }
       const data = {
         title: `FOTD - ${rows[0].name}`,
@@ -217,6 +227,8 @@ function showArticle(req, res, next) {
           filepath: rows[0].filepath
         }
       };
+      req.session.opStatus.success = false;
+      req.session.opStatus.error = false;
       res.render('article', data);
     })
     .catch((err) => {
@@ -227,7 +239,7 @@ function showArticle(req, res, next) {
         title: 'FOTD - Error',
         pagename: 'article',
         success,
-        error
+        error: { msg: 'Article data unavailable. Please try again later.' }
       };
       res.render('article', data);
     });

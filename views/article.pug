@@ -4,12 +4,9 @@ block content
   include includes/internal-nav
   .message
     if success
-      if success.create
-        p.success New article created successfully
-      else if success.edit
-        p.success Article updated successfully
-    else if error.edit
-      p.error Error: Article update failed
+      p.success=success.msg
+    else if error
+      p.error Error: #{error.msg}
   main
     if article
       section.item-card
@@ -33,9 +30,6 @@ block content
           .options
             a(role='button' href='article/edit?id='+article.articleId) Edit
             a(id='deleteBtn' role='button' href='#') Delete
-    else
-      .error
-        p Error: Article data unavailable. Please try again later.
         
   if article
     .dialog

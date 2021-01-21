@@ -60,10 +60,6 @@ function setupAjax() {
       event.preventDefault();
       postFilter();
     });
-
-  document.querySelector('#laundryDay').addEventListener('click', (event) => {
-    event.preventDefault();
-  });
 }
 
 window.onload = function () {
