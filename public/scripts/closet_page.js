@@ -31,7 +31,7 @@ function setupSliders() {
   };
 }
 
-function loadDoc() {
+function postFilter() {
   let color = document.querySelector('#color').value;
   let dresscode = document.querySelector('#dresscode').value;
   let type = document.querySelector('#type').value;
@@ -53,13 +53,17 @@ function loadDoc() {
   );
 }
 
-window.onload = function () {
-  handleDivButtons();
-  setupSliders();
+function setupAjax() {
   document
     .querySelector('#submitFilters')
     .addEventListener('click', (event) => {
       event.preventDefault();
-      loadDoc();
+      postFilter();
     });
+}
+
+window.onload = function () {
+  handleDivButtons();
+  setupSliders();
+  setupAjax();
 };

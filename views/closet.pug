@@ -4,13 +4,9 @@ block content
   include includes/internal-nav
   .message
     if success
-      if success.delete
-        p.success Article deleted successfully
+      p.success=success.msg
     else if error
-      if error.create
-        p.error Error: Article could not be created
-      else if error.delete
-        p.error Error: Article could not be deleted
+      p.error Error: #{error.msg}
   aside.closetControls
     a(id='newArticle' href='closet/article/new') New Article
     form(method='post' id='closetFilterForm')
@@ -60,6 +56,9 @@ block content
           span#maxVal
 
       input(id='submitFilters' type='submit' value='Filter')
+      input(id='filterReset' type='reset' value='Reset Filters')
+    a(role = "button" href='closet/laundryDay') Laundry Day
+
   main
     include includes/closet-articles
   script(src='/scripts/closet_page.js', type='text/javascript')

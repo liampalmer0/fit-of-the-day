@@ -34,6 +34,7 @@ router.post('/', (req, res, next) => {
             return next(err);
           }
           req.session.username = req.body.username;
+          req.session.opStatus = {};
           return res.redirect(`/${req.body.username}/dashboard`);
         });
       })(req, res, next);
