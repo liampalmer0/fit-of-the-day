@@ -36,8 +36,9 @@ module.exports = (sequelize, DataTypes) =>
           key: 'garmentTypeId'
         }
       },
-      color: {
-        type: DataTypes.STRING,
+      'color': {
+        type: DataTypes.INTEGER,
+        defaultValue: 10936474,
         allowNull: true
       },
       'dressCodeId': {
