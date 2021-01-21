@@ -115,10 +115,9 @@ async function laundryDay(req, res, next) {
     if (process.env.NODE_ENV === 'development') {
       console.log(err);
     }
-    res.redirect('/' + req.session.username + '/closet');
-    res.status().send({
-      message: 'There was an error.'
-    });
+    req.session.success = false;
+    req.session.error = { create: false, edit: true };
+    res.redirect(`../article?id=${req.query.id}`);
   }
 }
 
