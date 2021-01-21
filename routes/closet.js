@@ -5,7 +5,6 @@ const articleRouter = require('./article');
 const {
   showCloset,
   filterCloset,
-  filterReset,
   laundryDay
 } = require('../controller/closetController');
 
