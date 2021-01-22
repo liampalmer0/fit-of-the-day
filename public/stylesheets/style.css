@@ -58,6 +58,14 @@ footer {
   border-radius: 8px;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
 }
+a.ddlink {
+  color: white;
+  background-color: #669900;
+  display: grid;
+  grid-template-columns: 1;
+  text-decoration: none;
+  padding: 15px;
+}
 /*== INTERNAL NAV SPECIFIC STYLING ==========================================*/
 nav.internal {
   display: grid;
@@ -87,14 +95,6 @@ nav.internal .widgets div {
   margin: 0rem 1rem;
   text-align: center;
   border-radius: 10px;
-}
-nav.internal .widgets .calWidget {
-  padding: 1rem;
-}
-nav.internal .widgets .weatherWidget {
-  grid-template-columns: auto max-content auto;
-  padding: 1rem;
-  /* box-shadow: 0px 1px 15px rgba(16, 16, 16, 0.2); */
 }
 /* daniel */
 /* nav.internal .widgets .calWidget {
@@ -129,7 +129,6 @@ nav.internal .navlinks {
 }
 nav.internal .dropdown .ddcontent {
   display: none;
-  /*Temp styles: change me :) */
   position: absolute;
   border: white solid 1px;
   background-color: black;
@@ -138,7 +137,14 @@ nav.internal .dropdown .ddcontent {
 nav.internal .dropdown:hover .ddcontent {
   display: block;
 }
-
+.widgets {
+  border-right: 3px;
+  border-right-style: solid;
+  border-right-color: white;
+  border-left: 3px;
+  border-left-style: solid;
+  border-left-color: white;
+}
 /*== PUBLIC LAYOUT SPECIFIC STYLING ==========================================*/
 nav.public,
 footer.public {
@@ -290,6 +296,7 @@ footer.public {
   grid-template-columns: 1fr;
 }
 .loginstyle {
+  padding-top: 80px;
   display: grid;
   grid-template-columns: 1fr;
   text-align: center;
