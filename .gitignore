@@ -123,4 +123,3 @@ keys.json
 #tensorflow training data
 tensorflow/data/rated-data.csv
 tensorflow/data/temperatures.csv
-version0/

@@ -77,7 +77,6 @@ async function createArticle(req, res, next) {
       garmentTypeId: catIds[0],
       color: parseInt(req.body.color.slice(1), 16),
       dressCodeId: catIds[1],
-      ratingId: '5',
       tempMin: req.body.tempMin,
       tempMax: req.body.tempMax,
       filepath
@@ -127,7 +126,6 @@ async function editArticle(req, res, next) {
         garmentTypeId: catIds[0],
         color: parseInt(req.body.color.slice(1), 16),
         dressCodeId: catIds[1],
-        // ratingId: '5',
         tempMin: req.body.tempMin,
         tempMax: req.body.tempMax,
         filepath
