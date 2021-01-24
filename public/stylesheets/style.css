@@ -10,9 +10,19 @@
   --main-fg: #000000;
   --fotd-green: rgb(166, 224, 154);
 }
+.screen-reader {
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
 body {
   font-family: Nunito, Helvetica, sans-serif;
-  margin: 0em;
+  margin: 0rem;
   background-color: var(--main-bg);
   color: var(--main-fg);
 }
@@ -21,21 +31,10 @@ footer {
   grid-template-columns: repeat(3, 1fr);
   text-align: center;
 }
-.iconhome img {
-  width: 100%;
-  max-width: max-content;
-  border-radius: 10px;
-}
-.navlinks {
-  text-align: right;
-  color: white;
-  text-decoration: none;
-  font-size: 20px;
-}
 .message > * {
   width: 95%;
-  padding: 0.5em;
-  margin: 0.5em auto;
+  padding: 0.5rem;
+  margin: 0.5rem auto;
   border-radius: 8px;
   text-align: center;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
@@ -53,7 +52,7 @@ footer {
 .article main > .error {
   grid-column: 1/-1;
   width: 95%;
-  margin: 0.5em auto;
+  margin: 0.5rem auto;
   font-weight: bold;
   text-align: center;
   border-radius: 8px;
@@ -62,62 +61,63 @@ footer {
 /*== INTERNAL NAV SPECIFIC STYLING ==========================================*/
 nav.internal {
   display: grid;
-  grid-template-columns: min-content 1fr min-content;
-  padding: 0em 1em;
-  margin: 1em 0em;
-  text-align: left;
+  grid-template-columns: max-content auto repeat(4, auto);
   background-color: #000000;
+  color: #ffffff;
+  padding: 0rem 0.25rem;
+  margin: auto 0rem;
+  text-align: left;
 }
 nav.internal .widgets {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, auto);
   text-align: center;
   width: 90%;
-  margin: auto auto 2em auto;
+  margin: auto;
   border-radius: 10px;
 }
 nav.internal .widgets div {
   display: grid;
-  margin: 0em 1em;
+  margin: 0rem 1rem;
   text-align: center;
-  box-shadow: 0px 1px 15px rgba(16, 16, 16, 0.2);
   border-radius: 10px;
 }
 nav.internal .widgets .calWidget {
-  padding: 1em;
+  padding: 1rem;
 }
 nav.internal .widgets .weatherWidget {
   grid-template-columns: auto max-content auto;
-  padding: 1em;
+  padding: 1rem;
 }
 nav.internal .widgets .weatherWidget span,
 nav.internal .widgets .calWidget span {
-  margin: auto 1em;
+  margin: auto 1rem;
 }
 nav.internal .widgets .weatherWidget img {
-  margin: 0em auto;
+  margin: 0rem auto;
   max-width: 50px;
   width: 100%;
   background-color: white;
   border-radius: 10px;
   color: black;
 }
-nav.internal {
-  display: flex;
-  justify-content: space-around;
+nav.internal > a.iconhome > img {
+  width: 90%;
+  max-width: max-content;
+  margin: 5% 0rem;
 }
-nav.internal {
-  padding: 1em;
-  margin: auto 0em;
+nav.internal .navlinks {
+  text-align: right;
   color: white;
+  text-decoration: none;
+  font-size: 1.5rem;
 }
-
 /*== PUBLIC LAYOUT SPECIFIC STYLING ==========================================*/
 nav.public,
 footer.public {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  margin: 0em;
+  margin: 0rem;
   background-color: black;
   color: white;
 }
@@ -127,23 +127,23 @@ nav.public .navtitle {
 }
 nav.public .navtitle span {
   display: block;
-  margin: auto 1em;
+  margin: auto 1rem;
   text-align: center;
-  font-size: 1.5em;
+  font-size: 1.5rem;
 }
 nav.public .authlinks {
   display: flex;
   justify-content: space-around;
 }
 nav.public .authlinks a {
-  padding: 1em;
-  margin: auto 0em;
+  padding: 1rem;
+  margin: auto 0rem;
   color: white;
 }
 footer.public {
-  padding: 3em;
+  padding: 3rem;
   text-align: left;
-  font-size: 0.8em;
+  font-size: 0.8rem;
 }
 /*== INDEX SPECIFIC STYLING ==================================================*/
 .index {
@@ -155,7 +155,7 @@ footer.public {
   z-index: 2;
   width: 95%;
   margin: auto;
-  padding: 1em;
+  padding: 1rem;
   text-align: center;
   position: relative;
   top: 20vh;
@@ -244,14 +244,14 @@ footer.public {
   margin: auto;
   border: var(--fotd-green) solid 1px;
   border-radius: 25px;
-  padding: 1em;
+  padding: 1rem;
 }
 .formblock input {
-  margin: 0.5em 0em;
-  padding: 0.5em;
+  margin: 0.5rem 0rem;
+  padding: 0.5rem;
 }
 .formblock input[type='submit'] {
-  padding: 1em;
+  padding: 1rem;
   -webkit-appearance: button;
 }
 .formblock label {
@@ -273,7 +273,7 @@ footer.public {
   display: grid;
   max-width: 90%;
   grid-template-columns: repeat(1, 1fr);
-  margin: auto auto 2em auto;
+  margin: auto auto 2rem auto;
 }
 .dashboard .recommendations {
   display: grid;
@@ -282,10 +282,10 @@ footer.public {
 .dashboard .filter {
   width: 100%;
   display: grid;
-  margin: auto auto 1em auto;
+  margin: auto auto 1rem auto;
   grid-template-columns: subgrid;
   text-align: center;
-  padding: 1em;
+  padding: 1rem;
 }
 .dashboard #filterform {
   display: grid;
@@ -296,23 +296,23 @@ footer.public {
 }
 .dashboard .filter label {
   display: none;
-  font-size: 0.8em;
+  font-size: 0.8rem;
   font-weight: bold;
   text-align: right;
-  margin: auto 1em;
+  margin: auto 1rem;
 }
 .dashboard .filter input[type='submit'] {
   background-color: var(--fotd-green);
   border-radius: 10px;
   border: none;
-  padding: 0.5em 1em;
+  padding: 0.5rem 1rem;
   margin: auto;
-  font-size: 0.8em;
+  font-size: 0.8rem;
 }
 
 .dashboard .outfit {
   text-align: center;
-  margin: auto 1em;
+  margin: auto 1rem;
 }
 .dashboard .outfit img {
   width: 100%;
@@ -329,8 +329,8 @@ footer.public {
   cursor: pointer;
   background-color: #f8f8f8;
   text-align: center;
-  margin: 1em auto;
-  padding: 1em 1em;
+  margin: 1rem auto;
+  padding: 1rem 1rem;
   max-width: 90%;
   border-radius: 5%;
   box-shadow: 0px 5px 5px rgba(16, 16, 16, 0.1);
@@ -341,62 +341,85 @@ footer.public {
   border-radius: 5%;
 }
 .closet .cardtext {
-  margin-top: 1em;
-  padding: 0em 1em 0em 1em;
-  font-size: 1.3em;
+  margin-top: 1rem;
+  padding: 0rem 1rem 0rem 1rem;
+  font-size: 1.4rem;
 }
 .closet .cardtext .desc {
-  padding-top: 0.4em;
-  font-size: 0.8em;
+  padding-top: 0.5rem;
+  font-size: 1rem;
 }
 .closet .closetControls {
   text-align: right;
-  padding-right: 2em;
+  padding-right: 2rem;
 }
 
 /*== SETTINGS SPECIFIC STYLING ================================================*/
 
 /*== ARTICLE SPECIFIC STYLING ================================================*/
 .article main {
-  margin-bottom: 1em;
+  margin-bottom: 1rem;
 }
 .article section.item-card {
   display: grid;
   grid-template-columns: 1fr;
-  margin: 0em auto;
+  margin: 0rem auto;
   width: 95%;
 }
 .article section.item-card p.desc {
-  margin-top: 0em;
+  margin-top: 0rem;
 }
 .article .item-card .item-image {
-  margin: 0em auto;
+  margin: 0rem auto;
   width: 100%;
   text-align: center;
 }
-.article .item-card .item-image img {
-  width: 100%;
+.article .item-card > .item-image > img {
+  max-width: 100%;
   height: 100%;
   text-align: center;
-  object-fit: cover;
 }
-.article .item-card .item-details {
+.article .item-card > .item-details {
   display: grid;
   grid-template-columns: 1fr;
   box-sizing: border-box;
-  padding: 0em 1em;
+  padding: 0rem 1rem;
   width: 100%;
-  margin: 0em auto;
+  margin: 0rem auto;
 }
-.article .item-card .item-details .options {
+.article .item-card > .item-details > .fineDetails > .detailEntry {
+  display: grid;
+  grid-template-columns: min-content auto;
+}
+.article .item-card > .item-details .detailEntry > *:nth-child(1) {
+  margin: auto 1rem auto 0rem;
+  font-size: 2rem;
+}
+.article .item-card > .item-details .detailEntry > .colorSwatch {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: rgba(0, 0, 0, 0.5) 2px solid;
+}
+.multiSwatch {
+  background: linear-gradient(
+    red,
+    orange,
+    yellow,
+    var(--fotd-green),
+    rgb(90, 153, 226),
+    violet
+  );
+}
+.article .item-card > .item-details > .options {
   display: flex;
   justify-content: space-between;
 }
-.article .item-card .item-details .options > * {
+.article .item-card > .item-details > .options > * {
   background-color: var(--fotd-green);
   color: var(--main-fg-color);
-  padding: 0.5em 1em;
-  margin: auto 0.5em;
+  padding: 0.5rem 1rem;
+  margin: auto 0.5rem;
   text-align: center;
   text-decoration: none;
   border-radius: 8px;
@@ -405,7 +428,7 @@ footer.public {
 .createArticle main,
 .editArticle main {
   max-width: 50%;
-  margin: 0em auto;
+  margin: 0rem auto;
 }
 .createArticle main .articleForm > form,
 .editArticle main .articleForm > form {
@@ -414,8 +437,8 @@ footer.public {
 }
 .createArticle main .articleForm > form > *,
 .editArticle main .articleForm > form > * {
-  padding: 0.2em;
-  margin: 0.5em;
+  padding: 0.2rem;
+  margin: 0.5rem;
 }
 .createArticle main .articleForm > form input[type='submit'],
 .createArticle main .articleForm a[role='button'],
@@ -423,8 +446,8 @@ footer.public {
 .editArticle main .articleForm a[role='button'] {
   font-family: Nunito, Helvetica, sans-serif;
   background-color: var(--fotd-green);
-  padding: 1em;
-  font-size: 0.9em;
+  padding: 1rem;
+  font-size: 0.9rem;
   border-radius: 10px;
   border: none;
   color: var(--main-fg);
@@ -443,7 +466,7 @@ footer.public {
 }
 .createArticle main .articleForm > form .slider span,
 .editArticle main .articleForm > form .slider span {
-  width: 4em;
+  width: 4rem;
   text-align: right;
 }
 .createArticle main .articleForm > form input[type='submit']:disabled,
@@ -456,7 +479,7 @@ footer.public {
   background-color: #fda3a3a4;
   grid-column: 1 / span 2;
   border-radius: 8px;
-  padding: 0.5em 1em;
+  padding: 0.5rem 1rem;
 }
 /* == Article Delete Dialog =========================== */
 .article .dialog {
@@ -490,10 +513,10 @@ footer.public {
   cursor: pointer;
 }
 .article .dialog .dialogContent > * {
-  padding: 1em;
+  padding: 1rem;
 }
 .article .dialog .dialogContent .header {
-  padding: 0.5em 1em;
+  padding: 0.5rem 1rem;
   border-radius: 10px 10px 0px 0px;
   background-color: #eee;
   display: flex;
@@ -501,17 +524,17 @@ footer.public {
 }
 .article .dialog .dialogContent .header h3 {
   display: inline-block;
-  margin: auto 0em;
+  margin: auto 0rem;
 }
 .article .dialog .dialogContent .dialogForm {
-  padding: 1em;
+  padding: 1rem;
   display: flex;
 }
 .article .dialog .dialogContent .dialogForm > button {
   color: var(--main-fg);
-  font-size: 1em;
-  margin-right: 1em;
-  padding: 0.2em 1em;
+  font-size: 1rem;
+  margin-right: 1rem;
+  padding: 0.2rem 1rem;
   border: 1px #aaa solid;
   border-radius: 5px;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
@@ -524,8 +547,8 @@ footer.public {
   transition: background-color ease-in-out 0.1s;
 }
 .article .dialog .close {
-  font-size: 1.3em;
-  padding: 0em 0.5em;
+  font-size: 1.3rem;
+  padding: 0rem 0.5rem;
   border: none;
 }
 .article .dialog .close:hover,
@@ -561,17 +584,29 @@ footer.public {
     grid-template-columns: repeat(2, 1fr);
   }
   .closet .article {
-    margin: 1em auto;
-    padding: 1em 1em;
+    margin: 1rem auto;
+    padding: 1rem 1rem;
     max-width: 100%;
   }
   /*== ACCOUNT SPECIFIC STYLING ================================================*/
   /*== ARTICLE SPECIFIC STYLING ================================================*/
   .article section.item-card {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: max-content 1fr;
+    margin-top: 1rem;
+  }
+  .article section.item-card > .item-image > img {
+    height: auto;
   }
   .article section.item-card > :nth-child(2) {
-    margin-left: 1em;
+    margin-left: 1rem;
+  }
+  .article section.item-card > .item-details > .options {
+    flex-direction: column;
+  }
+  .article section.item-card > .item-details > .options > a {
+    width: 80%;
+    margin-top: 1rem;
+    margin-left: 0em;
   }
   /* == Article Delete Dialog =========================== */
   .article .dialog .dialogContent {
@@ -597,8 +632,8 @@ footer.public {
     grid-template-columns: repeat(3, 1fr);
   }
   .closet .article {
-    margin: 1em 1em;
-    padding: 1em 1em;
+    margin: 1rem 1rem;
+    padding: 1rem 1rem;
     max-width: 100%;
   }
   /*== SETTINGS SPECIFIC STYLING ================================================*/
@@ -612,13 +647,14 @@ footer.public {
     box-shadow: 8px 8px 25px rgba(16, 16, 16, 0.3);
   }
   /*== ARTICLE SPECIFIC STYLING ================================================*/
-  .article section.item-card {
-    grid-template-columns: 40% 60%;
-  }
-  .article .item-card .item-details .options {
-    display: flex;
+  .article section.item-card > .item-details > .options {
+    flex-direction: row;
     justify-content: flex-start;
-    width: 50%;
+    width: 15rem;
+  }
+  .article section.item-card > .item-details > .options > a {
+    width: 100%;
+    margin: auto 0.5rem;
   }
   /* == Article Delete Dialog =========================== */
   .article .dialog .dialogContent {
@@ -644,14 +680,11 @@ footer.public {
     grid-template-columns: repeat(4, 1fr);
   }
   .closet .article {
-    margin: 1em 1em;
-    padding: 1em 1em;
+    margin: 1rem 1rem;
+    padding: 1rem 1rem;
     max-width: 100%;
   }
   /*== ARTICLE SPECIFIC STYLING ================================================*/
-  .article section.item-card {
-    grid-template-columns: 35% 65%;
-  }
   /* == Article Delete Dialog =========================== */
   .article .dialog .dialogContent {
     width: 50%;
@@ -675,15 +708,12 @@ footer.public {
     grid-template-columns: repeat(5, 1fr);
   }
   .closet .article {
-    margin: 1em 1em;
-    padding: 1em 1em;
+    margin: 1rem 1rem;
+    padding: 1rem 1rem;
     max-width: 100%;
   }
   /*== ACCOUNT SPECIFIC STYLING ================================================*/
   /*== ARTICLE SPECIFIC STYLING ================================================*/
-  .article section.item-card {
-    grid-template-columns: 30% 70%;
-  }
   /* == Article Delete Dialog =========================== */
   .article .dialog .dialogContent {
     width: 40%;
