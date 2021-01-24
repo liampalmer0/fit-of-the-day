@@ -73,7 +73,7 @@ async function createArticle(req, res, next) {
       desc: req.body.desc,
       dirty,
       garmentTypeId: catIds[0],
-      color: req.body.color,
+      color: parseInt(req.body.color.slice(1), 16),
       dressCodeId: catIds[1],
       ratingId: '5',
       tempMin: req.body.tempMin,
@@ -84,7 +84,9 @@ async function createArticle(req, res, next) {
       success: { msg: 'Article created successfully' },
       error: false
     };
-    res.redirect(`/${req.session.username}/closet/article?id=${dbRes.dataValues.articleId}`);
+    res.redirect(
+      `/${req.session.username}/closet/article?id=${dbRes.dataValues.articleId}`
+    );
   } catch (err) {
     if (process.env.NODE_ENV === 'development') {
       console.log(err);
@@ -117,7 +119,7 @@ async function editArticle(req, res, next) {
         desc: req.body.desc,
         dirty,
         garmentTypeId: catIds[0],
-        color: req.body.color,
+        color: parseInt(req.body.color.slice(1), 16),
         dressCodeId: catIds[1],
         // ratingId: '5',
         tempMin: req.body.tempMin,
@@ -213,7 +215,7 @@ function showArticle(req, res, next) {
           articleId: rows[0].articleId,
           name: rows[0].name,
           desc: rows[0].desc,
-          color: rows[0].color,
+          color: rows[0].color.toString(16).padStart(6, '0'),
           dirty: rows[0].dirty,
           garmentType: rows[0].garmentType.dataValues.name,
           dressCode: rows[0].dressCode.dataValues.name,
@@ -244,7 +246,8 @@ function showCreate(req, res, next) {
     title: 'FOTD - Create Article',
     pagename: 'createArticle',
     action: 'new',
-    submitVal: 'Create'
+    submitVal: 'Create',
+    username: req.session.username
   };
   res.locals.toParent = '../../';
   res.render('create-article', data);
@@ -262,14 +265,15 @@ function showEdit(req, res, next) {
           articleId: rows[0].articleId,
           name: rows[0].name,
           desc: rows[0].desc,
-          color: rows[0].color,
+          color: rows[0].color.toString(16).padStart(6, '0'),
           dirty: rows[0].dirty,
           garmentType: rows[0].garmentType.dataValues.name,
           dressCode: rows[0].dressCode.dataValues.name,
           tempMin: rows[0].tempMin,
           tempMax: rows[0].tempMax,
           filepath: rows[0].filepath
-        }
+        },
+        username: req.session.username
       };
       data.action = '';
       data.submitVal = 'Save';

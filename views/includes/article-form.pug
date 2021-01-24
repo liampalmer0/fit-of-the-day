@@ -11,18 +11,12 @@ form(action=action method='post' id='articleForm')
     textarea(id='desc' type='text' name='desc' placeholder='Description' rows='6')=article.desc
   else
     textarea(id='desc' type='text' name='desc' placeholder='Description' rows='6')
-  
-  - const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'brown', 'black', 'white', 'multiple']
+      
   label(for='color') Color
-  select(id='color' name='color')
-    each color in colors
-      if article
-        if article.color === color
-          option(value=color selected)=color
-        else 
-          option(value=color)=color
-      else 
-        option(value=color)=color
+  if article
+    input(type='color' id='color' name='color' value= '#' + article.color) 
+  else 
+    input(type='color' id='color' name='color' value= '#a6e09a')
   
   - const types = ['top', 'bottom', 'one piece']
   label(for='type') Type
@@ -76,7 +70,10 @@ form(action=action method='post' id='articleForm')
   
   p.tempAlert Minimum Temperature is greater than Maximum Temperature
 
-  a(role='button' href='javascript:history.back()') Cancel
+  if article
+    a(role='button' href='/' + username + '/closet/article?id=' + article.articleId) Cancel
+  else
+    a(role='button' href='/' + username + '/closet') Cancel
 
   input(type='submit' value=submitVal )
 
