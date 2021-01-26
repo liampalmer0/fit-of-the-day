@@ -197,7 +197,6 @@ async function deleteArticle(req, res, next) {
   }
 }
 function showArticle(req, res, next) {
-  res.locals.toParent = '../';
   let success = req.session.opStatus.success;
   let error = req.session.opStatus.error;
   getArticle(req.query.id, req.session.username)
@@ -246,10 +245,8 @@ function showCreate(req, res, next) {
     title: 'FOTD - Create Article',
     pagename: 'createArticle',
     action: 'new',
-    submitVal: 'Create',
-    username: req.session.username
+    submitVal: 'Create'
   };
-  res.locals.toParent = '../../';
   res.render('create-article', data);
 }
 function showEdit(req, res, next) {
@@ -272,12 +269,10 @@ function showEdit(req, res, next) {
           tempMin: rows[0].tempMin,
           tempMax: rows[0].tempMax,
           filepath: rows[0].filepath
-        },
-        username: req.session.username
+        }
       };
       data.action = '';
       data.submitVal = 'Save';
-      res.locals.toParent = '../../';
       res.render('edit-article', data);
     })
     .catch((err) => {
