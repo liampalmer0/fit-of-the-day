@@ -12,7 +12,7 @@ The basic path every change follows is :
 
 ## Helpful Git Commands
 
-`git pull` - pull from remote repository
+`git pull --rebase` - fetch and rebase from remote repository
 
 `git push` - push to remote repository
 
@@ -22,7 +22,7 @@ The basic path every change follows is :
 
 `git branch` - see what branch you're on
 
-`git merge <branch name>` - merge a branch into the one you're on
+`git rebase -i <branch name>` - start an interactive rebase with the specified branch and your current branch
 
 `git switch <branch name>` - switch to branch
 
@@ -46,9 +46,19 @@ Write code and mocha/nightwatch tests
 
 Then run all tests to validate
 
+### ESLint
+
+ESLint will run automatically with `npm test` and warn about code styling/best practice
+
+You can run the ESLint check by itself with `npm pretest`. To have ESLint fix any problems it can, run `npm run pretest -- --fix`
+
 ### Run Mocha Unit Tests
 
 `npm test`
+
+To run a specific test file you can call `mocha` directly and pass it the file path of the test file you want to test
+
+`./node_modules/mocha/bin/mocha ./path/to/test`
 
 ### Run Nightwatch Browser Tests (Chrome)
 *Note: Local server must be running for browser tests*

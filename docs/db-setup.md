@@ -39,12 +39,18 @@ To connect just run :
 3. Connect to the new database with `\c fotd <your-username>`
 
 ## Adding the test data
-Run the database script `db/scripts/create_main_tables.sql`
+Use Node to run the standalone sequelize sync script to create the tables.
+
+`node ./sequelize/sync force` (will delete any existing data)
+
+or 
+
+`node ./sequelize/sync alter`
+
+Then run the insert script
   - For running script with psql
     1. `\! pwd` to see where you are 
-    2. `\i <path/to/create_main_tables.sql>` to run it
-
-<mark>The script should return a test result with **11 rows**</mark>
+    2. `\i <path/to/script>` to run it
 
 ## Creating the test user
 Create the db user cher by running
