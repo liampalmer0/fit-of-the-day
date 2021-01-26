@@ -5,7 +5,21 @@ nav(role='navigation').internal
     if (pagename === 'dashboard')
       include weather
       include calendar
-  a(name='dashboard' class='navlinks' href= toParent + 'dashboard') Dashboard
-  a(name='closet' class='navlinks' href= toParent + 'closet') Closet
-  a(class='navlinks' href= toParent + 'settings') More
-  a(name='logout' class='navlinks' href= '/logout') Logout
+  .navlinks
+    a(class='' href= toParent + 'dashboard') Dashboard
+      span
+        img(src='/icons/homeicon.png' width='20' height='20')
+    a(class='' href= toParent + 'closet') Closet
+      span
+        img(src='/icons/folder.png' width='20' height='20')
+    .dropdown
+      div(class='') More
+        img(src='/icons/more.png' width='20' height='20')
+      .ddcontent
+        a.ddlink(href= toParent + 'account') Account
+        a.ddlink(href= toParent + 'about') About FOTD
+        a.ddlink(href= toParent + 'settings') Password
+        a.ddlink(href= toParent + 'help') Help
+    a(class='' href= '/logout') Logout
+      span
+        img(src='/icons/logout.png' width='20' height='20')
