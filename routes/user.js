@@ -6,7 +6,7 @@ const closetRouter = require('./closet');
 const accountRouter = require('./account');
 
 router.use((req, res, next) => {
-  res.locals.toParent = '';
+  res.locals.username = req.session.username;
   next();
 });
 
