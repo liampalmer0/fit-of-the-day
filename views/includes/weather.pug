@@ -1,8 +1,8 @@
 .weatherWidget
-  unless weather == 'Weather Unavailable'
+  unless weather == 'Weather Unavailable' 
     span #{weather.city} 
-    img(src='http://openweathermap.org/img/wn/' + weather.icon + '.png')
     span #{weather.current} ºF
+    img(src='http://openweathermap.org/img/wn/' + weather.icon + '.png')
   else
     .widgetError
       p Error: Weather Unavailable

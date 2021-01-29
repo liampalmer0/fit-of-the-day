@@ -13,21 +13,34 @@ function handleDivButtons() {
   }
 }
 
+function handleFilterDropdown() {
+  const viewFilter = document.querySelector('#viewFilter');
+  const arrow = document.querySelector('#viewFilter > span');
+  const filters = document.querySelector('#filterForm');
+  viewFilter.addEventListener('click', () => {
+    if (filters.style.display === 'grid') {
+      filters.style.display = 'none';
+      arrow.innerHTML = '&darr;';
+    } else {
+      filters.style.display = 'grid';
+      arrow.innerHTML = '&uarr;';
+    }
+  });
+}
+
 function setupSliders() {
-  let sliderMin = document.getElementById('tempMin');
-  let outputMin = document.getElementById('minVal');
-  outputMin.innerHTML = sliderMin.value;
+  let slider = document.querySelectorAll('.sliderContainer input');
+  let output = document.querySelectorAll('.sliderContainer span');
+  for (let i = 0; i < slider.length; i++) {
+    output[i].innerHTML = slider[i].value;
 
-  sliderMin.oninput = function () {
-    outputMin.innerHTML = this.value;
-  };
-
-  let sliderMax = document.getElementById('tempMax');
-  let outputMax = document.getElementById('maxVal');
-  outputMax.innerHTML = sliderMax.value;
-
-  sliderMax.oninput = function () {
-    outputMax.innerHTML = this.value;
+    slider[i].oninput = function () {
+      output[i].innerHTML = this.value;
+    };
+  }
+  document.querySelector('.filterForm').onreset = function () {
+    output[0].innerHTML = '-15';
+    output[1].innerHTML = '120';
   };
 }
 
@@ -64,6 +77,7 @@ function setupAjax() {
 
 window.onload = function () {
   handleDivButtons();
+  handleFilterDropdown();
   setupSliders();
   setupAjax();
 };

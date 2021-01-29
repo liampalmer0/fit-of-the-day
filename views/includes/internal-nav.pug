@@ -1,25 +1,26 @@
 nav(role='navigation').internal
-  a(class='iconhome' href= '/' + username + '/dashboard')
-    img(src='/icons/smallicon.png' alt='Fit of the Day badge logo')
-  .widgets
-    if (pagename === 'dashboard')
-      include weather
-      include calendar
-  .navlinks
-    a(class='' href= '/' + username + '/dashboard') Dashboard
-      span
-        img(src='/icons/homeicon.png' width='20' height='20')
-    a(class='' href= '/' + username + '/closet') Closet
-      span
-        img(src='/icons/folder.png' width='20' height='20')
-    .dropdown
-      div(class='') More
-        img(src='/icons/more.png' width='20' height='20')
-      .ddcontent
-        a.ddlink(href= '/' + username + '/account') Account
-        a.ddlink(href= '/' + username + '/about') About FOTD
-        a.ddlink(href= '/' + username + '/settings') Password
-        a.ddlink(href= '/' + username + '/help') Help
-    a(class='' href= '/logout') Logout
-      span
-        img(src='/icons/logout.png' width='20' height='20')
+    a(class='iconhome' href= '/' + username + '/dashboard')
+      img(src='/icons/smallicon.png' alt='Fit of the Day badge logo')
+    .widgets
+      if (pagename === 'dashboard')
+        include weather
+        include calendar
+    .navlinks
+      a(class='' href= '/' + username + '/dashboard') Dashboard
+        span
+          img(src='/icons/homeicon.png' width='20' height='20')
+      a(class='' href= '/' + username + '/closet') Closet
+        span
+          img(src='/icons/folder.png' width='20' height='20')
+      .dropdown
+        div(class='') More
+          img(src='/icons/more.png' width='20' height='20')
+        .ddcontent
+          a.ddlink(href= '/' + username + '/account') Account
+          a.ddlink(href= '/' + username + '/about') About FOTD
+          a.ddlink(href= '/' + username + '/settings') Password
+          a.ddlink(href= '/' + username + '/help') Help
+      a(class='' href= '/logout') Logout
+        span
+          img(src='/icons/logout.png' width='20' height='20')
+  
