@@ -8,56 +8,62 @@ block content
     else if error
       p.error Error: #{error.msg}
   aside.closetControls
-    a(id='newArticle' href='closet/article/new') New Article
-    form(method='post' id='closetFilterForm')
-      label(for='color') Color
-      select(id='color' name='color')
-        option(value='' selected) -- color --
-        option(value='red') Red 
-        option(value='orange') Orange 
-        option(value='yellow') Yellow 
-        option(value='green') Green 
-        option(value='blue') Blue 
-        option(value='purple') Purple 
-        option(value='brown') Brown 
-        option(value='black') Black 
-        option(value='white') White 
-        option(value='multiple') Multiple 
-
-      label(for='type') Type
-      select(id='type' name='type')
-        option(value='' selected) -- type --
-        option(value='1') Top
-        option(value='2') Bottom
-        option(value='3') One-Piece
-
-      label(for='dresscode') Dress Code
-      select(id='dresscode' name='dresscode')
-        option(value='' selected) -- dress code --
-        option(value='1') Casual
-        option(value='2') Semi-Formal
-        option(value='3') Formal
-
-      label(for='dirty') Clean
-      select(id='dirty' name='dirty')
-        option(value='' selected) -- all --
-        option(value='f') Clean
-        option(value='t') Dirty
-      fieldset.temperatureSliders
+    .buttons
+      button(role='button' type='button' id='viewFilter') Filters <span class='arrow'> &darr; </span>
+      .operations
+        a(role='button' href='closet/laundryDay') Laundry Day
+        a(id='newArticle' href='closet/article/new') New Article
+        a(id='newOutfit' href='closet/outfit/') New Outfit
+    form(method='post' id='filterForm' class='hide').filterForm
+      .color
+        label(for='color') Color
+        select(id='color' name='color')
+          option(value='' selected) -- color --
+          option(value='red') Red 
+          option(value='orange') Orange 
+          option(value='yellow') Yellow 
+          option(value='green') Green 
+          option(value='blue') Blue 
+          option(value='purple') Purple 
+          option(value='brown') Brown 
+          option(value='black') Black 
+          option(value='white') White 
+          option(value='multiple') Multiple 
+      .type
+        label(for='type') Type
+        select(id='type' name='type')
+          option(value='' selected) -- type --
+          option(value='1') Top
+          option(value='2') Bottom
+          option(value='3') One-Piece
+      .dresscode
+        label(for='dresscode') Dress Code
+        select(id='dresscode' name='dresscode')
+          option(value='' selected) -- dress code --
+          option(value='1') Casual
+          option(value='2') Semi-Formal
+          option(value='3') Formal
+      .dirty
+        label(for='dirty') Clean
+        select(id='dirty' name='dirty')
+          option(value='' selected) -- all --
+          option(value='f') Clean
+          option(value='t') Dirty
+      fieldset.temperature
         legend Temperature Range
         label(for='tempMin') Min.
         .sliderContainer
+          span
           input(type='range' min='-15' max='120' value='-15' class='slider' id='tempMin' name='tempMin')
-          span#minVal
 
         label(for='tempMax') Max.
         .sliderContainer
+          span
           input(type='range' min='-15' max='120' value='120' class='slider' id='tempMax' name='tempMax')
-          span#maxVal
-
-      input(id='submitFilters' type='submit' value='Filter')
-      input(id='filterReset' type='reset' value='Reset Filters')
-    a(role='button' href='closet/laundryDay') Laundry Day
+      .formControls
+        input(id='submitFilters' type='submit' value='Filter')
+        input(id='filterReset' type='reset' value='Reset Filters')
+    
 
   main
     include includes/closet-articles
