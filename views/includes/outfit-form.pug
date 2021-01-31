@@ -1,0 +1,24 @@
+mixin item(type, imgPath, name, desc)
+  input(type='radio' name=type)
+  .cardimg
+    img(src=imgPath alt='A preview image of the article')
+  .cardtext
+    .name= name
+    .desc= desc
+mixin chooser(title, active, type, items)
+  fieldset(active=active)
+    legend=title
+    each item in items
+      +item(
+        type,
+        '/user_img/liam/' + item.dataValues.filepath,
+        item.dataValues.name, 
+        item.dataValues.desc
+      )
+if tops
+  +chooser('Tops', 'active', 'top', tops)
+if bottoms
+  +chooser('Bottoms', 'active', 'bottom', bottoms)
+if singles
+  +chooser('Singles', 'active', 'single', singles)
+

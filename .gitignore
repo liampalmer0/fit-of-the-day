@@ -119,3 +119,8 @@ tests_output/
 keys.json
 .gitsecret/keys/random_seed
 !*.secret
+
+#tensorflow training data
+tensorflow/data/rated-data.csv
+tensorflow/data/temperatures.csv
+version0/
