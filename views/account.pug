@@ -11,4 +11,11 @@ block content
       img(src='/icons/aboutbutton.png' alt='About this app button')
     a(class='buttonright' href='/closet') 
       img(src='/icons/helpbutton.png' alt='Help with this app button')
+  button(type="button" id="locate-me") Use Current Location
+  form(method='post' id='weatherZipCode')
+    label(for='zipCode') Set new zip code 
+    input(id='zipCodeInput' type='text' name='zipCodeInput' placeholder='zip code' pattern='[0-9]*' maxlength='5')
+    input(id='submitZipCode' type='submit' value='Save')  
 
+  p.msg
+  script(src="/scripts/account_page.js")

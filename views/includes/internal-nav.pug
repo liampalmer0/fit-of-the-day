@@ -3,8 +3,10 @@ nav(role='navigation').internal
       img(src='/icons/smallicon.png' alt='Fit of the Day badge logo')
     .widgets
       if (pagename === 'dashboard')
-        include weather
-        include calendar
+        div
+          include weather
+        div 
+          include calendar
     .navlinks
       a(class='' href= '/' + username + '/dashboard') Dashboard
         span

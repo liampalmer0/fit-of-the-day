@@ -2,11 +2,11 @@ extends layout
 
 block content
   include includes/internal-nav
+  button(type="button" id="locate-me") Use Current Location
   main(role='main')
     .controls
       button(name="regenerate") &#128260; Refresh
       button(name="filter") &darr; Filter
-      .triangle
       .filter
         form(action='' method='post' id='filterform')
           label(for='type') Type:

@@ -65,7 +65,7 @@ footer {
 /*== INTERNAL NAV SPECIFIC STYLING ==========================================*/
 nav.internal {
   display: grid;
-  grid-template-columns: max-content auto auto;
+  grid-template-columns: 1fr;
   background-color: #000000;
   color: #ffffff;
   padding: 0.5rem 0.5rem;
@@ -77,11 +77,11 @@ nav.internal > .widgets {
   grid-template-columns: repeat(1, 1fr);
   grid-template-rows: repeat(2, 1fr);
   text-align: center;
-  width: 90%;
+  max-width: 100%;
 }
 nav.internal > .widgets div {
   display: grid;
-  margin: 0.25rem 0.5rem;
+  margin: 0.25rem 0rem;
   text-align: center;
 }
 nav.internal .widgets .calWidget,
@@ -90,7 +90,6 @@ nav.internal .widgets .weatherWidget {
   background-color: black;
   justify-content: space-between;
   overflow: hidden;
-  height: 2rem;
 }
 nav.internal .widgets .weatherWidget > span,
 nav.internal .widgets .calWidget > span {
@@ -98,6 +97,7 @@ nav.internal .widgets .calWidget > span {
 }
 nav.internal .widgets .weatherWidget img {
   background-color: white;
+  margin-right: 0.25rem;
   border-radius: var(--fotd-border-radius);
   max-width: 50px;
   width: 100%;
@@ -105,6 +105,8 @@ nav.internal .widgets .weatherWidget img {
 }
 nav.internal > .navlinks {
   display: flex;
+  grid-row: 2;
+  max-width: 100%;
   justify-content: flex-end;
 }
 nav.internal .navlinks > a,
@@ -434,6 +436,10 @@ footer.public {
   padding: 0.5rem;
   margin: 1rem 0rem 0rem 0rem;
   font-size: 1.1rem;
+  cursor: pointer;
+}
+.dashboard .controls button:active {
+  background-color: var(--fotd-green-med);
 }
 .dashboard .controls button[name='filter'] {
   background-color: var(--main-fg);
@@ -823,6 +829,12 @@ footer.public {
   nav.public .authlinks {
     justify-content: flex-end;
     text-align: right;
+  }
+  nav.internal {
+    grid-template-columns: 1fr 3fr 8fr;
+  }
+  nav.internal > .navlinks {
+    grid-row: auto;
   }
   /*== INDEX SPECIFIC STYLING ==================================================*/
   .index main > h1 {
