@@ -80,8 +80,6 @@ nav.internal > .widgets {
   grid-template-rows: repeat(2, 1fr);
   text-align: center;
   width: 90%;
-  border-right: 2px solid white;
-  border-left: 2px solid white;
 }
 nav.internal > .widgets div {
   display: grid;
@@ -342,6 +340,10 @@ footer.public {
   grid-template-columns: repeat(1, 1fr);
   margin: auto auto 2rem auto;
 }
+.dashboard .widgets {
+  border-right: 2px solid white;
+  border-left: 2px solid white;
+}
 .dashboard .recommendations {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -386,35 +388,43 @@ footer.public {
   max-width: max-content;
   border-radius: 10px;
 }
-/*== CLOSET SPECIFIC STYLING =================================================*/
-
-.closet main {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-}
-.closet .article {
-  cursor: pointer;
+/*== ARTICLE CARD STYLING ====================================================*/
+.card {
+  position: relative;
   background-color: #f8f8f8;
   text-align: center;
   margin: 1rem auto;
   padding: 1rem 1rem;
-  max-width: 90%;
   border-radius: 5%;
   box-shadow: 0px 5px 5px rgba(16, 16, 16, 0.1);
 }
-.closet .cardimg img {
+.card input {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+.cardimg img {
   width: 100%;
   height: auto;
   border-radius: 5%;
 }
-.closet .cardtext {
+.cardtext {
   margin-top: 1rem;
   padding: 0rem 1rem 0rem 1rem;
   font-size: 1.4rem;
 }
-.closet .cardtext .desc {
+.cardtext .desc {
   padding-top: 0.5rem;
   font-size: 1rem;
+}
+/*== CLOSET SPECIFIC STYLING =================================================*/
+.closet main {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+}
+.closet .article.card {
+  cursor: pointer;
+  max-width: 90%;
 }
 .closet .closetControls {
   text-align: right;
@@ -497,6 +507,87 @@ footer.public {
   background-color: black;
   color: white;
   border: none;
+}
+/*== OUTFIT SPECIFIC STYLING ===========================================*/
+.outfit > main > .controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 1rem;
+  position: relative;
+}
+.outfit > main > .controls > button {
+  border: none;
+  border-bottom: 3px solid #e0e0e0;
+  cursor: pointer;
+  padding: 1rem 1rem 0.75rem 1rem;
+}
+.outfit > main > .controls > button[current='true'] {
+  border-bottom: 3px solid var(--fotd-green-med);
+  background-color: var(--fotd-green);
+}
+.outfit > main > .controls > button:hover {
+  border-color: var(--fotd-green-med);
+  transition: border-color 0.3s ease-out;
+}
+.outfitForm {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.outfitForm .staticContainer {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+  /* Move fixed postition btn in front of fields*/
+  z-index: 1;
+  width: 100%;
+  border: none;
+  padding: 0.5rem 1.25rem;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+.outfitForm .staticContainer > input[type='submit'] {
+  cursor: pointer;
+  border-radius: 8px;
+  background-color: rgb(255, 196, 145);
+  width: 60%;
+  padding: 1rem;
+  font-size: 1.2rem;
+  border: none;
+  border-bottom: 3px solid rgb(209, 138, 77);
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2);
+}
+.outfitForm .staticContainer > input[type='submit']:active {
+  height: calc(height-3px);
+  border: none;
+}
+.outfitForm > .cardContainers .single {
+  display: none;
+}
+.outfitForm > .cardContainers fieldset {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 0.25rem 0rem 2rem 0rem;
+  border: none;
+  border-radius: 8px;
+  margin: 0rem 1.5rem 2.5rem 1.5rem;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+.outfitForm > .cardContainers fieldset > legend {
+  border-radius: 8px;
+  background-color: #efefef;
+  padding: 0.25rem 0rem;
+  width: 100%;
+  text-align: center;
+  grid-column-start: 1;
+  grid-column-end: -1;
+}
+.outfitForm > .cardContainers fieldset > .card {
+  display: grid;
+  margin: 0.5rem;
+  grid-template-columns: 4fr 3fr;
 }
 /*== SETTINGS SPECIFIC STYLING ================================================*/
 
@@ -733,6 +824,17 @@ footer.public {
     max-width: 100%;
   }
   /*== ACCOUNT SPECIFIC STYLING ================================================*/
+  /*== OUTFIT CREATE FORM  =====================================================*/
+  .outfitForm > .cardContainers fieldset {
+    grid-template-columns: repeat(2, 1fr);
+    /* margin:1rem; */
+    /* max-height: 50vh; */
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+  .outfitForm > .cardContainers fieldset > .card {
+    grid-template-columns: 1fr;
+  }
   /*== ARTICLE SPECIFIC STYLING ================================================*/
   .article section.item-card {
     grid-template-columns: max-content 1fr;
@@ -790,6 +892,13 @@ footer.public {
     border-radius: 25px;
     box-shadow: 8px 8px 25px rgba(16, 16, 16, 0.3);
   }
+  /*== OUTFIT CREATE FORM  =====================================================*/
+  .outfitForm > .cardContainers fieldset {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .outfitForm > .cardContainers fieldset > .card {
+    grid-template-columns: 1fr;
+  }
   /*== ARTICLE SPECIFIC STYLING ================================================*/
   .article section.item-card > .item-details > .options {
     flex-direction: row;
@@ -834,6 +943,10 @@ footer.public {
     width: 50%;
   }
   /*== SETTINGS SPECIFIC STYLING ================================================*/
+  /*== OUTFIT CREATE FORM  =====================================================*/
+  .outfitForm > .cardContainers fieldset {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 /* // Extra large screen / wide desktop */
 @media only screen and (min-width: 1200px) {
@@ -861,6 +974,10 @@ footer.public {
   /* == Article Delete Dialog =========================== */
   .article .dialog .dialogContent {
     width: 40%;
+  }
+  /*== OUTFIT CREATE FORM  =====================================================*/
+  .outfitForm > .cardContainers fieldset {
+    grid-template-columns: repeat(5, 1fr);
   }
 }
 /*== LOGIN & SIGNUP SPECIFIC STYLING ===================================*/

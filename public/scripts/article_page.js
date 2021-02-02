@@ -38,6 +38,6 @@ function setupBtnHandlers() {
   };
 }
 
-window.onload = function () {
+document.addEventListener('DOMContentLoaded', () => {
   setupBtnHandlers();
-};
+});

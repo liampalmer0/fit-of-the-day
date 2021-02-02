@@ -4,6 +4,10 @@ block content
   include includes/internal-nav
   main(role='main')
     h1 Create Outfit
-    .outfitForm 
+    .controls
+      button(id='tb' value='topbtm' current='true') Top & Bottom
+      button(id='single' value='single') Single
+    form.outfitForm(action='' method='post') 
       include includes/outfit-form
+    script(src="/scripts/create_outfit_page.js")
     

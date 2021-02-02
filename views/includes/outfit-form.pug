@@ -1,24 +1,31 @@
-mixin item(type, imgPath, name, desc)
-  input(type='radio' name=type)
-  .cardimg
-    img(src=imgPath alt='A preview image of the article')
-  .cardtext
-    .name= name
-    .desc= desc
-mixin chooser(title, active, type, items)
-  fieldset(active=active)
+mixin item(articleId, group, imgPath, name, desc)
+  .article.card
+    .cardimg
+      img(src=imgPath alt='A preview image of the article')
+    .cardtext
+      .name= name
+      .desc= desc
+    input(type='radio' name=group, value=articleId, required)
+mixin cardDisplay(title, active, group, items)
+  fieldset(disabled=active)
     legend=title
     each item in items
       +item(
-        type,
+        item.dataValues.articleId,
+        group,
         '/user_img/liam/' + item.dataValues.filepath,
         item.dataValues.name, 
         item.dataValues.desc
       )
-if tops
-  +chooser('Tops', 'active', 'top', tops)
-if bottoms
-  +chooser('Bottoms', 'active', 'bottom', bottoms)
-if singles
-  +chooser('Singles', 'active', 'single', singles)
+.staticContainer      
+  input(type='submit' value="Create Outfit")
+div.cardContainers
+  .topbtm
+    if tops
+      +cardDisplay('Tops', false, 'top', tops)
+    if bottoms
+      +cardDisplay('Bottoms', false, 'bottom', bottoms)
+  .single
+    if singles
+      +cardDisplay('Singles', 'disabled', 'single', singles)
 

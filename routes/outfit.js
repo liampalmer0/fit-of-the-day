@@ -38,6 +38,7 @@ router.get('/new', (req, res) => {
       console.log(articles);
       res.render('create-outfit', {
         pagename: 'outfit',
+        title: 'FOTD - Create Outfit',
         tops: articles.tops,
         bottoms: articles.bottoms,
         singles: articles.singles
@@ -50,7 +51,31 @@ router.get('/new', (req, res) => {
 router.post('/new', (req, res) => {
   // add row with the given article(s) to outfit table
   // if single item outfit, associate it with itself
-  res.send(`you just posted \n ${req.body}`);
+  let article = -1;
+  let partner = -1;
+  if (req.body.single) {
+    article = req.body.single;
+    partner = req.body.single;
+  } else if (req.body.top && req.body.bottom) {
+    article = req.body.top;
+    partner = req.body.bottom;
+  }
+  models.outfit
+    .create({
+      articleArticleId: article,
+      partnerArticleId: partner,
+      name: 'createdOutfit',
+      favorite: true
+    })
+    .then(function (result) {
+      res.send(JSON.stringify(result));
+    })
+    .catch((err) => {
+      if (process.env.NODE_ENV === 'development') {
+        console.log(err);
+      }
+      res.send('Outfit combo already exists');
+    });
 });
 
 module.exports = router;
