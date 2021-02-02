@@ -4,8 +4,6 @@ const minTemp = document.getElementById('minval');
 const maxTemp = document.getElementById('maxval');
 const submit = document.querySelector("input[type='submit']");
 const tempAlert = document.querySelector('.tempAlert');
-minTemp.innerHTML = minTempSlider.value;
-maxTemp.innerHTML = maxTempSlider.value;
 
 function check(min, max) {
   if (parseInt(min) > parseInt(max)) {
@@ -16,12 +14,16 @@ function check(min, max) {
     tempAlert.style.display = 'none';
   }
 }
-// update the slider val on change
-minTempSlider.oninput = function () {
-  minTemp.innerHTML = this.value;
-  check(minTemp.innerHTML, maxTemp.innerHTML);
-};
-maxTempSlider.oninput = function () {
-  maxTemp.innerHTML = this.value;
-  check(minTemp.innerHTML, maxTemp.innerHTML);
-};
+document.addEventListener('DOMContentLoaded', () => {
+  minTemp.innerHTML = minTempSlider.value;
+  maxTemp.innerHTML = maxTempSlider.value;
+  // update the slider val on change
+  minTempSlider.oninput = function () {
+    minTemp.innerHTML = this.value;
+    check(minTemp.innerHTML, maxTemp.innerHTML);
+  };
+  maxTempSlider.oninput = function () {
+    maxTemp.innerHTML = this.value;
+    check(minTemp.innerHTML, maxTemp.innerHTML);
+  };
+});
