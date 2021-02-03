@@ -11,6 +11,7 @@
   --fotd-green: rgb(166, 224, 154);
   --fotd-green-med: rgb(150, 201, 139);
   --fotd-green-dark: rgb(100, 150, 110);
+  --fotd-border-radius: 10px;
 }
 .screen-reader {
   position: absolute;
@@ -37,7 +38,7 @@ footer {
   width: 95%;
   padding: 0.5rem;
   margin: 0.5rem auto;
-  border-radius: 8px;
+  border-radius: var(--fotd-border-radius);
   text-align: center;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
 }
@@ -57,7 +58,7 @@ footer {
   margin: 0.5rem auto;
   font-weight: bold;
   text-align: center;
-  border-radius: 8px;
+  border-radius: var(--fotd-border-radius);
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
 }
 
@@ -70,9 +71,6 @@ nav.internal {
   padding: 0.5rem 0.5rem;
   margin: auto 0rem;
   text-align: left;
-}
-nav.internal > a {
-  margin: auto;
 }
 nav.internal > .widgets {
   display: grid;
@@ -100,7 +98,7 @@ nav.internal .widgets .calWidget > span {
 }
 nav.internal .widgets .weatherWidget img {
   background-color: white;
-  border-radius: 8px;
+  border-radius: var(--fotd-border-radius);
   max-width: 50px;
   width: 100%;
   object-fit: cover;
@@ -118,10 +116,10 @@ nav.internal .navlinks > div {
   color: white;
   text-decoration: none;
   font-size: 1.3rem;
-  border-radius: 10px;
+  border-radius: var(--fotd-border-radius);
 }
 nav.internal .navlinks > div.dropdown {
-  border-radius: 10px 10px 0px 0px;
+  border-radius: var(--fotd-border-radius) var(--fotd-border-radius) 0px 0px;
 }
 nav.internal .navlinks > a > span > img {
   margin-left: 0.25rem;
@@ -132,7 +130,7 @@ nav.internal .navlinks > *:hover {
 }
 nav.internal > a.iconhome {
   padding: 0;
-  margin: auto 1rem;
+  margin: auto;
 }
 nav.internal > a.iconhome > img {
   width: 90%;
@@ -150,17 +148,18 @@ nav.internal .dropdown .ddcontent {
   top: 2.6rem;
   box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.3);
   background-color: black;
-  border-radius: 0px 10px 10px 10px;
+  border-radius: 0px var(--fotd-border-radius) var(--fotd-border-radius)
+    var(--fotd-border-radius);
   z-index: 1;
 }
 nav.internal .dropdown:hover .ddcontent {
   display: block;
 }
 nav.internal .dropdown > .ddcontent > a:nth-child(1) {
-  border-radius: 0px 10px 0px 0px;
+  border-radius: 0px var(--fotd-border-radius) 0px 0px;
 }
 nav.internal .dropdown > .ddcontent > a:nth-child(4) {
-  border-radius: 0px 0px 10px 10px;
+  border-radius: 0px 0px var(--fotd-border-radius) var(--fotd-border-radius);
 }
 nav.internal .dropdown > .ddcontent > a.ddlink {
   color: white;
@@ -222,7 +221,7 @@ footer.public {
   text-align: center;
   position: relative;
   top: 20vh;
-  border-radius: 10px;
+  border-radius: var(--fotd-border-radius);
   box-shadow: 0px 5px 5px rgba(16, 16, 16, 0.1);
 }
 .index main {
@@ -306,7 +305,7 @@ footer.public {
   width: 100%;
   margin: auto;
   border: var(--fotd-green) solid 1px;
-  border-radius: 25px;
+  border-radius: var(--fotd-border-radius);
   padding: 1rem;
 }
 .formblock input {
@@ -347,8 +346,9 @@ footer.public {
 .dashboard .recommendations {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  max-height: 90vh;
 }
-.dashboard .filter {
+/* .dashboard .filter {
   width: 100%;
   display: grid;
   margin: auto auto 1rem auto;
@@ -372,21 +372,20 @@ footer.public {
 }
 .dashboard .filter input[type='submit'] {
   background-color: var(--fotd-green);
-  border-radius: 10px;
+  border-radius: var(--fotd-border-radius);
   border: none;
   padding: 0.5rem 1rem;
   margin: auto;
   font-size: 0.8rem;
-}
+} */
 
 .dashboard .outfit {
   text-align: center;
+  max-height: 100%;
   margin: auto 1rem;
 }
-.dashboard .outfit img {
-  width: 100%;
-  max-width: max-content;
-  border-radius: 10px;
+.dashboard .card {
+  max-height: 100%;
 }
 /*== ARTICLE CARD STYLING ====================================================*/
 .card {
@@ -395,8 +394,8 @@ footer.public {
   text-align: center;
   margin: 1rem auto;
   padding: 1rem 1rem;
-  border-radius: 5%;
-  box-shadow: 0px 5px 5px rgba(16, 16, 16, 0.1);
+  border-radius: var(--fotd-border-radius);
+  box-shadow: 0px 3px 5px rgba(16, 16, 16, 0.1);
 }
 .card input {
   position: absolute;
@@ -405,8 +404,7 @@ footer.public {
 }
 .cardimg img {
   width: 100%;
-  height: auto;
-  border-radius: 5%;
+  border-radius: var(--fotd-border-radius);
 }
 .cardtext {
   margin-top: 1rem;
@@ -442,7 +440,7 @@ footer.public {
   font-size: 1rem;
   padding: 0.3rem 0.5rem;
   margin: 0.3rem;
-  border-radius: 8px;
+  border-radius: var(--fotd-border-radius);
   text-decoration: none;
 }
 .closet .closetControls > .buttons > button {
@@ -465,7 +463,7 @@ footer.public {
   grid-template-columns: repeat(5, 1fr);
   background-color: #eeeeee;
   padding: 1rem;
-  border-radius: 8px;
+  border-radius: var(--fotd-border-radius);
 }
 .closet .closetControls > .filterForm > div {
   margin: 0.5rem;
@@ -499,7 +497,7 @@ footer.public {
   width: auto;
   padding: 0.3rem 0.5rem;
   border: black solid 1px;
-  border-radius: 8px;
+  border-radius: var(--fotd-border-radius);
   margin: auto 0.5rem auto 0rem;
   cursor: pointer;
 }
@@ -548,7 +546,7 @@ footer.public {
 }
 .outfitForm .staticContainer > input[type='submit'] {
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: var(--fotd-border-radius);
   background-color: rgb(255, 196, 145);
   width: 60%;
   padding: 1rem;
@@ -570,13 +568,13 @@ footer.public {
   grid-template-columns: 1fr;
   padding: 0.25rem 0rem 2rem 0rem;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--fotd-border-radius);
   margin: 0rem 1.5rem 2.5rem 1.5rem;
   overflow: hidden;
   overflow-y: scroll;
 }
 .outfitForm > .cardContainers fieldset > legend {
-  border-radius: 8px;
+  border-radius: var(--fotd-border-radius);
   background-color: #efefef;
   padding: 0.25rem 0rem;
   width: 100%;
@@ -657,7 +655,7 @@ footer.public {
   margin: auto 0.5rem;
   text-align: center;
   text-decoration: none;
-  border-radius: 8px;
+  border-radius: var(--fotd-border-radius);
   width: 100%;
 }
 .createArticle main,
@@ -683,7 +681,7 @@ footer.public {
   background-color: var(--fotd-green);
   padding: 1rem;
   font-size: 0.9rem;
-  border-radius: 10px;
+  border-radius: var(--fotd-border-radius);
   border: none;
   color: var(--main-fg);
   text-align: center;
@@ -713,7 +711,7 @@ footer.public {
   display: none;
   background-color: #fda3a3a4;
   grid-column: 1 / span 2;
-  border-radius: 8px;
+  border-radius: var(--fotd-border-radius);
   padding: 0.5rem 1rem;
 }
 /* == Article Delete Dialog =========================== */
@@ -732,8 +730,7 @@ footer.public {
   display: grid;
   background-color: var(--main-bg);
   margin: 15% auto;
-  /* border: 1px solid var(--fotd-green); */
-  border-radius: 12px;
+  border-radius: var(--fotd-border-radius);
   width: 90%;
   box-shadow: 0px 0px 10px rgba(16, 16, 16, 0.55);
 }
@@ -752,7 +749,7 @@ footer.public {
 }
 .article .dialog .dialogContent .header {
   padding: 0.5rem 1rem;
-  border-radius: 10px 10px 0px 0px;
+  border-radius: var(--fotd-border-radius) var(--fotd-border-radius) 0px 0px;
   background-color: #eee;
   display: flex;
   justify-content: space-between;
@@ -771,7 +768,7 @@ footer.public {
   margin-right: 1rem;
   padding: 0.2rem 1rem;
   border: 1px #aaa solid;
-  border-radius: 5px;
+  border-radius: var(--fotd-border-radius);
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
 }
 .article .dialog .dialogContent .dialogForm .confirm:hover,
@@ -827,8 +824,6 @@ footer.public {
   /*== OUTFIT CREATE FORM  =====================================================*/
   .outfitForm > .cardContainers fieldset {
     grid-template-columns: repeat(2, 1fr);
-    /* margin:1rem; */
-    /* max-height: 50vh; */
     overflow-y: scroll;
     overflow-x: hidden;
   }
