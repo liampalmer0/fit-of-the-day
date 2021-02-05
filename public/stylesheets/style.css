@@ -332,65 +332,10 @@ footer.public {
   margin: auto;
   display: block;
 }
-/*== DASHBOARD SPECIFIC STYLING ==============================================*/
-.dashboard main {
-  display: grid;
-  max-width: 90%;
-  grid-template-columns: repeat(1, 1fr);
-  margin: auto auto 2rem auto;
-}
-.dashboard .widgets {
-  border-right: 2px solid white;
-  border-left: 2px solid white;
-}
-.dashboard .recommendations {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  max-height: 90vh;
-}
-/* .dashboard .filter {
-  width: 100%;
-  display: grid;
-  margin: auto auto 1rem auto;
-  grid-template-columns: subgrid;
-  text-align: center;
-  padding: 1rem;
-}
-.dashboard #filterform {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr) 10%;
-}
-.dashboard #filterform div {
-  margin-right: auto;
-}
-.dashboard .filter label {
-  display: none;
-  font-size: 0.8rem;
-  font-weight: bold;
-  text-align: right;
-  margin: auto 1rem;
-}
-.dashboard .filter input[type='submit'] {
-  background-color: var(--fotd-green);
-  border-radius: var(--fotd-border-radius);
-  border: none;
-  padding: 0.5rem 1rem;
-  margin: auto;
-  font-size: 0.8rem;
-} */
-
-.dashboard .outfit {
-  text-align: center;
-  max-height: 100%;
-  margin: auto 1rem;
-}
-.dashboard .card {
-  max-height: 100%;
-}
 /*== ARTICLE CARD STYLING ====================================================*/
 .card {
   position: relative;
-  background-color: #f8f8f8;
+  background-color: #f6f6f6;
   text-align: center;
   margin: 1rem auto;
   padding: 1rem 1rem;
@@ -414,6 +359,85 @@ footer.public {
 .cardtext .desc {
   padding-top: 0.5rem;
   font-size: 1rem;
+}
+/*== DASHBOARD SPECIFIC STYLING ==============================================*/
+.dashboard main {
+  display: flex;
+  max-width: 95%;
+  flex-direction: row;
+  align-items: flex-start;
+  margin: auto;
+}
+.dashboard .widgets {
+  border-right: 2px solid white;
+  border-left: 2px solid white;
+}
+.dashboard .recommendations {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 80%;
+}
+.dashboard .filter > form {
+  width: 100%;
+  display: none;
+  flex-flow: column nowrap;
+  border-radius: var(--fotd-border-radius);
+  background-color: #e0e0e0;
+  text-align: center;
+  margin-top: 0.25rem;
+  padding: 0.5rem 0.5rem 1rem 0.5rem;
+}
+.dashboard .filter > form > label {
+  display: none;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-align: right;
+  margin: auto 1rem;
+}
+.dashboard .filter > form > select {
+  margin-top: 1rem;
+}
+/* .dashboard .filter input[type='submit'] {
+  background-color: var(--fotd-green);
+  border-radius: var(--fotd-border-radius);
+  border: none;
+  padding: 0.5rem 1rem;
+  margin: auto;
+  font-size: 0.8rem;
+} */
+/* DASHBOARD OUTFIT CARDS ====================================================*/
+.dashboard .outfit {
+  flex-basis: 1;
+  width: 33%;
+  text-align: center;
+  margin: 1rem;
+}
+.dashboard .card {
+  margin: auto;
+}
+.dashboard .card.single {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.dashboard .controls {
+  width: 20%;
+  margin: 1rem 0.5rem;
+}
+.dashboard .controls button {
+  border-radius: var(--fotd-border-radius);
+  background-color: var(--fotd-green);
+  width: 100%;
+  border: none;
+  padding: 0.5rem;
+  margin: 1rem 0rem 0rem 0rem;
+  font-size: 1.1rem;
+}
+.dashboard .controls button[name='filter'] {
+  background-color: var(--main-fg);
+  color: var(--main-bg);
 }
 /*== CLOSET SPECIFIC STYLING =================================================*/
 .closet main {

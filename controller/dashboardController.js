@@ -1,11 +1,10 @@
 const owm = require('../api/openWeatherMap');
 const gcal = require('../api/googleCal');
-const { recRand, recRandFiltered } = require('../api/recommender');
+const { recRand, recRandFiltered, recommend } = require('../api/recommender');
 
 async function getApiResults() {
   let weather = 'Weather Unavailable';
   let calStatus = { msg: 'Calendar Unavailable' };
-  const outfits = [];
   try {
     // call APIs
     const coords = await owm.getCoords(45202); // placeholder zip code
@@ -13,18 +12,15 @@ async function getApiResults() {
     calStatus = await gcal.getEvents();
     return {
       weather,
-      calStatus: calStatus.msg,
-      outfits
+      calStatus: calStatus.msg
     };
   } catch (err) {
-    // next(err);
     if (process.env.NODE_ENV === 'development') {
       console.log(err);
     }
     return {
       weather,
-      calStatus: calStatus.msg,
-      outfits
+      calStatus: calStatus.msg
     };
   }
 }
@@ -43,16 +39,10 @@ async function getRandRecs(username, filtered, body) {
 function showDashboard(req, res, next) {
   getApiResults()
     .then(async (data) => {
-      // console.log(data)
-      const outfits = await getRandRecs(req.session.username, false);
-      if (outfits !== 0) {
-        data.outfits = outfits;
-      }
+      req.session.temp = data.weather.current;
       return data;
     })
-    .then((data) => {
-      // add any other vars to result object here
-      // eg result.name = value;
+    .then(function (data) {
       data.title = 'Fit of the Day - Dashboard';
       data.pagename = 'dashboard';
       res.render('dashboard', data);
@@ -79,8 +69,16 @@ function regenFiltered(req, res, next) {
     });
 }
 
+async function regenRecommendations(req, res, next) {
+  const outfits = await recommend(req.session.username, {
+    tempAverage: req.session.temp
+  });
+  res.render('includes/recommendations', { outfits });
+}
+
 module.exports = {
   showDashboard,
   regenFiltered,
-  getApiResults
+  getApiResults,
+  regenRecommendations
 };

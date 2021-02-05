@@ -3,36 +3,28 @@ extends layout
 block content
   include includes/internal-nav
   main(role='main')
-    //- .filter
-    //-   form(action='' method='post' id='filterform')
-    //-     label(for='type') Type:
-    //-     select(id='type' name='type')
-    //-       option(value='' selected ) -- type --
-    //-       option(value='topbtm') Top/Bottom
-    //-       option(value='single') Single
-    //-     label(for='drscode') Dress Code:
-    //-     select(id='drscode' name='drscode')
-    //-       option(value='' selected) -- dress code --
-    //-       option(value='casual') Casual
-    //-       option(value='semi') Semi-formal
-    //-       option(value='formal') Formal
-    if outfits
-      .recommendations
-        each outfit in outfits
-          .outfit
-            .card
-              .cardimg
-                a(href='closet/article?id='+outfit.top.dataValues.articleId)
-                  img(src='/user_img/liam/' + outfit.top.dataValues.filepath alt='A preview image of the article')
-              .cardimg
-                a(href='closet/article?id='+outfit.bottom.dataValues.articleId)
-                  img(src='/user_img/liam/' + outfit.bottom.dataValues.filepath alt='A preview image of the article')
-              .cardtext
-                .detail-icons
-                .desc
-                  p=outfit.top.dataValues.name
-                  p=outfit.bottom.dataValues.name
-    else
+    .controls
+      button(name="regenerate") &#128260; Refresh
+      button(name="filter") &darr; Filter
+      .triangle
+      .filter
+        form(action='' method='post' id='filterform')
+          label(for='type') Type:
+          select(id='type' name='type')
+            option(value='' selected ) -- type --
+            option(value='topbtm') Top/Bottom
+            option(value='single') Single
+          label(for='drscode') Dress Code:
+          select(id='drscode' name='drscode')
+            option(value='' selected) -- dress code --
+            option(value='casual') Casual
+            option(value='semi') Semi-formal
+            option(value='formal') Formal
+    section.recommendations
+      include includes/recommendations
+    if error
       .error
-        p Error: Article data unavailable. Please try again later.
+        p Error: #{error.msg}
+  script(src="/scripts/dashboard_page.js")
+
     

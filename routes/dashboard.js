@@ -8,4 +8,6 @@ router.get('/', controller.showDashboard);
 
 router.post('/', controller.regenFiltered);
 
+router.get('/recommend', controller.regenRecommendations);
+
 module.exports = router;
