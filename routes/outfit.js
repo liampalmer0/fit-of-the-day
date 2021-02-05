@@ -35,7 +35,6 @@ router.get('/new', (req, res) => {
     })
     .then(function (singles) {
       articles.singles = singles;
-      console.log(articles);
       res.render('create-outfit', {
         pagename: 'outfit',
         title: 'FOTD - Create Outfit',
@@ -45,7 +44,9 @@ router.get('/new', (req, res) => {
       });
     })
     .catch((err) => {
-      console.log(err);
+      if (process.env.NODE_ENV === 'development') {
+        console.log(err);
+      }
     });
 });
 router.post('/new', (req, res) => {

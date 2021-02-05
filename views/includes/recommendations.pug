@@ -1,0 +1,44 @@
+if outfits
+  each outfit in outfits
+    .outfit
+        if outfit.base != -1 || outfit.partner != -1
+          if outfit.base.dataValues.articleId === outfit.partner.dataValues.articleId
+            .card.single
+              .cardimg
+                a(href='closet/article?id='+outfit.base.dataValues.articleId)
+                  img(src='/user_img/liam/' + outfit.base.dataValues.filepath alt='A preview image of the article')
+              .cardtext
+                .detail-icons
+                .desc
+                  p=outfit.base.dataValues.name
+          else
+            .card
+              .cardimg
+                a(href='closet/article?id='+outfit.base.dataValues.articleId)
+                  img(src='/user_img/liam/' + outfit.base.dataValues.filepath alt='A preview image of the article')
+              .cardimg
+                a(href='closet/article?id='+outfit.partner.dataValues.articleId)
+                  img(src='/user_img/liam/' + outfit.partner.dataValues.filepath alt='A preview image of the article')
+              .cardtext
+                .detail-icons
+                .desc
+                  p=outfit.base.dataValues.name
+                  p=outfit.partner.dataValues.name
+        else
+          if outfit.base == -1
+            .card
+              .cardimg
+              .cardtext
+                .detail-icons
+                .desc
+                  p Not enough clothing to recommend! 
+                  p Visit closet to add more items
+          else
+            .card
+            .cardimg
+              a(href='closet/article?id='+outfit.base.dataValues.articleId)
+                img(src='/user_img/liam/' + outfit.base.dataValues.filepath alt='A preview image of the article')
+            .cardtext
+              .detail-icons
+              .desc
+                p=outfit.base.dataValues.name

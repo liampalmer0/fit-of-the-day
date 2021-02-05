@@ -2,13 +2,13 @@ module.exports = (sequelize, DataTypes) =>
   sequelize.define(
     'article',
     {
-      'articleId': {
+      articleId: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true
       },
-      'closetId': {
+      closetId: {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) =>
         type: DataTypes.BOOLEAN,
         allowNull: false
       },
-      'garmentTypeId': {
+      garmentTypeId: {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
@@ -36,12 +36,12 @@ module.exports = (sequelize, DataTypes) =>
           key: 'garmentTypeId'
         }
       },
-      'color': {
+      color: {
         type: DataTypes.INTEGER,
         defaultValue: 10936474,
         allowNull: true
       },
-      'dressCodeId': {
+      dressCodeId: {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
@@ -49,20 +49,20 @@ module.exports = (sequelize, DataTypes) =>
           key: 'dressCodeId'
         }
       },
-      'ratingId': {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-        references: {
-          model: 'rating',
-          key: 'ratingId'
-        }
-      },
-      'tempMin': {
+      // 'ratingId': {
+      //   type: DataTypes.INTEGER,
+      //   allowNull: true,
+      //   references: {
+      //     model: 'rating',
+      //     key: 'ratingId'
+      //   }
+      // },
+      tempMin: {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0
       },
-      'tempMax': {
+      tempMax: {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 120
