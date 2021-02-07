@@ -126,7 +126,10 @@ async function findRandomPartner(closet, weather) {
 }
 async function recommend(username, weather = { tempAverage: 75 }) {
   try {
-    let dayTemp = parseInt(weather.tempAverage);
+    let dayTemp = 75;
+    if (weather.tempAverage) {
+      dayTemp = !isNaN(weather.tempAverage) ? weather.tempAverage : 75;
+    }
     let closet = await models.closet.findOne({
       attributes: ['closetId'],
       include: {
@@ -196,7 +199,9 @@ async function recommend(username, weather = { tempAverage: 75 }) {
           limit: 1
         });
         // if missing partner, find random
-        p[0] = p[0] ? p[0] : await findRandomPartner(closet, weather);
+        p[0] = p[0]
+          ? p[0]
+          : await findRandomPartner(closet, { tempAverage: dayTemp });
         partners.push(p[0]);
       } else {
         partners.push(item);
