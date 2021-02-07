@@ -3,6 +3,9 @@ function ajaxRecommend() {
   xhttp.onreadystatechange = function () {
     if (this.readyState === 4 && this.status === 200) {
       document.querySelector('.recommendations').innerHTML = this.responseText;
+    } else if (this.readyState === 4 && this.status !== 200) {
+      document.querySelector('.recommendations').innerHTML =
+        '<p class="error">Error: Recommendations Unavailable</p>';
     }
   };
   xhttp.open('GET', 'dashboard/recommend', true);
