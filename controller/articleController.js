@@ -1,4 +1,6 @@
 const { models } = require('../sequelize');
+const fs = require('fs');
+const path = require('path');
 
 function categoricalToId(type, dresscode) {
   if (type === 'top') {
@@ -57,14 +59,14 @@ async function createArticle(req, res, next) {
     let filepath = '';
     const dirty = req.body.dirty ? 't' : 'f';
 
-    if (!req.body.filepath) {
+    if (!req.file) {
       if (catIds[0] === 1) {
         filepath = 's-null.png';
       } else {
         filepath = 'p-null.png';
       }
     } else {
-      filepath = req.body.filepath;
+      filepath = req.file.filename;
     }
     const closetId = await getClosetId(req.session.username);
     const dbRes = await models.article.create({
@@ -104,14 +106,18 @@ async function editArticle(req, res, next) {
     let filepath = '';
     const dirty = req.body.dirty ? 't' : 'f';
 
-    if (!req.body.filepath) {
-      if (catIds[0] === 1) {
-        filepath = 's-null.png';
+    if (!req.file) {
+      if (!req.body.previousFile) {
+        if (catIds[0] === 1) {
+          filepath = 's-null.png';
+        } else {
+          filepath = 'p-null.png';
+        }
       } else {
-        filepath = 'p-null.png';
+        filepath = req.body.filepath;
       }
     } else {
-      filepath = req.body.filepath;
+      filepath = req.file.filename;
     }
     await models.article.update(
       {
@@ -160,6 +166,37 @@ async function editArticle(req, res, next) {
 }
 async function deleteArticle(req, res, next) {
   try {
+    const filepathRow = await models.article.findOne({
+      attributes: ['filepath'],
+      include: {
+        model: models.closet,
+        attributes: ['closetId'],
+        required: true,
+        include: {
+          model: models.user,
+          attributes: ['userId', 'username'],
+          required: true
+        }
+      },
+      where: { articleId: req.query.id }
+    });
+    if (filepathRow) {
+      if (
+        filepathRow.dataValues.filepath !== 'p-null.png' &&
+        filepathRow.dataValues.filepath !== 's-null.png' &&
+        filepathRow.dataValues.filepath.slice(-4) !== '.png' // if not test data img
+      ) {
+        fs.unlink(
+          path.join('public/user_img/liam', filepathRow.dataValues.filepath),
+          (err) => {
+            if (err) {
+              throw err;
+            }
+          }
+        );
+      }
+    }
+
     await models.article.destroy({
       include: [
         {
