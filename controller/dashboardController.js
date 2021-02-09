@@ -1,14 +1,25 @@
 const owm = require('../api/openWeatherMap');
 const gcal = require('../api/googleCal');
 const { recRand, recRandFiltered, recommend } = require('../api/recommender');
+const { models } = require('../sequelize');
 
-async function getApiResults() {
+async function getApiResults(req) {
   let weather = 'Weather Unavailable';
   let calStatus = { msg: 'Calendar Unavailable' };
   try {
     // call APIs
-    const coords = await owm.getCoords(45202); // placeholder zip code
-    weather = await owm.getWeather(coords);
+    let coords = {};
+    if (req.session.coords) {
+      coords = await owm.getCoords(req.session.coords, true);
+      weather = await owm.getWeather(req.session.coords);
+      weather.city = coords.city;
+    } else {
+      let savedZip = await getZipCode(req.session.username);
+      let zip = savedZip ? savedZip : 10001; //set default if db entry is null
+      coords = await owm.getCoords(zip);
+      req.session.coords = { lat: coords.lat, lon: coords.lon };
+      weather = await owm.getWeather(coords);
+    }
     calStatus = await gcal.getEvents();
     return {
       weather,
@@ -36,8 +47,16 @@ async function getRandRecs(username, filtered, body) {
     }
   }
 }
+
+async function getZipCode(username) {
+  let data = await models.user.findOne({
+    where: { username }
+  });
+  return data.dataValues.zipcode;
+}
+
 function showDashboard(req, res, next) {
-  getApiResults()
+  getApiResults(req)
     .then(async (data) => {
       req.session.temp = data.weather.current;
       return data;
@@ -50,7 +69,7 @@ function showDashboard(req, res, next) {
 }
 
 function regenFiltered(req, res, next) {
-  getApiResults()
+  getApiResults(req)
     .then(async (data) => {
       data.outfits = await getRandRecs(req.session.username, true, req.body);
       return data;

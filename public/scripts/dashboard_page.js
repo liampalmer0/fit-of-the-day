@@ -13,7 +13,7 @@ function ajaxRecommend() {
 }
 function showHideFilter() {
   let filters = document.querySelector('.filter > form');
-  if (filters.style.display !== 'none') {
+  if (filters.style.display === 'flex') {
     filters.style.display = 'none';
   } else {
     filters.style.display = 'flex';

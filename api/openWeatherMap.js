@@ -1,11 +1,20 @@
 const https = require('https');
 
-const getCoords = (zipCode) =>
+const getCoords = (identifier, isCoords = false) =>
   new Promise((resolve, reject) => {
+    if (identifier === undefined) {
+      reject(new Error('Invalid Locator'));
+    }
+    let locationPath = '';
+    if (isCoords) {
+      locationPath = `lat=${identifier.lat}&lon=${identifier.lon}`;
+    } else {
+      locationPath = `zip=${identifier},us`;
+    }
     const options = {
       host: 'api.openweathermap.org',
       port: 443,
-      path: `/data/2.5/weather?zip=${zipCode},us&exclude=minutely,alerts&units=imperial&appid=${process.env.OWM_KEY}`,
+      path: `/data/2.5/weather?${locationPath}&exclude=minutely,alerts&units=imperial&appid=${process.env.OWM_KEY}`,
       method: 'GET'
     };
     const req = https.request(options, (res) => {
@@ -56,23 +65,22 @@ const getWeather = (coords) =>
           // finished getting data
           const data = JSON.parse(buffer);
           // set the current days weather
-
           const tempday = data.daily[0].feels_like.day;
           const tempEve = data.daily[0].feels_like.eve;
           const tempAverage = (tempday + tempEve) / 2;
           const rainPercent = data.daily[0].pop * 100;
           const rainChanceTemp = `${rainPercent}%`;
-
           resolve({
             city: coords.city,
             high: data.daily[0].temp.max,
             low: data.daily[0].temp.min,
             feelsLike: data.current.feels_like,
-            current: data.current.temp,
-            weatherPattern: data.daily[3].weather[0].main,
+            current: Math.floor(data.current.temp),
+            weatherPattern: data.current.weather[0].main,
+            weatherPatternDesc: data.current.weather[0].description,
             tempAverage,
             rainChance: rainChanceTemp,
-            icon: data.daily[3].weather[0].icon
+            icon: data.current.weather[0].icon
           });
         });
       }

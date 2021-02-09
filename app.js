@@ -69,6 +69,10 @@ app.use('/', indexRouter);
 app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
 app.get('/logout', function (req, res) {
+  req.session.username = '';
+  req.session.opStatus = {};
+  req.session.coords = {};
+  req.session.temp = {};
   req.logout();
   res.redirect('/');
 });

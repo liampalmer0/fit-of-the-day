@@ -21,7 +21,11 @@ router.post('/', (req, res, next) => {
     .then((rows) => {
       if (rows === null) {
         models.user
-          .create(req.body)
+          .create({
+            email: req.body.email.toLowerCase(),
+            username: req.body.username.toLowerCase(),
+            password: req.body.password
+          })
           .then((newUser) =>
             models.closet.create({
               userId: newUser.dataValues.userId,
