@@ -1,4 +1,4 @@
-form(action=action method='post' id='articleForm')
+form(action=action method='post' id='articleForm' enctype='multipart/form-data')
   
   label(for='name') Name
   if article
@@ -18,6 +18,13 @@ form(action=action method='post' id='articleForm')
   else 
     input(type='color' id='color' name='color' value= '#a6e09a')
   
+  label(for='image') Upload Image
+  if article
+    input(type='file' name='image')
+    input(type="hidden" value=article.filepath name="previousFile")
+  else
+    input(type='file' name='image')
+
   - const types = ['top', 'bottom', 'one piece']
   label(for='type') Type
   select(id='type' name='type')
