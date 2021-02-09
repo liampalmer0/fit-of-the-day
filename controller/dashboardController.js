@@ -15,7 +15,7 @@ async function getApiResults(req) {
       weather.city = coords.city;
     } else {
       let savedZip = await getZipCode(req.session.username);
-      let zip = savedZip ? savedZip : 60605; //set default if db entry is null
+      let zip = savedZip ? savedZip : 10001; //set default if db entry is null
       coords = await owm.getCoords(zip);
       req.session.coords = { lat: coords.lat, lon: coords.lon };
       weather = await owm.getWeather(coords);
