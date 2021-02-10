@@ -28,6 +28,14 @@ module.exports = (sequelize) => {
   models.article.belongsTo(models.dressCode, {
     foreignKey: 'dressCodeId'
   });
+  // A user has many events
+  models.user.hasMany(models.event, {
+    foreignKey: 'userId'
+  });
+  // An event belongs to a User
+  models.event.belongsTo(models.user, {
+    foreignKey: 'userId'
+  });
   // Article has one temperature rt // NOTE : not in the sql yet
   // sequelize.article.belongsTo(...);
 };

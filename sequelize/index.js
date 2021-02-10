@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === 'development') {
   sequelize = new Sequelize(dev.database, dev.user, dev.password, {
     dialect: dev.dialect,
     host: dev.host
-  }); 
+  });
 } else if (process.env.NODE_ENV === 'production') {
   sequelize = new Sequelize(prod.database, prod.user, prod.password, {
     dialect: prod.dialect,
@@ -27,7 +27,8 @@ const modelDefiners = [
   require('./models/dressCode'),
   require('./models/rating'),
   require('./models/article'),
-  require('./models/outfit')
+  require('./models/outfit'),
+  require('./models/event')
   // Add more models here...
   // require('./models/item'),
 ];
