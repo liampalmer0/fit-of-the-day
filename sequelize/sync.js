@@ -15,11 +15,9 @@ s.authenticate()
   .then(() => {
     if (alter) {
       s.sync({ alter: true });
-    }
-    else if (force) {
+    } else if (force) {
       s.sync({ force: true });
-    }
-    else {
+    } else {
       console.log('No CLI args passed. Performing default sync');
       s.sync();
     }

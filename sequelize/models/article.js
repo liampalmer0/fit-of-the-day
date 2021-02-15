@@ -49,14 +49,6 @@ module.exports = (sequelize, DataTypes) =>
           key: 'dressCodeId'
         }
       },
-      // 'ratingId': {
-      //   type: DataTypes.INTEGER,
-      //   allowNull: true,
-      //   references: {
-      //     model: 'rating',
-      //     key: 'ratingId'
-      //   }
-      // },
       tempMin: {
         type: DataTypes.INTEGER,
         allowNull: false,

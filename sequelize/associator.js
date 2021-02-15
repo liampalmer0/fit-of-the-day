@@ -1,6 +1,9 @@
 module.exports = (sequelize) => {
   // Create Associations
   const { models } = sequelize;
+  models.user.hasMany(models.rating, {
+    foreignKey: 'userId'
+  });
   models.user.hasOne(models.closet, {
     foreignKey: 'userId'
   });
@@ -36,6 +39,15 @@ module.exports = (sequelize) => {
   models.event.belongsTo(models.user, {
     foreignKey: 'userId'
   });
+
+  // models.article.hasMany(models.rating, {
+  //   foreignKey: 'articleId'
+  // });
+
+  // // Ratings belong to a user and article
+  // models.rating.belongsTo(models.article, {
+  //   foreignKey: 'articleId'
+  // });
   // Article has one temperature rt // NOTE : not in the sql yet
   // sequelize.article.belongsTo(...);
 };

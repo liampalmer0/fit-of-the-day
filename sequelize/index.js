@@ -25,10 +25,10 @@ const modelDefiners = [
   require('./models/closet'),
   require('./models/garmentType'),
   require('./models/dressCode'),
-  require('./models/rating'),
   require('./models/article'),
   require('./models/outfit'),
-  require('./models/event')
+  require('./models/event'),
+  require('./models/rating')
   // Add more models here...
   // require('./models/item'),
 ];

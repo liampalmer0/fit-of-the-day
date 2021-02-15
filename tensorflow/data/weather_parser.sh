@@ -17,9 +17,9 @@ BEGIN {
       ++count
     }
   }
-  else printf("%s,%s\n", $2, $4)
+  else printf("%s,%s\n", $2, $3)
 }
 END {
   #printf("Number of entries: %s\n", count)
 }
-' historical-weather.csv > temperatures.csv
+' ./tensorflow/data/historical-weather.csv > ./tensorflow/data/temperatures.csv
