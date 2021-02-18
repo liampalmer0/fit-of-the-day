@@ -1,17 +1,32 @@
 const { models } = require('../sequelize');
 const { Op } = require('sequelize');
 
+async function getCloset(username) {
+  return await models.closet.findOne({
+    attributes: ['closetId'],
+    include: {
+      attributes: ['userId'],
+      model: models.user,
+      where: { username },
+      required: true
+    }
+  });
+}
+
 function showCloset(req, res, next) {
   const success = req.session.opStatus.success;
   const error = req.session.opStatus.error;
-  getArticles(req.session.username)
-    .then((query) => {
+  getCloset(req.session.username)
+    .then(function (closet) {
+      return closet.getArticles(req.session.username);
+    })
+    .then(function (articles) {
       const data = {
         title: 'FOTD - Closet',
         pagename: 'closet',
         success,
         error,
-        articles: query
+        articles
       };
       req.session.opStatus.success = false;
       req.session.opStatus.error = false;
@@ -31,26 +46,6 @@ function showCloset(req, res, next) {
       req.session.opStatus.error = false;
       res.render('closet', data);
     });
-}
-async function getArticles(username, where = {}) {
-  return await models.article.findAll({
-    include: [
-      {
-        model: models.closet,
-        attributes: ['name'],
-        include: [
-          {
-            attributes: ['username'],
-            model: models.user,
-            where: { username },
-            required: true
-          }
-        ],
-        required: true
-      }
-    ],
-    where: where
-  });
 }
 
 function createWhere(filters = {}) {
@@ -78,36 +73,28 @@ function createWhere(filters = {}) {
 }
 
 async function filterCloset(req, res, next) {
-  getArticles(req.session.username, createWhere(req.body))
-    .then((query) => {
-      res.render('includes/closet-articles', { articles: query });
-    })
-    .catch((err) => {
-      if (process.env.NODE_ENV === 'development') {
-        console.log(err);
-      }
-      res.render('includes/closet-articles');
-    });
+  try {
+    const closet = await getCloset(req.session.username);
+    const articles = await closet.getArticles({ where: createWhere(req.body) });
+    res.render('includes/closet-articles', { articles: articles });
+  } catch (err) {
+    if (process.env.NODE_ENV === 'development') {
+      console.log(err);
+    }
+    res.render('includes/closet-articles');
+  }
 }
 
 async function laundryDay(req, res, next) {
   try {
-    let closet = await models.closet.findOne({
-      attributes: ['closetId'],
-      include: {
-        model: models.user,
-        attributes: ['username'],
-        where: { username: req.session.username },
-        required: true
-      }
-    });
+    let closet = await getCloset(req.session.username);
     await models.article.update(
       {
         dirty: 'f'
       },
       { where: { dirty: 't', closetId: closet.dataValues.closetId } }
     );
-    req.session.opStatus.success = { msg: 'Closet updated successfully' };
+    req.session.opStatus.success = { msg: "All articles set to 'clean'" };
     req.session.opStatus.error = false;
     res.redirect('/' + req.session.username + '/closet');
   } catch (err) {
@@ -121,8 +108,8 @@ async function laundryDay(req, res, next) {
 }
 
 module.exports = {
+  getCloset,
   showCloset,
-  getArticles,
   filterCloset,
   createWhere,
   laundryDay
