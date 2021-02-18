@@ -4,14 +4,16 @@ const controller = require('../../controller/closetController');
 const username = 'tester';
 // describe('Closet Controller', function () {});
 
-describe('.getArticles', function () {
-  it("should return all articles for user 'tester'", async function () {
-    const articles = await controller.getArticles(username);
-    expect(articles).to.be.an('array');
+describe('#getCloset', function () {
+  it("should return the closet for user 'tester'", async function () {
+    const closet = await controller.getCloset(username);
+    expect(closet).to.be.an('object');
+    expect(closet).to.have.property('dataValues');
+    expect(closet.dataValues.closetId).to.be.equal(1);
   });
 });
 
-describe('.createWhere', function () {
+describe('#createWhere', function () {
   it('should create an empty where clause from empty filters', function () {
     const where = controller.createWhere({});
     expect(Object.keys(where)).to.have.lengthOf(0);

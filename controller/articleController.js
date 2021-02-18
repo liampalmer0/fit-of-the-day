@@ -1,66 +1,38 @@
 const { models } = require('../sequelize');
 const fs = require('fs');
 const path = require('path');
+const { getCloset } = require('./closetController');
 
-function categoricalToId(type, dresscode) {
-  if (type === 'top') {
-    type = 1;
-  } else if (type === 'bottom') {
-    type = 2;
-  } else {
-    type = 3;
-  }
+const TYPE_IDS = { top: 1, bottom: 2, 'one piece': 3 };
+const DRESS_CODE_IDS = { casual: 1, 'semi-formal': 2, formal: 3 };
 
-  if (dresscode === 'casual') {
-    dresscode = 1;
-  } else if (dresscode === 'semi-formal') {
-    dresscode = 2;
-  } else {
-    dresscode = 3;
-  }
-
-  return [type, dresscode];
-}
 async function getArticle(articleId, username) {
-  return await models.article.findAll({
-    include: [
-      { all: true },
-      {
-        model: models.closet,
-        include: {
-          model: models.user,
-          attributes: ['username'],
-          where: { username },
-          required: true
-        },
-        required: true
-      }
-    ],
-    where: { articleId: articleId }
-  });
-}
-async function getClosetId(username) {
-  const closet = await models.closet.findOne({
-    attributes: ['closetId'],
-    include: {
-      model: models.user,
-      attributes: ['username'],
-      where: { username },
-      required: true
+  try {
+    const closet = await getCloset(username);
+    if (!closet) {
+      return [];
     }
-  });
-  return closet.dataValues.closetId;
+    return await closet.getArticles({
+      include: { all: true },
+      where: { articleId },
+      limit: 1
+    });
+  } catch (err) {
+    if (process.env.NODE_ENV === 'development') {
+      console.log(err);
+    }
+    return [];
+  }
 }
 
 async function createArticle(req, res, next) {
   // create article from req.body
   try {
-    const catIds = categoricalToId(req.body.type, req.body.dressCode);
     let filepath = '';
     const dirty = req.body.dirty ? 't' : 'f';
 
     if (!req.file) {
-      if (catIds[0] === 1) {
+      if (TYPE_IDS[req.body.type] === 1) {
         filepath = 's-null.png';
       } else {
         filepath = 'p-null.png';
@@ -68,15 +40,14 @@ async function createArticle(req, res, next) {
     } else {
       filepath = req.file.filename;
     }
-    const closetId = await getClosetId(req.session.username);
-    const dbRes = await models.article.create({
-      closetId: closetId,
+    const closet = await getCloset(req.session.username);
+    const dbRes = await closet.createArticle({
       name: req.body.name,
       desc: req.body.desc,
       dirty,
-      garmentTypeId: catIds[0],
+      garmentTypeId: TYPE_IDS[req.body.type],
       color: parseInt(req.body.color.slice(1), 16),
-      dressCodeId: catIds[1],
+      dressCodeId: DRESS_CODE_IDS[req.body.dressCode],
       tempMin: req.body.tempMin,
       tempMax: req.body.tempMax,
       filepath
@@ -101,13 +72,12 @@ async function createArticle(req, res, next) {
 }
 async function editArticle(req, res, next) {
   try {
-    const catIds = categoricalToId(req.body.type, req.body.dressCode);
     let filepath = '';
     const dirty = req.body.dirty ? 't' : 'f';
 
     if (!req.file) {
       if (!req.body.previousFile) {
-        if (catIds[0] === 1) {
+        if (TYPE_IDS[req.body.type] === 1) {
           filepath = 's-null.png';
         } else {
           filepath = 'p-null.png';
@@ -123,9 +93,9 @@ async function editArticle(req, res, next) {
         name: req.body.name,
         desc: req.body.desc,
         dirty,
-        garmentTypeId: catIds[0],
+        garmentTypeId: TYPE_IDS[req.body.type],
         color: parseInt(req.body.color.slice(1), 16),
-        dressCodeId: catIds[1],
+        dressCodeId: DRESS_CODE_IDS[req.body.dressCode],
         tempMin: req.body.tempMin,
         tempMax: req.body.tempMax,
         filepath
@@ -324,12 +294,10 @@ function showEdit(req, res, next) {
 
 module.exports = {
   getArticle,
-  getClosetId,
   showArticle,
   showCreate,
   createArticle,
   showEdit,
   editArticle,
-  deleteArticle,
-  categoricalToId
+  deleteArticle
 };
