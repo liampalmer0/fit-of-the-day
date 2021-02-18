@@ -20,8 +20,8 @@ VALUES
 ('formal', NULL),
 ('very formal', NULL);
 
-INSERT INTO rating("ratingValue") 
-VALUES (1),(2),(3),(4),(5);
+-- INSERT INTO rating("ratingValue") 
+-- VALUES (1),(2),(3),(4),(5);
 
 INSERT INTO article ("closetId", "name", "desc", dirty, "garmentTypeId", "dressCodeId", "tempMin", "tempMax", filepath)
 VALUES 
