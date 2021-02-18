@@ -3,7 +3,13 @@ extends layout
 block content
   include includes/public-nav
   main(role='main')
-    h1 Create. Plan. Enjoy.
+    .hero-card 
+      h1 Daily Outfits Made For You
+      //- p Create. Plan. Enjoy.
+      .hero-buttons
+        a(href="/login") Learn More
+        a(href="/login") Get Started
+
     .scroller
       .scroll.col1
       .scroll.col2
