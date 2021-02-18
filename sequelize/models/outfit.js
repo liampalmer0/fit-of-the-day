@@ -2,26 +2,18 @@ module.exports = (sequelize, DataTypes) =>
   sequelize.define(
     'outfit',
     {
-      'articleArticleId': {
-        type: DataTypes.INTEGER,  
-        references: {
-          model: 'article',
-          key: 'articleId'
-        },
+      articleArticleId: {
+        type: DataTypes.INTEGER,
         primaryKey: true
       },
-      'partnerArticleId': {
-        type: DataTypes.INTEGER,  
-        references: {
-          model: 'article',
-          key: 'articleId'
-        },
+      partnerArticleId: {
+        type: DataTypes.INTEGER,
         primaryKey: true
       },
       name: {
         type: DataTypes.STRING,
         default: 'savedOutfit',
-        allowNull: false
+        allowNull: true
       },
       favorite: {
         type: DataTypes.BOOLEAN,

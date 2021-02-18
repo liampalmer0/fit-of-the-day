@@ -10,11 +10,7 @@ module.exports = (sequelize, DataTypes) =>
       },
       closetId: {
         type: DataTypes.INTEGER,
-        allowNull: true,
-        references: {
-          model: 'closet',
-          key: 'closetId'
-        }
+        allowNull: true
       },
       name: {
         type: DataTypes.STRING,
@@ -30,11 +26,7 @@ module.exports = (sequelize, DataTypes) =>
       },
       garmentTypeId: {
         type: DataTypes.INTEGER,
-        allowNull: true,
-        references: {
-          model: 'garmentType',
-          key: 'garmentTypeId'
-        }
+        allowNull: true
       },
       color: {
         type: DataTypes.INTEGER,
@@ -43,11 +35,7 @@ module.exports = (sequelize, DataTypes) =>
       },
       dressCodeId: {
         type: DataTypes.INTEGER,
-        allowNull: true,
-        references: {
-          model: 'dressCode',
-          key: 'dressCodeId'
-        }
+        allowNull: true
       },
       tempMin: {
         type: DataTypes.INTEGER,

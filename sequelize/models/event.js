@@ -10,20 +10,12 @@ module.exports = (sequelize, DataTypes) =>
       },
       userId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'user',
-          key: 'userId'
-        }
+        allowNull: false
       },
       dressCodeId: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        defaultValue: 1,
-        references: {
-          model: 'dressCode',
-          key: 'dressCodeId'
-        }
+        defaultValue: 1
       },
       dateTimeStart: {
         type: DataTypes.DATE,

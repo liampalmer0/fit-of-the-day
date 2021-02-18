@@ -2,19 +2,15 @@ module.exports = (sequelize, DataTypes) =>
   sequelize.define(
     'closet',
     {
-      'closetId': {
+      closetId: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true
       },
-      'userId': {
+      userId: {
         type: DataTypes.INTEGER,
-        allowNull: true,
-        references: {
-          model: 'user',
-          key: 'userId'
-        }
+        allowNull: true
       },
       name: {
         type: DataTypes.STRING,
