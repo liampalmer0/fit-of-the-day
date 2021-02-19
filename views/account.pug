@@ -2,26 +2,28 @@ extends layout
 
 block content
   include includes/internal-nav
-  .container
-    a.buttonright(href='/settings') 
-      img(src='/icons/aboutbutton.png' alt='About this app button')
-    a.buttonright(href='/closet') 
-      img(src='/icons/passwordbutton.png' alt='Change password button')
-    a.buttonright(href='/closet') 
-      img(src='/icons/aboutbutton.png' alt='About this app button')
-    a.buttonright(href='/closet') 
-      img(src='/icons/helpbutton.png' alt='Help with this app button')
-  button#locate-me(type='button') Use Current Location
-  form#weatherZipCode(method='post')
-    label(for='zipCode') Set new zip code
-    input#zipCodeInput(
-      type='text'
-      name='zipCodeInput'
-      placeholder='zip code'
-      pattern='[0-9]*'
-      maxlength='5'
-    )
-    input#submitZipCode(type='submit' value='Save') 
+  main(role='main')
 
-  p.msg
-  script(src='/scripts/account_page.js')
+    form(action=action method='post' id='accountForm')
+      
+      label(for='email') Email
+      input(id='name' type='text' name='name' placeholder='Name' required autofocus)
+      
+      label(for='password') Password
+      input(id='name' type='text' name='name' placeholder='Name' required autofocus)
+      
+      label(for='password') Calendar
+      input(id='name' type='text' name='name' placeholder='Name' required autofocus)
+      
+      //- input(type='submit' value=submitVal )
+  
+      button(type="button" id="locate-me") Use Current Location
+      form(method='post' id='weatherZipCode')
+        label(for='zipCode') Set new zip code 
+        input(id='zipCodeInput' type='text' name='zipCodeInput' placeholder='zip code' pattern='[0-9]*' maxlength='5')
+        //- a(role='button' href='/' + username + '/account') Cancel
+        input(type='reset' value='Reset')  
+        input(id='submitZipCode' type='submit' value='Save')  
+
+      p.msg
+      script(src="/scripts/account_page.js")
