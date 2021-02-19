@@ -3,22 +3,15 @@ const { Op } = require('sequelize');
 const { getCloset } = require('../controller/closetController');
 
 const TYPE_IDS = { top: 1, btm: 2, oneP: 3 };
-const ARTICLE_ATTR = [
-  'articleId',
-  'name',
-  'desc',
-  'garmentTypeId',
-  'dressCodeId',
-  'tempMin',
-  'tempMax',
-  'filepath'
-];
+
 class Outfit {
-  constructor(base, partner = {}) {
+  constructor(base, partner = null, favorite = false) {
     this.base = base;
-    this.partner = partner === {} ? partner : base;
+    this.partner = partner ? partner : base;
+    this.favorite = favorite;
   }
 }
+
 async function getEvents(username, begin = null, end = null) {
   try {
     let where = {};
@@ -50,6 +43,7 @@ async function getRandomByType(username, typeId, count = 3) {
     limit: count
   });
 }
+
 async function recRand(username) {
   try {
     const tops = await getRandomByType(username, TYPE_IDS.top);
@@ -121,20 +115,6 @@ function recParams(
   };
   return { ...tempClause, ...gtClause, ...dcClause, dirty: 'f' };
 }
-async function findRandomPartner(closet, dayTemp, dressCode) {
-  let partner = await closet.getArticles({
-    attributes: ARTICLE_ATTR,
-    where: recParams(dayTemp, dressCode, [TYPE_IDS.btm]),
-    limit: 1,
-    order: Sequelize.literal('RANDOM()')
-  });
-  // if partner still not found, return -1
-  if (!partner || partner.length !== 1) {
-    return -1;
-  } else {
-    return partner[0];
-  }
-}
 
 function consolidateItems(bases, partners) {
   let outfits = [];
@@ -159,11 +139,51 @@ function consolidateItems(bases, partners) {
     return outfits;
   }
 }
+
+async function fill(
+  outfits,
+  closet,
+  options = {
+    dayTemp: 75,
+    dressCodes: [1, 2, 3]
+  }
+) {
+  // pre-load 3 new bases & partners
+  const fillerBases = await closet.getArticles({
+    where: recParams(options.dayTemp, options.dressCodes, [
+      TYPE_IDS.top,
+      TYPE_IDS.oneP
+    ]),
+    order: Sequelize.literal('RANDOM()')
+  });
+  const fillerPartners = await closet.getArticles({
+    where: recParams(options.dayTemp, options.dressCodes, [TYPE_IDS.btm]),
+    order: Sequelize.literal('RANDOM()')
+  });
+  for (let i = 0; i < 3; i++) {
+    if (outfits[i].base === -1) {
+      if (fillerBases[i]) {
+        if (fillerBases[i].dataValues.garmentTypeId === 3) {
+          outfits[i] = new Outfit(fillerBases[i]);
+        } else {
+          outfits[i] = new Outfit(
+            fillerBases[i],
+            fillerPartners[i] ? fillerPartners[i] : -1
+          );
+        }
+      } else {
+        outfits[i] = new Outfit(-1);
+      }
+    }
+  }
+  return outfits;
+}
+
 async function recommend(username, weather = { tempAverage: 75 }) {
   try {
     const closet = await getCloset(username);
     const now = new Date();
-    let nextDay = new Date(now.toUTCString());
+    const nextDay = new Date(now.toUTCString());
     nextDay.setUTCHours(now.getUTCDate() + 1);
     const upcoming = await getEvents(
       username,
@@ -176,34 +196,36 @@ async function recommend(username, weather = { tempAverage: 75 }) {
     if (weather.tempAverage) {
       dayTemp = !isNaN(weather.tempAverage) ? weather.tempAverage : dayTemp;
     }
-    // Get 3 Base Articles
+
+    // Get at most 3 favorited outfits that match the day
     let bases = await closet.getArticles({
-      attributes: ARTICLE_ATTR,
+      include: {
+        model: models.article,
+        as: 'partner',
+        required: true,
+        where: recParams(dayTemp, nextEventDc, [TYPE_IDS.btm, TYPE_IDS.oneP])
+      },
       where: recParams(dayTemp, nextEventDc, [TYPE_IDS.top, TYPE_IDS.oneP]),
-      order: Sequelize.literal('RANDOM()'),
-      limit: 3
+      order: Sequelize.literal('RANDOM()')
     });
-    let partners = [];
-    //iterate through base article and find saved/make new partners
-    for (let item of bases) {
-      // if base item is not a one piece
-      if (item.dataValues.garmentTypeId !== TYPE_IDS.oneP) {
-        // look for saved outfit partners
-        let p = await item.getPartner({
-          attributes: ARTICLE_ATTR,
-          where: recParams(dayTemp, nextEventDc, [TYPE_IDS.btm]),
-          order: Sequelize.literal('RANDOM()'),
-          limit: 1
-        });
-        // if missing partner, find random
-        p[0] = p[0] ? p[0] : await findRandomPartner(closet, dayTemp);
-        partners.push(p[0]);
-      } else {
-        // if one piece, just add item again as partner
-        partners.push(item);
+    let outfits = [new Outfit(-1), new Outfit(-1), new Outfit(-1)];
+
+    // Iterate through base articles and find partners
+    const matchCount = bases.length < 3 ? bases.length : 3;
+    let missing = 3;
+    for (let i = 0; i < matchCount; i++) {
+      if (bases[i].dataValues.partner[0].outfit.dataValues.favorite) {
+        outfits[i] = new Outfit(bases[i], bases[i].dataValues.partner[0], true);
+        missing--;
       }
     }
-    return consolidateItems(bases, partners);
+    if (missing > 0) {
+      outfits = await fill(outfits, closet, {
+        dayTemp,
+        dressCodes: nextEventDc
+      });
+    }
+    return outfits;
   } catch (err) {
     if (process.env.NODE_ENV === 'development') {
       console.log(err);
