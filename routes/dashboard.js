@@ -10,4 +10,6 @@ router.post('/', controller.regenFiltered);
 
 router.get('/recommend', controller.regenRecommendations);
 
+router.post('/favorite', controller.setFavorite);
+
 module.exports = router;

@@ -65,7 +65,8 @@ function showDashboard(req, res, next) {
       data.title = 'Fit of the Day - Dashboard';
       data.pagename = 'dashboard';
       res.render('dashboard', data);
-    });
+    })
+    .catch(next);
 }
 
 function regenFiltered(req, res, next) {
@@ -95,9 +96,36 @@ async function regenRecommendations(req, res, next) {
   res.render('includes/recommendations', { outfits });
 }
 
+async function setFavorite(req, res, next) {
+  try {
+    const base = req.body.base;
+    const partner = req.body.partner;
+    const checked = req.body.checked;
+    const outfit = await models.outfit.findOne({
+      where: { articleArticleId: base, partnerArticleId: partner }
+    });
+    if (!outfit) {
+      await models.outfit.create({
+        articleArticleId: base,
+        partnerArticleId: partner,
+        favorite: checked
+      });
+    } else {
+      models.outfit.update(
+        { favorite: checked },
+        { where: { articleArticleId: base, partnerArticleId: partner } }
+      );
+    }
+    res.sendStatus(200);
+  } catch (err) {
+    next(err);
+  }
+}
+
 module.exports = {
   showDashboard,
   regenFiltered,
   getApiResults,
-  regenRecommendations
+  regenRecommendations,
+  setFavorite
 };

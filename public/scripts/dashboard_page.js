@@ -1,8 +1,15 @@
+function setFavoriteListeners() {
+  const favs = document.querySelectorAll('.favorite');
+  favs.forEach((node) => {
+    handlePress(node, ajaxSetFavorite);
+  });
+}
 function ajaxRecommend() {
   let xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState === 4 && this.status === 200) {
       document.querySelector('.recommendations').innerHTML = this.responseText;
+      setFavoriteListeners();
     } else if (this.readyState === 4 && this.status !== 200) {
       document.querySelector('.recommendations').innerHTML =
         '<p class="error">Error: Recommendations Unavailable</p>';
@@ -11,6 +18,19 @@ function ajaxRecommend() {
   xhttp.open('GET', 'dashboard/recommend', true);
   xhttp.send();
 }
+function ajaxSetFavorite(e) {
+  const ids = e.target.value.split(',');
+  let xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState === 4 && this.status !== 200) {
+      e.target.checked = false;
+    }
+  };
+  xhttp.open('POST', 'dashboard/favorite', true);
+  xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  xhttp.send(`base=${ids[0]}&partner=${ids[1]}&checked=${e.target.checked}`);
+}
+
 function showHideFilter() {
   let filters = document.querySelector('.filter > form');
   if (filters.style.display === 'flex') {
@@ -19,6 +39,7 @@ function showHideFilter() {
     filters.style.display = 'flex';
   }
 }
+
 function setupButtons() {
   handlePress(
     document.querySelector("button[name='regenerate']"),
@@ -26,6 +47,7 @@ function setupButtons() {
   );
   handlePress(document.querySelector("button[name='filter']"), showHideFilter);
 }
+
 function handlePress(elem, action) {
   elem.addEventListener('click', (e) => {
     action(e);
