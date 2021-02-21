@@ -1,12 +1,6 @@
 nav(role='navigation').internal
     a(class='iconhome' href= '/' + username + '/dashboard')
       img(src='/icons/smallicon.png' alt='Fit of the Day badge logo')
-    .widgets
-      if (pagename === 'dashboard')
-        div
-          include weather
-        div 
-          include calendar
     .navlinks
       a(class='' href= '/' + username + '/dashboard') Dashboard
         span
@@ -25,4 +19,10 @@ nav(role='navigation').internal
       a(class='' href= '/logout') Logout
         span
           img(src='/icons/logout.png' width='20' height='20')
+    .widgets
+      if (pagename === 'dashboard')
+        div
+          include weather
+        div 
+          include calendar
   

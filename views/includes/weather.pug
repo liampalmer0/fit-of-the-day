@@ -1,9 +1,13 @@
 .weatherWidget
-  button(type="button" id="locate-me" title="Use Current Location") &#x1F9ED;  <span class="screen-reader">Use Current Location</span>
   unless weather == 'Weather Unavailable' 
-    span #{weather.city} 
-    span #{weather.current} ºF
-    img(src='http://openweathermap.org/img/wn/' + weather.icon + '.png')
+    .info 
+      span.city #{weather.city} #[button(type="button" id="locate-me" title="Use Current Location").emoji-btn &#x1F9ED; #[span(class="screen-reader") Use Current Location]]
+      span.desc #{weather.weatherPattern}
+    .data
+      img(src='http://openweathermap.org/img/wn/' + weather.icon + '.png')
+      .temp
+        span.num #{weather.current}
+        span.unit ºF
   else
     span Weather Unavailable
   script(src="/scripts/weather_widget.js")
