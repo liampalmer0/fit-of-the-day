@@ -65,62 +65,94 @@ footer {
 
 /*== INTERNAL NAV SPECIFIC STYLING ==========================================*/
 nav.internal {
+  max-width: 100%;
   display: grid;
   grid-template-columns: 1fr;
   background-color: #000000;
   color: #ffffff;
-  padding: 0.5rem 0.5rem;
+  padding: 0.2rem 0rem 0.5rem 0rem;
   margin: auto 0rem;
   text-align: left;
 }
 nav.internal > .widgets {
+  display: none;
+}
+.dashboard nav.internal > .widgets {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   grid-template-rows: repeat(2, 1fr);
   text-align: center;
   max-width: 100%;
+  border-top: 2px #404040 solid;
 }
 nav.internal > .widgets div {
   display: grid;
-  margin: 0.25rem 0rem;
-  text-align: center;
+  margin: 0rem;
 }
 nav.internal .widgets .calWidget,
 nav.internal .widgets .weatherWidget {
   display: flex;
-  background-color: black;
+  max-width: 100%;
+  background-color: inherit;
   justify-content: space-between;
   overflow: hidden;
 }
-nav.internal .widgets .weatherWidget > span,
+nav.internal .widgets .weatherWidget span,
 nav.internal .widgets .calWidget > span {
-  margin: auto 0.5rem;
+  margin: auto;
 }
 nav.internal .widgets .weatherWidget img {
-  background-color: white;
-  margin-right: 0.25rem;
+  margin: auto;
   border-radius: var(--fotd-border-radius);
-  max-width: 50px;
-  width: 100%;
-  object-fit: cover;
-}
-nav.internal .widgets .weatherWidget > button {
-  background-color: black;
-  border-radius: 100%;
-  border: 1px #707070 solid;
-  cursor: pointer;
-  font-size: 1.5rem;
-  text-align: center;
-  margin: auto 0.25rem;
-  padding: 0.25rem 0.5rem;
   max-width: 50px;
   max-height: 50px;
 }
+nav.internal .widgets .weatherWidget .emoji-btn {
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
+  font-size: 1.3rem;
+  text-align: center;
+  margin: auto 0.25rem;
+  padding: 0rem;
+  max-width: 50px;
+  max-height: 50px;
+}
+nav.internal .widgets .weatherWidget > .info {
+  text-align: left;
+  margin: 0;
+  padding: 0rem 0rem 0rem 0.5rem;
+}
+nav.internal .widgets .weatherWidget > .info > .city {
+  font-size: 1.75rem;
+}
+nav.internal .widgets .weatherWidget > .info > .desc {
+  width: 100%;
+  color: #c2c2c2;
+  font-size: 1rem;
+}
+nav.internal .widgets .weatherWidget > .data {
+  display: flex;
+  flex-flow: row wrap;
+}
+nav.internal .widgets .weatherWidget > .data > .temp {
+  display: flex;
+  flex: row wrap;
+  align-items: stretch;
+  margin: auto;
+}
+nav.internal .widgets .weatherWidget > .data > .temp > .num {
+  margin-top: 0rem;
+  font-size: 2rem;
+}
+nav.internal .widgets .weatherWidget > .data > .temp > .unit {
+  margin-top: 0rem;
+  font-size: 1rem;
+}
 nav.internal > .navlinks {
   display: flex;
-  grid-row: 2;
   max-width: 100%;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 nav.internal .navlinks > a,
 nav.internal .navlinks > div {
@@ -145,11 +177,13 @@ nav.internal .navlinks > *:hover {
 }
 nav.internal > a.iconhome {
   padding: 0;
-  margin: auto;
+  margin: 0.25rem auto 0.5rem auto;
+  height: 3rem;
 }
 nav.internal > a.iconhome > img {
-  width: 90%;
-  max-width: max-content;
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
 }
 nav.internal .dropdown {
   position: relative;
@@ -422,23 +456,19 @@ footer.public {
 /*== DASHBOARD SPECIFIC STYLING ==============================================*/
 .dashboard main {
   display: flex;
-  max-width: 95%;
-  flex-direction: row;
+  max-width: 100%;
+  flex-direction: column;
   align-items: flex-start;
-  margin: auto;
-}
-.dashboard .widgets {
-  border-right: 2px solid white;
-  border-left: 2px solid white;
+  margin: 0.5rem auto;
 }
 .dashboard .recommendations {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
-  width: 80%;
+  width: 100%;
 }
 .dashboard .filter > form {
-  width: 100%;
+  max-width: 100%;
   display: none;
   flex-flow: column nowrap;
   border-radius: var(--fotd-border-radius);
@@ -468,12 +498,17 @@ footer.public {
 /* DASHBOARD OUTFIT CARDS ====================================================*/
 .dashboard .outfit {
   flex-basis: 1;
-  width: 33%;
+  max-width: 100%;
   text-align: center;
   margin: 1rem;
 }
 .dashboard .card {
   margin: auto;
+  width: auto;
+}
+.dashboard .card .cardimg img {
+  max-width: 100%;
+  max-height: 100%;
 }
 .dashboard .card.single {
   display: flex;
@@ -482,18 +517,25 @@ footer.public {
   justify-content: space-between;
 }
 .dashboard .controls {
-  width: 20%;
-  margin: 1rem 0.5rem;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 0.5rem;
+  margin: 0rem auto;
 }
 .dashboard .controls button {
   border-radius: var(--fotd-border-radius);
   background-color: var(--fotd-green);
-  width: 100%;
+  flex: 1;
   border: none;
   padding: 0.5rem;
-  margin: 1rem 0rem 0rem 0rem;
+  margin: 0.5rem 0.25rem 0rem 0.25rem;
   font-size: 1.1rem;
   cursor: pointer;
+}
+.dashboard .controls .filter {
+  width: 100%;
 }
 .dashboard .controls button:active {
   background-color: var(--fotd-green-med);
@@ -547,7 +589,8 @@ footer.public {
 }
 .closet .closetControls > .filterForm {
   display: none;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: 100%;
+  grid-template-rows: auto;
   background-color: #eeeeee;
   padding: 1rem;
   border-radius: var(--fotd-border-radius);
@@ -562,9 +605,6 @@ footer.public {
   display: inline-block;
   text-align: left;
 }
-.closet .closetControls > .filterForm > .color {
-  grid-row: span 1;
-}
 .closet .closetControls > .filterForm > .temperature {
   display: block;
   text-align: center;
@@ -576,7 +616,6 @@ footer.public {
   margin-top: 0.5rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-column: 1 / span 2;
 }
 .closet .closetControls > .filterForm > .formControls > input {
   background-color: white;
@@ -747,18 +786,19 @@ footer.public {
 }
 .createArticle main,
 .editArticle main {
-  max-width: 50%;
+  max-width: 100%;
   margin: 0rem auto;
 }
 .createArticle main .articleForm > form,
 .editArticle main .articleForm > form {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
+  margin: 0.2rem;
 }
 .createArticle main .articleForm > form > *,
 .editArticle main .articleForm > form > * {
   padding: 0.2rem;
-  margin: 0.5rem;
+  margin: 0.2rem;
 }
 .createArticle main .articleForm > form input[type='submit'],
 .createArticle main .articleForm a[role='button'],
@@ -888,8 +928,21 @@ footer.public {
     text-align: right;
   }
   nav.internal {
-    grid-template-columns: 1fr 3fr 8fr;
+    grid-template-columns: 1fr 8fr;
   }
+  .dashboard nav.internal > .widgets {
+    display: flex;
+    margin: 0;
+    justify-content: space-between;
+    text-align: center;
+    max-width: 100%;
+    grid-column: 1 / span 2;
+  }
+  nav.internal > .widgets > * {
+    min-width: 33%;
+    max-width: 50%;
+  }
+
   nav.internal > .navlinks {
     grid-row: auto;
   }
@@ -909,7 +962,16 @@ footer.public {
     width: 65%;
   }
   /*== DASHBOARD SPECIFIC STYLING ==============================================*/
-
+  .dashboard .recommendations {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+  }
+  /* DASHBOARD OUTFIT CARDS ====================================================*/
+  .dashboard .outfit {
+    margin: 0.5rem;
+  }
   /*== CLOSET SPECIFIC STYLING =================================================*/
   .closet main {
     grid-template-columns: repeat(2, 1fr);
@@ -976,6 +1038,15 @@ footer.public {
     padding: 1rem 1rem;
     max-width: 100%;
   }
+  .closet .closetControls > .filterForm {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .closet .closetControls > .filterForm > .formControls {
+    margin-top: 0.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column: 1 / span 2;
+  }
   /*== SETTINGS SPECIFIC STYLING ================================================*/
   .settings .container {
     display: grid;
@@ -1022,7 +1093,20 @@ footer.public {
     width: 33%;
   }
   /*== DASHBOARD SPECIFIC STYLING ==============================================*/
-
+  .dashboard main {
+    flex-direction: row;
+    margin: 0.5rem 1.5rem;
+  }
+  .dashboard .controls {
+    flex: 1;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    padding: 0 0.5rem;
+  }
+  .dashboard .recommendations {
+    flex: 4;
+  }
   /*== CLOSET SPECIFIC STYLING =================================================*/
   .closet main {
     grid-template-columns: repeat(4, 1fr);
@@ -1033,6 +1117,20 @@ footer.public {
     max-width: 100%;
   }
   /*== ARTICLE SPECIFIC STYLING ================================================*/
+  .createArticle main,
+  .editArticle main {
+    max-width: 50%;
+    margin: 0rem auto;
+  }
+  .createArticle main .articleForm > form,
+  .editArticle main .articleForm > form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .createArticle main .articleForm > form > *,
+  .editArticle main .articleForm > form > * {
+    margin: 0.5rem;
+  }
   /* == Article Delete Dialog =========================== */
   .article .dialog .dialogContent {
     width: 50%;
