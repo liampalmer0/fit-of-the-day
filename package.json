@@ -7,7 +7,7 @@
     "start": "node ./bin/www",
     "debug": "DEBUG=express:* node ./bin/www",
     "pretest": "eslint --ignore-path .gitignore .",
-    "test": "mocha ./test/mocha",
+    "test": "nyc mocha ./test/mocha --timeout=3000",
     "integration": "mocha ./test/integration",
     "nw": "nightwatch -e chrome",
     "nwff": "nightwatch -e firefox",
@@ -50,6 +50,7 @@
     "geckodriver": "^1.21.1",
     "mocha": "^8.2.1",
     "nightwatch": "^1.5.1",
+    "nyc": "^15.1.0",
     "prettier": "^2.2.1"
   },
   "prettier": {
