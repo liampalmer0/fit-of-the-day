@@ -1,0 +1,32 @@
+extends layout
+
+block content 
+    include includes/internal-nav
+    
+    
+
+
+    main(role='main')
+        <div id="menu">
+            <span id="menu-navi">
+                <button type="button" class="btn btn-default btn-sm move-today" data-action="move-today">Today</button>
+                <button type="button" class="btn btn-default btn-sm move-day" data-action="move-prev">Previous</button>
+                <button type="button" class="btn btn-default btn-sm move-day" data-action="move-next">Next</button>
+            </span>
+            <span class="calendar-render-range" id= 'renderRange'></span></div> 
+        <div id='calendar'></div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://uicdn.toast.com/tui.code-snippet/v1.5.2/tui-code-snippet.min.js"></script>
+    <script src="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.min.js"></script>
+    <script src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.min.js"></script>
+    <script src="https://uicdn.toast.com/tui-calendar/latest/tui-calendar.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chance/1.0.13/chance.min.js"></script>
+    <script src="/tuiCalendar/dist/tui-calendar.js"></script>
+    <script src="/tuiCalendar/js/data/calendars.js"></script>
+    <script src="/tuiCalendar/js/data/schedules.js"></script>
+    
+    //- script(src="/tuiCalendar/scripts/tui-calendar.min.js")
+    script(src="/scripts/calendar_page.js")
+    <script src="/tuiCalendar/js/default.js"></script>
