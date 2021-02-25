@@ -4,8 +4,7 @@ const router = express.Router();
 
 /* GET calendar page. */
 router.get('/', (req, res) => {
-  // res.render('calendar-page.pug-name', data)
-  res.send('this is the calendar page');
+  res.render('calendar-page', { pagename: 'calendar' });
 });
 /* POST ajax for adding cal event. */
 router.post('/add', (req, res) => {
