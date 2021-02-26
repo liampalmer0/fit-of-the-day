@@ -1,3 +1,4 @@
+/*eslint-disable*/
 var Calendar = tui.Calendar;
 
 var cal = new Calendar('#calendar', {
