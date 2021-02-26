@@ -1,5 +1,8 @@
-const tf = require('@tensorflow/tfjs');
-require('@tensorflow/tfjs-node');
+//-- removed from package.json ---------------//
+const tf = require('@tensorflow/tfjs'); //
+require('@tensorflow/tfjs-node'); //
+//---------------------------------------//
+
 const prep = require('./data/prepare');
 const path = require('path');
 

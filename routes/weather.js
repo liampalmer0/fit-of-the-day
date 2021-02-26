@@ -1,18 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { getWeather, getCoords } = require('../api/openWeatherMap');
+const { getCurrentWeather } = require('../api/openWeatherMap');
 
 router.post('/locate', (req, res) => {
-  let city = '';
-  getCoords(req.body, true)
+  getCurrentWeather(req.body, true)
     .then(function (data) {
-      city = data.city;
-      return getWeather(req.body);
-    })
-    .then(function (weather) {
-      weather.city = city;
       res.render('includes/weather', {
-        weather
+        data
       });
     })
     .catch((err) => {

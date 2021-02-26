@@ -1,0 +1,56 @@
+[
+  {
+    "base": {
+      "dataValues": {
+        "garmentTypeId": 1,
+        "partner": [
+          {
+            "dataValues": { "garmentTypeId": 2 },
+            "outfit": { "dataValues": { "favorite": true } }
+          }
+        ]
+      }
+    },
+    "partner": {
+      "dataValues": { "garmentTypeId": 2 },
+      "outfit": { "dataValues": { "favorite": true } }
+    },
+    "favorite": true
+  },
+  {
+    "base": {
+      "dataValues": {
+        "garmentTypeId": 3,
+        "partner": [
+          {
+            "dataValues": { "garmentTypeId": 3 },
+            "outfit": { "dataValues": { "favorite": true } }
+          }
+        ]
+      }
+    },
+    "partner": {
+      "dataValues": { "garmentTypeId": 3 },
+      "outfit": { "dataValues": { "favorite": true } }
+    },
+    "favorite": true
+  },
+  {
+    "base": {
+      "dataValues": {
+        "garmentTypeId": 1,
+        "partner": [
+          {
+            "dataValues": { "garmentTypeId": 2 },
+            "outfit": { "dataValues": { "favorite": true } }
+          }
+        ]
+      }
+    },
+    "partner": {
+      "dataValues": { "garmentTypeId": 2 },
+      "outfit": { "dataValues": { "favorite": true } }
+    },
+    "favorite": true
+  }
+]

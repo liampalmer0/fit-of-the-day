@@ -132,39 +132,42 @@ async function editArticle(req, res, next) {
     res.redirect(`/${req.session.username}/closet/article?id=${req.query.id}`);
   }
 }
+async function deleteImage(id, username) {
+  const article = await models.article.findOne({
+    attributes: ['filepath'],
+    include: {
+      model: models.closet,
+      attributes: ['closetId'],
+      required: true,
+      include: {
+        model: models.user,
+        attributes: ['userId', 'username'],
+        where: { username: username },
+        required: true
+      }
+    },
+    where: { articleId: id }
+  });
+  if (article) {
+    if (
+      article.dataValues.filepath !== 'p-null.png' &&
+      article.dataValues.filepath !== 's-null.png' &&
+      article.dataValues.filepath.slice(-4) !== '.png' // if not test data img
+    ) {
+      fs.unlink(
+        path.join('public/user_img/liam', article.dataValues.filepath),
+        (err) => {
+          if (err) {
+            throw err;
+          }
+        }
+      );
+    }
+  }
+}
 async function deleteArticle(req, res, next) {
   try {
-    const filepathRow = await models.article.findOne({
-      attributes: ['filepath'],
-      include: {
-        model: models.closet,
-        attributes: ['closetId'],
-        required: true,
-        include: {
-          model: models.user,
-          attributes: ['userId', 'username'],
-          required: true
-        }
-      },
-      where: { articleId: req.query.id }
-    });
-    if (filepathRow) {
-      if (
-        filepathRow.dataValues.filepath !== 'p-null.png' &&
-        filepathRow.dataValues.filepath !== 's-null.png' &&
-        filepathRow.dataValues.filepath.slice(-4) !== '.png' // if not test data img
-      ) {
-        fs.unlink(
-          path.join('public/user_img/liam', filepathRow.dataValues.filepath),
-          (err) => {
-            if (err) {
-              throw err;
-            }
-          }
-        );
-      }
-    }
-
+    await deleteImage(req.query.id, req.session.username);
     await models.article.destroy({
       include: [
         {
@@ -299,5 +302,6 @@ module.exports = {
   createArticle,
   showEdit,
   editArticle,
+  deleteImage,
   deleteArticle
 };

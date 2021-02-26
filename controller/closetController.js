@@ -13,39 +13,36 @@ async function getCloset(username) {
   });
 }
 
-function showCloset(req, res, next) {
-  const success = req.session.opStatus.success;
-  const error = req.session.opStatus.error;
-  getCloset(req.session.username)
-    .then(function (closet) {
-      return closet.getArticles(req.session.username);
-    })
-    .then(function (articles) {
-      const data = {
-        title: 'FOTD - Closet',
-        pagename: 'closet',
-        success,
-        error,
-        articles
-      };
-      req.session.opStatus.success = false;
-      req.session.opStatus.error = false;
-      res.render('closet', data);
-    })
-    .catch((err) => {
-      if (process.env.NODE_ENV === 'development') {
-        console.log(err);
-      }
-      const data = {
-        title: 'FOTD - Closet - Error',
-        pagename: 'closet',
-        success: false,
-        error: { msg: 'Closet data unavailable. Please try again later.' }
-      };
-      req.session.opStatus.success = false;
-      req.session.opStatus.error = false;
-      res.render('closet', data);
-    });
+async function showCloset(req, res, next) {
+  try {
+    const success = req.session.opStatus.success;
+    const error = req.session.opStatus.error;
+    const closet = await getCloset(req.session.username);
+    const articles = await closet.getArticles();
+    const data = {
+      title: 'FOTD - Closet',
+      pagename: 'closet',
+      success,
+      error,
+      articles
+    };
+    req.session.opStatus.success = false;
+    req.session.opStatus.error = false;
+    res.render('closet', data);
+  } catch (err) {
+    if (process.env.NODE_ENV === 'development') {
+      console.log(err);
+    }
+    const data = {
+      title: 'FOTD - Closet - Error',
+      pagename: 'closet',
+      success: false,
+      error: { msg: 'Closet data unavailable. Please try again later.' }
+    };
+    req.session.opStatus.success = false;
+    req.session.opStatus.error = false;
+    res.render('closet', data);
+  }
 }
 
 function createWhere(filters = {}) {
