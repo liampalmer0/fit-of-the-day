@@ -6,7 +6,7 @@ router.post('/locate', (req, res) => {
   getCurrentWeather(req.body, true)
     .then(function (data) {
       res.render('includes/weather', {
-        data
+        weather: data
       });
     })
     .catch((err) => {
