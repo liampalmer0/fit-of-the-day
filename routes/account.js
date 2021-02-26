@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { models } = require('../sequelize');
-const { getCoords } = require('../api/openWeatherMap');
+const { getCurrentWeather } = require('../api/openWeatherMap');
 
 /* GET settings page. */
 router.get('/', (req, res, next) => {
@@ -20,7 +20,7 @@ router.post('/zip', async (req, res, next) => {
         }
       }
     );
-    let coords = await getCoords(req.body.zip);
+    let coords = await getCurrentWeather(req.body.zip);
     req.session.coords = { lat: coords.lat, lon: coords.lon };
     res.send('The new zip code was saved.');
   } catch (err) {

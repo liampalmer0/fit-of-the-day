@@ -23,6 +23,12 @@ VALUES
 -- INSERT INTO rating("ratingValue") 
 -- VALUES (1),(2),(3),(4),(5);
 
+INSERT INTO event("userId", "name", "desc", "dressCodeId", "dateTimeStart", "dateTimeEnd") 
+VALUES 
+(1,'Henry''s Birthday','Henry''s surprise birthday party at his place', 1, TIMESTAMP '2020-12-31 01:00:00+00', TIMESTAMP '2020-01-01 23:00:00+00'),
+(1,'Date w/ Sofia','Date with Sofia from Tallinn', 2, TIMESTAMP '2020-12-27 21:00:00+00', TIMESTAMP '2020-12-27 23:00:00+00'),
+(1,'Cara + John Wedding', 'Outdoor wedding', 3, TIMESTAMP '2021-01-01 20:00:00+00', TIMESTAMP '2021-01-02 02:00:00+00');
+
 INSERT INTO article ("closetId", "name", "desc", dirty, "garmentTypeId", "dressCodeId", "tempMin", "tempMax", filepath)
 VALUES 
 (1, 'Green Shirt', 'A very good green shirt', 'f', 1, 1, 60, 80, 's-green.png'),

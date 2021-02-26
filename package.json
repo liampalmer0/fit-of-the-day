@@ -7,8 +7,9 @@
     "start": "node ./bin/www",
     "debug": "DEBUG=express:* node ./bin/www",
     "pretest": "eslint --ignore-path .gitignore .",
-    "test": "nyc mocha ./test/mocha --timeout=3000",
+    "test": "mocha ./test/mocha --timeout=3000",
     "integration": "mocha ./test/integration",
+    "coverage": "nyc npm run test",
     "nw": "nightwatch -e chrome",
     "nwff": "nightwatch -e firefox",
     "nww": "node nightwatch.js -e chrome"
@@ -24,7 +25,6 @@
   },
   "homepage": "https://github.com/liampalmer0/SeniorDesign#readme",
   "dependencies": {
-    "@tensorflow/tfjs-node": "^3.0.0",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "~1.4.4",
     "csv-parser": "^3.0.0",
@@ -51,12 +51,21 @@
     "mocha": "^8.2.1",
     "nightwatch": "^1.5.1",
     "nyc": "^15.1.0",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "proxyquire": "^2.1.3",
+    "sinon": "^9.2.4"
   },
   "prettier": {
     "trailingComma": "none",
     "tabWidth": 2,
     "semi": true,
     "singleQuote": true
+  },
+  "nyc": {
+    "exclude": [
+      "sequelize/**",
+      "test/**",
+      "*.js"
+    ]
   }
 }

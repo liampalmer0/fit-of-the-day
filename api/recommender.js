@@ -51,6 +51,7 @@ async function recRand(username) {
     if (tops.length < 3 || bottoms.length < 3) {
       throw new Error('FIX ME : not enough data to show recs');
     }
+
     return [
       { top: tops[0], bottom: bottoms[0] },
       { top: tops[1], bottom: bottoms[1] },
@@ -100,6 +101,13 @@ async function recRandFiltered(username, filters) {
     { top: tops[2], bottom: bottoms[2] }
   ];
 }
+
+/**
+ *
+ * @param {Number} dayTemp the days temperature
+ * @param {Array<Number>} dressCodes
+ * @param {Array<Number>} garmentTypes
+ */
 function recParams(
   dayTemp = 75,
   dressCodes = [1, 2, 3],
@@ -116,30 +124,13 @@ function recParams(
   return { ...tempClause, ...gtClause, ...dcClause, dirty: 'f' };
 }
 
-function consolidateItems(bases, partners) {
-  let outfits = [];
-  if (bases.length === 0) {
-    // no items matched the day at all, return 3 empty outfits
-    return [new Outfit(-1), new Outfit(-1), new Outfit(-1)];
-  } else {
-    for (let i = 0; i < 3; i++) {
-      let outfit = new Outfit(-1);
-      // if base not null
-      if (bases[i]) {
-        outfit.base = bases[i];
-        // if partner not null & not empty
-        if (partners[i] && partners[i] !== -1) {
-          outfit.partner = partners[i];
-        } else {
-          outfit.partner = -1;
-        }
-      }
-      outfits.push(outfit);
-    }
-    return outfits;
-  }
-}
-
+/**
+ * Attempts to fill in any empty article spaces in a given array of outfits
+ *
+ * @param {*} outfits existing outfits to fill around
+ * @param {*} closet the user's closet
+ * @param {*} options specifications (weather, dress codes)
+ */
 async function fill(
   outfits,
   closet,
@@ -179,6 +170,12 @@ async function fill(
   return outfits;
 }
 
+/**
+ * Find 3 outfits that match the given weather data
+ *
+ * @param {String} username username for finding correct closet
+ * @param {*} weather the day's weather data
+ */
 async function recommend(username, weather = { tempAverage: 75 }) {
   try {
     const closet = await getCloset(username);
@@ -235,9 +232,12 @@ async function recommend(username, weather = { tempAverage: 75 }) {
 }
 
 module.exports = {
+  Outfit,
+  getEvents,
+  getRandomByType,
   recRand,
   recRandFiltered,
   recParams,
-  consolidateItems,
+  fill,
   recommend
 };
