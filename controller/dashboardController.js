@@ -57,18 +57,16 @@ async function getZipCode(username) {
   }
 }
 
-function showDashboard(req, res, next) {
-  getApiResults(req)
-    .then(async (data) => {
-      req.session.temp = data.weather.current;
-      return data;
-    })
-    .then(function (data) {
-      data.title = 'Fit of the Day - Dashboard';
-      data.pagename = 'dashboard';
-      res.render('dashboard', data);
-    })
-    .catch(next);
+async function showDashboard(req, res, next) {
+  try {
+    let data = await getApiResults(req);
+    req.session.temp = data.weather.current;
+    data.title = 'Fit of the Day - Dashboard';
+    data.pagename = 'dashboard';
+    res.render('dashboard', data);
+  } catch (err) {
+    next(err);
+  }
 }
 
 function regenFiltered(req, res, next) {

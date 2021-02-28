@@ -154,14 +154,6 @@ describe('DashboardController', function () {
     });
   });
 
-  describe('#showDashboard()', function () {
-    it('should render dashboard page with data from APIs');
-  });
-
-  describe('#regenFiltered()', function () {
-    it('should return an array of outfits that match the given filters');
-  });
-
   describe('#setFavorite()', function () {
     let req;
     let res;
@@ -239,5 +231,53 @@ describe('DashboardController', function () {
       expect(res.sendStatus.notCalled).to.be.true;
       expect(next.calledOnce, 'Next not called once').to.be.true;
     });
+  });
+
+  describe('#showDashboard()', function () {
+    let session;
+    let req;
+    let next;
+    beforeEach(function () {
+      session = { username: USERNAME, opStatus: {} };
+      req = { session, query: { id: 1 } };
+      next = sinon.spy();
+      findOneUserStub.resolves('60605');
+      getCurrentWeatherStub.resolves({
+        current: 75,
+        coords: { lat: 1, lon: 1 }
+      });
+    });
+
+    it('should render dashboard page with data from APIs', async function () {
+      let render = sinon.spy();
+      let res = { render: render };
+
+      await dashboardCtrl.showDashboard(req, res, next);
+
+      expect(next.notCalled).to.be.true;
+      expect(
+        render.calledWith('dashboard', {
+          weather: { current: 75, coords: { lat: 1, lon: 1 } },
+          calStatus: 'No Events Today',
+          title: 'Fit of the Day - Dashboard',
+          pagename: 'dashboard'
+        }),
+        'Render not called with given args'
+      ).to.be.true;
+    });
+
+    it('should call next on error', async function () {
+      let render = sinon.stub().throws();
+      let res = { render: render };
+
+      await dashboardCtrl.showDashboard(req, res, next);
+
+      expect(render.calledOnce).to.be.true;
+      expect(next.calledOnce).to.be.true;
+    });
+  });
+
+  describe('#regenFiltered()', function () {
+    it('should return an array of outfits that match the given filters');
   });
 });
