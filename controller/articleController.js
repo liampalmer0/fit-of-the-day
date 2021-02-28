@@ -70,6 +70,7 @@ async function createArticle(req, res, next) {
     res.redirect(`/${req.session.username}/closet`);
   }
 }
+
 async function editArticle(req, res, next) {
   try {
     let filepath = '';
@@ -83,7 +84,7 @@ async function editArticle(req, res, next) {
           filepath = 'p-null.png';
         }
       } else {
-        filepath = req.body.filepath;
+        filepath = req.body.previousFile;
       }
     } else {
       filepath = req.file.filename;
@@ -132,6 +133,7 @@ async function editArticle(req, res, next) {
     res.redirect(`/${req.session.username}/closet/article?id=${req.query.id}`);
   }
 }
+
 async function deleteImage(id, username) {
   const article = await models.article.findOne({
     attributes: ['filepath'],
@@ -204,49 +206,55 @@ async function deleteArticle(req, res, next) {
     res.redirect(`/${req.session.username}/closet/article?id=${req.query.id}`);
   }
 }
-function showArticle(req, res, next) {
-  let success = req.session.opStatus.success;
-  let error = req.session.opStatus.error;
-  getArticle(req.query.id, req.session.username)
-    .then((rows) => {
-      if (rows.length === 0) {
-        success = false;
-        error = { msg: 'Article could not be found' };
-      }
-      const data = {
-        title: `FOTD - ${rows[0].name}`,
-        pagename: 'article',
-        success,
-        error,
-        article: {
-          articleId: rows[0].articleId,
-          name: rows[0].name,
-          desc: rows[0].desc,
-          color: rows[0].color.toString(16).padStart(6, '0'),
-          dirty: rows[0].dirty,
-          garmentType: rows[0].garmentType.dataValues.name,
-          dressCode: rows[0].dressCode.dataValues.name,
-          tempMin: rows[0].tempMin,
-          tempMax: rows[0].tempMax,
-          filepath: rows[0].filepath
-        }
+async function showArticle(req, res, next) {
+  let success;
+  let error;
+  try {
+    success = req.session.opStatus.success;
+    error = req.session.opStatus.error;
+    let article = {};
+    let title = 'FOTD - Article not found';
+    let rows = await getArticle(req.query.id, req.session.username);
+    if (rows.length === 0) {
+      success = false;
+      error = { msg: 'Article could not be found' };
+    } else {
+      title = `FOTD - ${rows[0].name}`;
+      article = {
+        articleId: rows[0].articleId,
+        name: rows[0].name,
+        desc: rows[0].desc,
+        color: rows[0].color.toString(16).padStart(6, '0'),
+        dirty: rows[0].dirty,
+        garmentType: rows[0].garmentType.dataValues.name,
+        dressCode: rows[0].dressCode.dataValues.name,
+        tempMin: rows[0].tempMin,
+        tempMax: rows[0].tempMax,
+        filepath: rows[0].filepath
       };
-      req.session.opStatus.success = false;
-      req.session.opStatus.error = false;
-      res.render('article', data);
-    })
-    .catch((err) => {
-      if (process.env.NODE_ENV === 'development') {
-        console.log(err);
-      }
-      const data = {
-        title: 'FOTD - Error',
-        pagename: 'article',
-        success,
-        error: { msg: 'Article data unavailable. Please try again later.' }
-      };
-      res.render('article', data);
-    });
+    }
+    const data = {
+      title,
+      pagename: 'article',
+      success,
+      error,
+      article
+    };
+    req.session.opStatus.success = false;
+    req.session.opStatus.error = false;
+    res.render('article', data);
+  } catch (err) {
+    if (process.env.NODE_ENV === 'development') {
+      console.log(err);
+    }
+    const data = {
+      title: 'FOTD - Error',
+      pagename: 'article',
+      success,
+      error: { msg: 'Article data unavailable. Please try again later.' }
+    };
+    res.render('article', data);
+  }
 }
 function showCreate(req, res, next) {
   const data = {
@@ -257,42 +265,41 @@ function showCreate(req, res, next) {
   };
   res.render('create-article', data);
 }
-function showEdit(req, res, next) {
-  getArticle(req.query.id, req.session.username)
-    .then((rows) => {
-      if (rows.length === 0) {
-        throw new Error('User not authorized for the requested article');
+async function showEdit(req, res, next) {
+  try {
+    let rows = await getArticle(req.query.id, req.session.username);
+    if (rows.length === 0) {
+      throw new Error('User not authorized for the requested article');
+    }
+    const data = {
+      title: `FOTD - Edit ${rows[0].name}`,
+      pagename: 'editArticle',
+      article: {
+        articleId: rows[0].articleId,
+        name: rows[0].name,
+        desc: rows[0].desc,
+        color: rows[0].color.toString(16).padStart(6, '0'),
+        dirty: rows[0].dirty,
+        garmentType: rows[0].garmentType.dataValues.name,
+        dressCode: rows[0].dressCode.dataValues.name,
+        tempMin: rows[0].tempMin,
+        tempMax: rows[0].tempMax,
+        filepath: rows[0].filepath
       }
-      const data = {
-        title: `FOTD - Edit ${rows[0].name}`,
-        pagename: 'editArticle',
-        article: {
-          articleId: rows[0].articleId,
-          name: rows[0].name,
-          desc: rows[0].desc,
-          color: rows[0].color.toString(16).padStart(6, '0'),
-          dirty: rows[0].dirty,
-          garmentType: rows[0].garmentType.dataValues.name,
-          dressCode: rows[0].dressCode.dataValues.name,
-          tempMin: rows[0].tempMin,
-          tempMax: rows[0].tempMax,
-          filepath: rows[0].filepath
-        }
-      };
-      data.action = '';
-      data.submitVal = 'Save';
-      res.render('edit-article', data);
-    })
-    .catch((err) => {
-      if (process.env.NODE_ENV === 'development') {
-        console.log(err);
-      }
-      res.render('edit-article', {
-        title: 'FOTD - Edit - Error',
-        pagename: 'editArticle',
-        error: true
-      });
+    };
+    data.action = '';
+    data.submitVal = 'Save';
+    res.render('edit-article', data);
+  } catch (err) {
+    if (process.env.NODE_ENV === 'development') {
+      console.log(err);
+    }
+    res.render('edit-article', {
+      title: 'FOTD - Edit - Error',
+      pagename: 'editArticle',
+      error: true
     });
+  }
 }
 
 module.exports = {
