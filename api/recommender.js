@@ -157,10 +157,18 @@ async function fill(
         if (fillerBases[i].dataValues.garmentTypeId === 3) {
           outfits[i] = new Outfit(fillerBases[i]);
         } else {
-          outfits[i] = new Outfit(
-            fillerBases[i],
-            fillerPartners[i] ? fillerPartners[i] : -1
-          );
+          // when partner arr is smaller than bases
+          // if no possible match for day
+          if (fillerPartners.length === 0) {
+            outfits[i] = new Outfit(fillerBases[i], -1);
+          } else {
+            let p = i;
+            // reduce p until it can be used to get a partner
+            while (fillerPartners.length <= p) {
+              p = p === 0 ? 0 : p - 1;
+            }
+            outfits[i] = new Outfit(fillerBases[i], fillerPartners[p]);
+          }
         }
       } else {
         outfits[i] = new Outfit(-1);
