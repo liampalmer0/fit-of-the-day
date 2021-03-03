@@ -1,12 +1,11 @@
 extends layout
 
-block content 
+block content
   include includes/internal-nav
   .message
     if error
       p.error Error: Article data unavailable
-  main(role='main').editArticle
+  main.editArticle(role='main')
     h1 Edit Article
     .articleForm 
       include includes/article-form
-    

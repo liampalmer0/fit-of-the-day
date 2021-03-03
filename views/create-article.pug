@@ -1,9 +1,8 @@
 extends layout
 
-block content 
+block content
   include includes/internal-nav
-  main(role='main').newArticle
+  main.newArticle(role='main')
     h1 Create New Article
     .articleForm 
       include includes/article-form
-    

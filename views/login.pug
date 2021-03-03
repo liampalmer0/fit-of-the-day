@@ -1,17 +1,21 @@
 extends layout
 block content
-  img(class='loginstyle' src='/icons/icononly.png' alt='Fit of the Day Logo')
+  img.loginstyle(src='/icons/icononly.png' alt='Fit of the Day Logo')
   h1 Fit of the Day - #{pagename.replace(/^\w/, (c) => c.toUpperCase())}
   main(role='main')
     if error
       p.error Incorrect username/password
     .formblock
-      <form action='/login' method='post' id='loginform'>
-        <label for='username'>Username </label>
-        <input id='username' type='text' name='username' placeholder='username' autofocus>
-        <label for='password'>Password </label>
-        <input id='password' type='password' name='password' placeholder='password'>
-        <input type='submit' value='Login'>
-      </form>
-      
-    p New User? <a href='/signup' >Sign Up</a>
+      form#loginform(action='/login' method='post')
+        label(for='username') Username
+        input#username(
+          type='text'
+          name='username'
+          placeholder='username'
+          autofocus
+        )
+        label(for='password') Password
+        input#password(type='password' name='password' placeholder='password')
+        input(type='submit' value='Login')
+
+    p New User? #[a(href='/signup') Sign Up]

@@ -5,21 +5,15 @@ mixin item(articleId, group, imgPath, name, desc)
     .cardtext
       .name= name
       .desc= desc
-    input(type='radio' name=group, value=articleId, required)
+    input(type='radio' name=group value=articleId required)
 mixin cardDisplay(title, active, group, items)
   fieldset(disabled=active)
-    legend=title
+    legend= title
     each item in items
-      +item(
-        item.dataValues.articleId,
-        group,
-        '/user_img/liam/' + item.dataValues.filepath,
-        item.dataValues.name, 
-        item.dataValues.desc
-      )
-.staticContainer      
-  input(type='submit' value="Create Outfit")
-div.cardContainers
+      +item(item.dataValues.articleId, group, '/user_img/liam/' + item.dataValues.filepath, item.dataValues.name, item.dataValues.desc)
+.staticContainer 
+  input(type='submit' value='Create Outfit')
+.cardContainers
   .topbtm
     if tops
       +cardDisplay('Tops', false, 'top', tops)
@@ -28,4 +22,3 @@ div.cardContainers
   .single
     if singles
       +cardDisplay('Singles', 'disabled', 'single', singles)
-
