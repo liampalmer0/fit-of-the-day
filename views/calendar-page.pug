@@ -1,54 +1,72 @@
 extends layout
 
-block content 
-    include includes/internal-nav
-    
-    main(role='main')
-        <div id="menu">
-            <span id="menu-navi">
-                <button type="button" class="btn btn-default btn-sm move-today" data-action="move-today">Today</button>
-                <button type="button" class="btn btn-default btn-sm move-day" data-action="move-prev">Previous</button>
-                <button type="button" class="btn btn-default btn-sm move-day" data-action="move-next">Next</button>
-            </span>
-            <span class="calendar-render-range" id= 'renderRange'></span></div> 
-        <div id='calendar'></div>
+block content
+  include includes/internal-nav
+  main(role='main')
+    #menu
+      span#menu-navi
+        button.btn.btn-default.btn-sm.move-today(
+          type='button'
+          data-action='move-today'
+        ) Today
+        button.btn.btn-default.btn-sm.move-day(
+          type='button'
+          data-action='move-prev'
+        ) Previous
+        button.btn.btn-default.btn-sm.move-day(
+          type='button'
+          data-action='move-next'
+        ) Next
+      span#renderRange.calendar-render-range
+    #calendar
+    .dialog(style='display: none')
+      .yeet 
+        h2 New Event
+        label(for='name') Name
+        input#name(name='name' type='text')
+        label(for='desc') Description
+        input#desc(name='desc' type='text')
+        label(for='start') Start Date
+        input#start(name='start' type='date')
+        label(for='startTime') Start Time
+        input#startTime(name='startTime' type='time')
+        label(for='end') End Date
+        input#end(name='end' type='date')
+        label(for='endTime') End Time
+        input#endTime(name='endTime' type='time')
+        label(for='dressCode') Dress Code
+        select#dressCode(name='dressCode')
+          option(value='' selected) -- Dress Code --
+          option(value='1') Casual
+          option(value='2') Semi-Formal
+          option(value='3') Formal
 
-        .dialog(style='display:none;')
-            .yeet 
-                h2 New Event
-                label(for='name') Name
-                input(id='name' name='name' type='text' )
-                label(for='desc') Description
-                input(id='desc' name='desc' type='text' )
-                label(for='start') Start Date
-                input(id='start' name='start' type='date' )
-                label(for='startTime') Start Time
-                input(id='startTime' name='startTime' type='time' )
-                label(for='end') End Date
-                input(id='end' name='end' type='date' )
-                label(for='endTime') End Time
-                input(id='endTime' name='endTime' type='time' )
-                label(for='dressCode') Dress Code
-                select(id='dressCode' name='dressCode')
-                    option(value='' selected) -- Dress Code --
-                    option(value='1') Casual 
-                    option(value='2') Semi-Formal 
-                    option(value='3') Formal 
+        button#calendarSave(type='button') Save
 
-                button(type= 'button' id='calendarSave') Save
+  script(
+    src='https://code.jquery.com/jquery-3.2.1.slim.min.js'
+    integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN'
+    crossorigin='anonymous'
+  )
+  script(
+    src='https://uicdn.toast.com/tui.code-snippet/v1.5.2/tui-code-snippet.min.js'
+  )
+  script(
+    src='https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.min.js'
+  )
+  script(
+    src='https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.min.js'
+  )
+  script(src='https://uicdn.toast.com/tui-calendar/latest/tui-calendar.js')
+  script(
+    src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js'
+  )
+  script(
+    src='https://cdnjs.cloudflare.com/ajax/libs/chance/1.0.13/chance.min.js'
+  )
+  script(src='/tuiCalendar/dist/tui-calendar.js')
+  script(src='/tuiCalendar/js/data/calendars.js')
+  script(src='/tuiCalendar/js/data/schedules.js')
 
-
-
-    script(src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous")
-    script(src="https://uicdn.toast.com/tui.code-snippet/v1.5.2/tui-code-snippet.min.js")
-    script(src="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.min.js")
-    script(src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.min.js")
-    script(src="https://uicdn.toast.com/tui-calendar/latest/tui-calendar.js")
-    script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js")
-    script(src="https://cdnjs.cloudflare.com/ajax/libs/chance/1.0.13/chance.min.js")
-    script(src="/tuiCalendar/dist/tui-calendar.js")
-    script(src="/tuiCalendar/js/data/calendars.js")
-    script(src="/tuiCalendar/js/data/schedules.js")
-    
-    script(src="/scripts/calendar_page.js")
-    script(src="/tuiCalendar/js/default.js")
+  script(src='/scripts/calendar_page.js')
+  script(src='/tuiCalendar/js/default.js')

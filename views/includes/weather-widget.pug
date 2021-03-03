@@ -1,16 +1,16 @@
 .weatherWidget
   unless weather.msg == 'Weather Unavailable' 
     .info 
-      span.city #{weather.city} #[button(type="button" id="locate-me" title="Use Current Location").emoji-btn &#x1F9ED; #[span(class="screen-reader") Use Current Location]]
+      span.city #{weather.city} #[button#locate-me.emoji-btn(type='button' title='Use Current Location') &#x1F9ED; #[span.screen-reader Use Current Location]]
       span.desc #{weather.weatherPattern}
     .data
-      img(src='http://openweathermap.org/img/wn/' + weather.icon + '.png')
+      img(src="http://openweathermap.org/img/wn/" + weather.icon + ".png")
       .temp
         span.num #{weather.current}
         span.unit ºF
   else
     span Weather Unavailable
-  script(src="/scripts/weather_widget.js")
+  script(src='/scripts/weather_widget.js')
 
 //-   //- Use weather.'option' to call a specific variable
 //-   //- Options are: city, high, low, current, feelsLike, weatherPattern, tempAverage, rainChance (shown in a %), and icon

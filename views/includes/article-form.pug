@@ -1,88 +1,107 @@
-form(action=action method='post' id='articleForm' enctype='multipart/form-data')
-  
+form#articleForm(action=action method='post' enctype='multipart/form-data')
   label(for='name') Name
   if article
-    input(id='name' type='text' name='name' placeholder='Name' required value=article.name autofocus)
+    input#name(
+      type='text'
+      name='name'
+      placeholder='Name'
+      required
+      value=article.name
+      autofocus
+    )
   else
-    input(id='name' type='text' name='name' placeholder='Name' required autofocus)
-  
+    input#name(type='text' name='name' placeholder='Name' required autofocus)
+
   label(for='desc') Description
   if article
-    textarea(id='desc' type='text' name='desc' placeholder='Description' rows='6')=article.desc
+    textarea#desc(type='text' name='desc' placeholder='Description' rows='6')= article.desc
   else
-    textarea(id='desc' type='text' name='desc' placeholder='Description' rows='6')
-      
+    textarea#desc(type='text' name='desc' placeholder='Description' rows='6')
+
   label(for='color') Color
   if article
-    input(type='color' id='color' name='color' value= '#' + article.color) 
-  else 
-    input(type='color' id='color' name='color' value= '#a6e09a')
-  
+    input#color(type='color' name='color' value="#" + article.color) 
+  else
+    input#color(type='color' name='color' value='#a6e09a')
+
   label(for='image') Upload Image
   if article
     input(type='file' name='image')
-    input(type="hidden" value=article.filepath name="previousFile")
+    input(type='hidden' value=article.filepath name='previousFile')
   else
     input(type='file' name='image')
 
-  - const types = ['top', 'bottom', 'one piece']
+  - const types = ["top", "bottom", "one piece"];
   label(for='type') Type
-  select(id='type' name='type')
+  select#type(name='type')
     each gType in types
       if article
         if article.garmentType === gType
-          option(value=gType selected)=gType
-        else 
-          option(value=gType)=gType
-      else  
-        option(value=gType)=gType 
+          option(value=gType selected)= gType
+        else
+          option(value=gType)= gType
+      else
+        option(value=gType)= gType
 
-
-  - const dressCodes = ['casual', 'semi-formal', 'formal']
+  - const dressCodes = ["casual", "semi-formal", "formal"];
   label(for='dressCode') Dress Code
-  select(id='dressCode' name='dressCode')
+  select#dressCode(name='dressCode')
     each dressCode in dressCodes
       if article
         if article.dressCode === dressCode
-          option(value=dressCode selected)=dressCode
+          option(value=dressCode selected)= dressCode
         else
-          option(value=dressCode)=dressCode
+          option(value=dressCode)= dressCode
       else
-        option(value=dressCode)=dressCode
+        option(value=dressCode)= dressCode
 
   label(for='dirty') Dirty
   div
     if article
       if article.dirty
-        input(type='checkbox' id='dirty' name='dirty' value='dirty' checked)
-      else 
-        input(type='checkbox' id='dirty' name='dirty' value='dirty')
+        input#dirty(type='checkbox' name='dirty' value='dirty' checked)
+      else
+        input#dirty(type='checkbox' name='dirty' value='dirty')
     else
-      input(type='checkbox' id='dirty' name='dirty' value='dirty')
+      input#dirty(type='checkbox' name='dirty' value='dirty')
 
   label(for='tempMin') Minimum Temp. (ºF)
   .slider
     if article
-      input(type='range' id='tempMin' name='tempMin' min='-25' max='125' value=article.tempMin)
+      input#tempMin(
+        type='range'
+        name='tempMin'
+        min='-25'
+        max='125'
+        value=article.tempMin
+      )
     else
-      input(type='range' id='tempMin' name='tempMin' min='-25' max='125' value='75')
-    span(id='minval')
+      input#tempMin(type='range' name='tempMin' min='-25' max='125' value='75')
+    span#minval
   label(for='tempMax') Maximum Temp. (ºF)
   .slider 
     if article
-      input(type='range' id='tempMax' name='tempMax' min='-25' max='125' value=article.tempMax)
+      input#tempMax(
+        type='range'
+        name='tempMax'
+        min='-25'
+        max='125'
+        value=article.tempMax
+      )
     else
-      input(type='range' id='tempMax' name='tempMax' min='-25' max='125' value='75')
-    span(id='maxval') 75
-  
+      input#tempMax(type='range' name='tempMax' min='-25' max='125' value='75')
+    span#maxval 75
+
   p.tempAlert Minimum Temperature is greater than Maximum Temperature
 
   if article
-    a(role='button' href='/' + username + '/closet/article?id=' + article.articleId) Cancel
+    a(
+      role='button'
+      href="/" + username + "/closet/article?id=" + article.articleId
+    ) Cancel
   else
-    a(role='button' href='/' + username + '/closet') Cancel
+    a(role='button' href="/" + username + "/closet") Cancel
 
-  input(type='submit' value=submitVal )
+  input(type='submit' value=submitVal)
 
-  script(src='/scripts/article_form_page.js', type='text/javascript')
-  
+  script(src='/scripts/article_form_page.js' type='text/javascript')

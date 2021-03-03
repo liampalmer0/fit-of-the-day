@@ -4,26 +4,29 @@ block content
   include includes/internal-nav
   .message
     if success
-      p.success=success.msg
+      p.success= success.msg
     else if error
       p.error Error: #{error.msg}
   main(role='main')
     if article
       section.item-card
         .item-image
-          img(src='/user_img/liam/' + article.filepath alt='default image of the article')
+          img(
+            src="/user_img/liam/" + article.filepath
+            alt='default image of the article'
+          )
         .item-details
-          span(class='screen-reader') Item details
+          span.screen-reader Item details
           header
-            h1(class='name') #{article.name}
-          p(class='desc') #{article.desc}
+            h1.name #{article.name}
+          p.desc #{article.desc}
           .fineDetails
-            .detailEntry#color
+            #color.detailEntry
               unless article.color == 'multiple'
-                .colorSwatch(style='background-color: #' + article.color)
+                .colorSwatch(style="background-color: #" + article.color)
               else
                 .colorSwatch.multiSwatch
-              p='#' + article.color.toUpperCase()
+              p= "#" + article.color.toUpperCase()
             .detailEntry
               if article.dirty
                 p &#x1F92E
@@ -38,7 +41,7 @@ block content
                 p &#x1F456
               else
                 p &#x0031&#xFE0F&#x20E3
-              p=article.garmentType.toUpperCase()
+              p= article.garmentType.toUpperCase()
             .detailEntry
               if article.dressCode == 'casual'
                 p &#x1F576
@@ -46,26 +49,28 @@ block content
                 p &#x1F454
               else
                 p &#x1F48E
-              p=article.dressCode.toUpperCase()
+              p= article.dressCode.toUpperCase()
             p Temperature
             ul
               li Minimum : #{article.tempMin}
               li Maximum : #{article.tempMax}
           .options
-            a(role='button' href='article/edit?id='+article.articleId) Edit
-            a(id='deleteBtn' role='button' href='#') Delete
-        
+            a(role='button' href="article/edit?id=" + article.articleId) Edit
+            a#deleteBtn(role='button' href='#') Delete
+
   if article
     .dialog
       .dialogContent
         .header
           h3 Delete Article : #{article.name}
-          button(class='close' type='button') &times;
+          button.close(type='button') &times;
         .msg
           p Are you sure you want to delete '#{article.name}'?
-        form(class='dialogForm' action='article/delete?id='+article.articleId method='post')
-          button(class='confirm' type='submit') Delete
-          button(class='cancel' type='button') Cancel
+        form.dialogForm(
+          action="article/delete?id=" + article.articleId
+          method='post'
+        )
+          button.confirm(type='submit') Delete
+          button.cancel(type='button') Cancel
 
-  script(src='/scripts/article_page.js', type='text/javascript')
-        
+  script(src='/scripts/article_page.js' type='text/javascript')

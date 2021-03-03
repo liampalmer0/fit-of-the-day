@@ -4,48 +4,48 @@ block content
   include includes/internal-nav
   .message
     if success
-      p.success=success.msg
+      p.success= success.msg
     else if error
       p.error Error: #{error.msg}
   aside.closetControls
     .buttons
-      button(role='button' type='button' id='viewFilter') Filter <span class='arrow'> &darr; </span>
+      button#viewFilter(role='button' type='button') Filter <span class='arrow'> &darr; </span>
       .operations
         a(role='button' href='closet/laundryDay') Laundry Day
-        a(id='newArticle' href='closet/article/new') New Article
-        a(id='newOutfit' href='closet/outfits/new') New Outfit
-    form(method='post' id='filterForm' class='hide').filterForm
+        a#newArticle(href='closet/article/new') New Article
+        a#newOutfit(href='closet/outfits/new') New Outfit
+    form#filterForm.hide.filterForm(method='post')
       .color
         label(for='color') Color
-        select(id='color' name='color')
+        select#color(name='color')
           option(value='' selected) -- color --
-          option(value='red') Red 
-          option(value='orange') Orange 
-          option(value='yellow') Yellow 
-          option(value='green') Green 
-          option(value='blue') Blue 
-          option(value='purple') Purple 
-          option(value='brown') Brown 
-          option(value='black') Black 
-          option(value='white') White 
-          option(value='multiple') Multiple 
+          option(value='red') Red
+          option(value='orange') Orange
+          option(value='yellow') Yellow
+          option(value='green') Green
+          option(value='blue') Blue
+          option(value='purple') Purple
+          option(value='brown') Brown
+          option(value='black') Black
+          option(value='white') White
+          option(value='multiple') Multiple
       .type
         label(for='type') Type
-        select(id='type' name='type')
+        select#type(name='type')
           option(value='' selected) -- type --
           option(value='1') Top
           option(value='2') Bottom
           option(value='3') One-Piece
       .dresscode
         label(for='dresscode') Dress Code
-        select(id='dresscode' name='dresscode')
+        select#dresscode(name='dresscode')
           option(value='' selected) -- dress code --
           option(value='1') Casual
           option(value='2') Semi-Formal
           option(value='3') Formal
       .dirty
         label(for='dirty') Clean
-        select(id='dirty' name='dirty')
+        select#dirty(name='dirty')
           option(value='' selected) -- all --
           option(value='f') Clean
           option(value='t') Dirty
@@ -54,17 +54,28 @@ block content
         label(for='tempMin') Min.
         .sliderContainer
           span
-          input(type='range' min='-15' max='120' value='-15' class='slider' id='tempMin' name='tempMin')
+          input#tempMin.slider(
+            type='range'
+            min='-15'
+            max='120'
+            value='-15'
+            name='tempMin'
+          )
 
         label(for='tempMax') Max.
         .sliderContainer
           span
-          input(type='range' min='-15' max='120' value='120' class='slider' id='tempMax' name='tempMax')
+          input#tempMax.slider(
+            type='range'
+            min='-15'
+            max='120'
+            value='120'
+            name='tempMax'
+          )
       .formControls
-        input(id='submitFilters' type='submit' value='Filter')
-        input(id='filterReset' type='reset' value='Reset Filters')
-    
+        input#submitFilters(type='submit' value='Filter')
+        input#filterReset(type='reset' value='Reset Filters')
 
   main
     include includes/closet-articles
-  script(src='/scripts/closet_page.js', type='text/javascript')
+  script(src='/scripts/closet_page.js' type='text/javascript')

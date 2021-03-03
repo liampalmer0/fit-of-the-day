@@ -5,13 +5,7 @@ mixin article(articlePath, imgPath, name, desc)
     .cardtext
       .name= name
       .desc= desc
-    input(type='hidden', value=articlePath)
+    input(type='hidden' value=articlePath)
 if articles
   each item in articles
-    +article(
-      `/article?id=${item.articleId}`,
-      '/user_img/liam/' + item.dataValues.filepath,
-      item.dataValues.name, 
-      item.dataValues.desc
-    )
-    
+    +article(`/article?id=${item.articleId}`, '/user_img/liam/' + item.dataValues.filepath, item.dataValues.name, item.dataValues.desc)

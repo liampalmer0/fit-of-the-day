@@ -4,17 +4,17 @@ block content
   include includes/internal-nav
   main(role='main')
     .controls
-      button(name="regenerate") &#128260; Refresh
-      button(name="filter") &darr; Filter
+      button(name='regenerate') &#128260; Refresh
+      button(name='filter') &darr; Filter
       .filter
-        form(action='' method='post' id='filterform')
+        form#filterform(action='' method='post')
           label(for='type') Type:
-          select(id='type' name='type')
-            option(value='' selected ) -- type --
+          select#type(name='type')
+            option(value='' selected) -- type --
             option(value='topbtm') Top/Bottom
             option(value='single') Single
           label(for='drscode') Dress Code:
-          select(id='drscode' name='drscode')
+          select#drscode(name='drscode')
             option(value='' selected) -- dress code --
             option(value='casual') Casual
             option(value='semi') Semi-formal
@@ -24,6 +24,4 @@ block content
     if error
       .error
         p Error: #{error.msg}
-  script(src="/scripts/dashboard_page.js")
-
-    
+  script(src='/scripts/dashboard_page.js')
