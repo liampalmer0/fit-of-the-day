@@ -71,7 +71,24 @@ async function getCalendarFrag(req, res) {
   res.render('includes/calendar-widget', locals);
 }
 
+async function saveEvent(req, res) {
+  let user = await models.user.findOne({
+    attributes: ['userId'],
+    where: { username: req.session.username }
+  });
+  await models.event.create({
+    userId: user.userId,
+    name: req.body.name,
+    desc: req.body.desc,
+    dressCodeId: req.body.dressCode,
+    dateTimeStart: req.body.start,
+    dateTimeEnd: req.body.end
+  });
+  res.send('The event was saved.');
+}
+
 module.exports = {
   getEvents,
-  getCalendarFrag
+  getCalendarFrag,
+  saveEvent
 };
