@@ -5,7 +5,7 @@ const { getCurrentWeather } = require('../api/openWeatherMap');
 router.post('/locate', (req, res) => {
   getCurrentWeather(req.body, true)
     .then(function (data) {
-      res.render('includes/weather', {
+      res.render('includes/weather-widget', {
         weather: data
       });
     })

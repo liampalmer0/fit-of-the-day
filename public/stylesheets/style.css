@@ -89,7 +89,7 @@ nav.internal > .widgets div {
   display: grid;
   margin: 0rem;
 }
-nav.internal .widgets .calWidget,
+nav.internal .widgets .cal-widget,
 nav.internal .widgets .weatherWidget {
   display: flex;
   max-width: 100%;
@@ -98,9 +98,10 @@ nav.internal .widgets .weatherWidget {
   overflow: hidden;
 }
 nav.internal .widgets .weatherWidget span,
-nav.internal .widgets .calWidget > span {
+nav.internal .widgets .cal-widget > span {
   margin: auto;
 }
+/*== WEATHER WIDGET STYLES ============================== */
 nav.internal .widgets .weatherWidget img {
   margin: auto;
   border-radius: var(--fotd-border-radius);
@@ -149,6 +150,58 @@ nav.internal .widgets .weatherWidget > .data > .temp > .unit {
   margin-top: 0rem;
   font-size: 1rem;
 }
+/*== CALENDAR WIDGET STYLES ============================= */
+nav.internal .widgets .cal-widget {
+  position: relative;
+  margin: 0.5rem 0.5rem 0 0;
+}
+nav.internal .widgets .cal-widget .event {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 0.5rem;
+}
+nav.internal .widgets .cal-widget .event .event-detail.name {
+  font-size: 1.25rem;
+}
+nav.internal .widgets .cal-widget .event .event-detail.dress-code {
+  font-size: 1rem;
+}
+nav.internal .widgets .cal-widget .event .event-detail.duration {
+  grid-column: 1 / span 2;
+}
+nav.internal .widgets .cal-widget .event .event-detail.start,
+nav.internal .widgets .cal-widget .event .event-detail.end {
+  font-size: 0.8rem;
+}
+nav.internal .widgets .cal-widget .controls {
+  display: none;
+  grid-template-columns: repeat(2, 1fr);
+  position: absolute;
+  top: 50%;
+  width: 100%;
+}
+nav.internal .widgets .cal-widget:hover .controls {
+  display: grid;
+}
+nav.internal .widgets .cal-widget .controls div {
+  position: absolute;
+  width: 100%;
+}
+nav.internal .widgets .cal-widget .controls button {
+  position: relative;
+  transform: translateY(-50%);
+  z-index: 1;
+  border-radius: 0%;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #e0e0e0;
+}
+nav.internal .widgets .cal-widget .controls div:first-child button {
+  margin: auto auto auto 0.15rem;
+}
+nav.internal .widgets .cal-widget .controls div:last-child button {
+  margin: auto 0.15rem auto auto;
+}
+/* ======================================================= */
 nav.internal > .navlinks {
   display: flex;
   max-width: 100%;

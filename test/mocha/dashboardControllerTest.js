@@ -47,22 +47,21 @@ describe('DashboardController', function () {
       }
     });
   });
-  describe('#getApiResults()', function () {
-    it('should return calendar data and weather data from session coords', async function () {
+  describe('#getWeather()', function () {
+    it('should return weather data from session coords', async function () {
       let req = { session: { coords: { lat: 0.2347, lon: 2 } } };
       getCurrentWeatherStub.resolves({
         city: CITY,
         current: 75
       });
 
-      const result = await dashboardCtrl.getApiResults(req);
+      const result = await dashboardCtrl.getWeather(req);
 
       expect(getCurrentWeatherStub.calledWith(req.session.coords, true));
       expect(result.weather).to.deep.equal({ current: 75, city: CITY });
-      expect(result.calStatus).to.deep.equal('No Events Today');
     });
 
-    it('should return calendar data and weather data from saved zip code', async function () {
+    it('should return weather widget data from saved zip code', async function () {
       let weather = {
         current: 75,
         city: CITY,
@@ -72,15 +71,14 @@ describe('DashboardController', function () {
       findOneUserStub.resolves({ dataValues: { zipcode: '60605' } });
       getCurrentWeatherStub.resolves(weather);
 
-      const result = await dashboardCtrl.getApiResults(req);
+      const result = await dashboardCtrl.getWeather(req);
 
       expect(findOneUserStub.calledOnce).to.be.true;
       expect(getCurrentWeatherStub.calledWith('60605')).to.be.true;
       expect(result.weather).to.deep.equal(weather);
-      expect(result.calStatus).to.deep.equal('No Events Today');
     });
 
-    it('should return calendar data and default zip code weather data', async function () {
+    it('should return default zip code weather data', async function () {
       let req = { session: { coords: null } };
       let weather = {
         current: 75,
@@ -90,31 +88,29 @@ describe('DashboardController', function () {
       findOneUserStub.resolves(null);
       getCurrentWeatherStub.resolves(weather);
 
-      const result = await dashboardCtrl.getApiResults(req);
+      const result = await dashboardCtrl.getWeather(req);
 
       expect(findOneUserStub.calledOnce).to.be.true;
       expect(getCurrentWeatherStub.calledWith(DEFAULT_ZIPCODE)).to.be.true;
       expect(result.weather).to.deep.equal(weather);
-      expect(result.calStatus).to.deep.equal('No Events Today');
     });
 
-    it('should return calendar data and weather error message', async function () {
+    it('should return weather error message', async function () {
       let req = { session: { coords: null } };
       findOneUserStub.resolves(null);
       getCurrentWeatherStub.throws();
 
-      const result = await dashboardCtrl.getApiResults(req);
+      const result = await dashboardCtrl.getWeather(req);
 
       expect(findOneUserStub.calledOnce).to.be.true;
       expect(getCurrentWeatherStub.calledWith(DEFAULT_ZIPCODE)).to.be.true;
-      expect(result.weather).to.equal('Weather Unavailable');
-      expect(result.calStatus).to.deep.equal('Calendar Unavailable');
+      expect(result.weather.msg).to.equal('Weather Unavailable');
     });
   });
 
   describe('#getZipCode()', function () {
     it("should return the zipcode for user 'tester'", async function () {
-      findOneUserStub.resolves({ dataValues: { zipcode: '60605' } });
+      findOneUserStub.resolves({ dataValues: { zipcode: ZIPCODE } });
 
       const zip = await dashboardCtrl.getZipCode(USERNAME);
 
@@ -123,12 +119,22 @@ describe('DashboardController', function () {
         .true;
     });
 
-    it('should return nothing if user does not exist', async function () {
+    it('should return the default zipcode if no entry', async function () {
+      findOneUserStub.resolves({ dataValues: { zipcode: ZIPCODE } });
+
+      const zip = await dashboardCtrl.getZipCode(USERNAME);
+
+      expect(zip).to.equal(ZIPCODE);
+      expect(findOneUserStub.calledOnce, 'Find one user not called once').to.be
+        .true;
+    });
+
+    it('should return default if user does not exist', async function () {
       findOneUserStub.throws('Zip code error');
 
       const zip = await dashboardCtrl.getZipCode(USERNAME);
 
-      expect(zip).to.equal(null);
+      expect(zip).to.equal(DEFAULT_ZIPCODE);
       expect(findOneUserStub.calledOnce, 'Find one user not called once').to.be
         .true;
     });
@@ -248,7 +254,7 @@ describe('DashboardController', function () {
       });
     });
 
-    it('should render dashboard page with data from APIs', async function () {
+    it('should render dashboard page with data from weather API', async function () {
       let render = sinon.spy();
       let res = { render: render };
 
@@ -258,7 +264,6 @@ describe('DashboardController', function () {
       expect(
         render.calledWith('dashboard', {
           weather: { current: 75, coords: { lat: 1, lon: 1 } },
-          calStatus: 'No Events Today',
           title: 'Fit of the Day - Dashboard',
           pagename: 'dashboard'
         }),

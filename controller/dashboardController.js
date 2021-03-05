@@ -1,38 +1,26 @@
 const owm = require('../api/openWeatherMap');
 const { recRand, recRandFiltered, recommend } = require('../api/recommender');
 const { models } = require('../sequelize');
+const DEFAULT_ZIP = 10001;
 
-async function getApiResults(req) {
-  let weather = 'Weather Unavailable';
-  let calStatus = { msg: 'Calendar Unavailable' };
+async function getWeather(username, coords) {
+  let weather = { msg: 'Weather Unavailable', coords: null };
   try {
-    // call APIs
-    if (
-      req.session.coords &&
-      req.session.coords.lat &&
-      req.session.coords.lon
-    ) {
-      weather = await owm.getCurrentWeather(req.session.coords, true);
+    if (coords && coords.lat && coords.lon) {
+      weather = await owm.getCurrentWeather(coords, true);
     } else {
-      let savedZip = await getZipCode(req.session.username);
-      let zip = savedZip ? savedZip : 10001; //set default if db entry is null
+      let zip = await getZipCode(username);
       weather = await owm.getCurrentWeather(zip);
-      req.session.coords = { lat: weather.coords.lat, lon: weather.coords.lon };
     }
-    return {
-      weather,
-      calStatus: 'No Events Today'
-    };
+    return { weather: weather };
   } catch (err) {
     if (process.env.NODE_ENV === 'development') {
       console.log(err);
     }
-    return {
-      weather,
-      calStatus: calStatus.msg
-    };
+    return { weather: weather };
   }
 }
+
 async function getRandRecs(username, filtered, body) {
   try {
     if (!filtered) {
@@ -51,15 +39,16 @@ async function getZipCode(username) {
     let data = await models.user.findOne({
       where: { username }
     });
-    return data ? data.dataValues.zipcode : null;
+    return data ? data.dataValues.zipcode : DEFAULT_ZIP;
   } catch {
-    return null;
+    return DEFAULT_ZIP;
   }
 }
 
 async function showDashboard(req, res, next) {
   try {
-    let data = await getApiResults(req);
+    let data = await getWeather(req.session.username, req.session.coords);
+    req.session.coords = data.weather.coords;
     req.session.temp = data.weather.current;
     data.title = 'Fit of the Day - Dashboard';
     data.pagename = 'dashboard';
@@ -70,7 +59,7 @@ async function showDashboard(req, res, next) {
 }
 
 function regenFiltered(req, res, next) {
-  getApiResults(req)
+  getWeather(req)
     .then(async (data) => {
       data.outfits = await getRandRecs(req.session.username, true, req.body);
       return data;
@@ -125,7 +114,7 @@ async function setFavorite(req, res, next) {
 module.exports = {
   showDashboard,
   regenFiltered,
-  getApiResults,
+  getWeather,
   regenRecommendations,
   setFavorite,
   getZipCode
