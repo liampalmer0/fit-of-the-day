@@ -5,7 +5,6 @@ let recr;
 const proxyquire = require('proxyquire');
 
 const USERNAME = 'tester';
-const START_DATE = new Date('2021-01-01Z00:00:00');
 const DEFAULT_DC = [1, 2, 3];
 const DEFAULT_GT = [1, 2, 3];
 const BASE = { dataValues: { name: 'base', garmentTypeId: 1 } };
@@ -71,15 +70,13 @@ describe('Recommender', function () {
 
     recr = proxyquire('../../api/recommender.js', {
       '../sequelize': {
-        models: {
-          event: {
-            findAll: findAllEventsStub
-          }
-        },
         Sequelize: { literal: sequelizeLitStub }
       },
       '../controller/closetController': {
         getCloset: sinon.stub().resolves({ getArticles: getArticlesStub })
+      },
+      '../controller/calendarController': {
+        getEvents: findAllEventsStub
       }
     });
   });
@@ -110,73 +107,6 @@ describe('Recommender', function () {
 
   describe('#recRandFiltered() **DEPRECATED**', function () {
     it('should return outfit array matching given filters');
-  });
-
-  describe('#getEvents()', function () {
-    let mockedEventData;
-    beforeEach(function () {
-      mockedEventData = [
-        {
-          dataValues: {
-            dateTimeEnd: 0,
-            dateTimeStart: 0,
-            desc: 0,
-            dressCodeId: 0,
-            eventId: 0,
-            name: 0,
-            user: 0,
-            userId: 0
-          }
-        }
-      ];
-    });
-    it("should return all events for user 'tester'", async function () {
-      findAllEventsStub.resolves(mockedEventData);
-      const allEvents = await recr.getEvents(USERNAME);
-      expect(allEvents).to.have.lengthOf(1);
-      expect(allEvents[0].dataValues).to.have.all.keys(
-        'dateTimeEnd',
-        'dateTimeStart',
-        'desc',
-        'dressCodeId',
-        'eventId',
-        'name',
-        'user',
-        'userId'
-      );
-      expect(findAllEventsStub.calledOnce).to.be.true;
-    });
-
-    it("should return all events between start & end for user 'tester'", async function () {
-      findAllEventsStub.resolves(mockedEventData);
-      const rangedEvents = await recr.getEvents(
-        USERNAME,
-        START_DATE,
-        Date.now()
-      );
-      expect(rangedEvents).to.have.lengthOf(1);
-      expect(rangedEvents[0].dataValues).to.have.all.keys(
-        'dateTimeEnd',
-        'dateTimeStart',
-        'desc',
-        'dressCodeId',
-        'eventId',
-        'name',
-        'user',
-        'userId'
-      );
-      expect(findAllEventsStub.calledOnce).to.be.true;
-    });
-
-    it('should return empty on error', async function () {
-      findAllEventsStub.throws('Get events error');
-
-      const rangedEvents = await recr.getEvents(USERNAME);
-
-      expect(rangedEvents).to.be.an('array');
-      expect(rangedEvents).to.have.lengthOf(0);
-      expect(findAllEventsStub.calledOnce).to.be.true;
-    });
   });
 
   describe('#Outfit Object', function () {
@@ -310,7 +240,8 @@ describe('Recommender', function () {
       expect(outfits[0]).to.deep.equal(EMPTY_OUTFITS[0]);
       expect(outfits[1]).to.deep.equal(EMPTY_OUTFITS[1]);
       expect(outfits[2]).to.deep.equal(EMPTY_OUTFITS[2]);
-      expect(findAllEventsStub.calledOnce, 'getEvents() not called').is.true;
+      expect(findAllEventsStub.calledOnce, 'getEvents() not calledOnce').is
+        .true;
       expect(getArticlesStub.called, 'getArticles() not called').is.true;
     });
   });

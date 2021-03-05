@@ -1,6 +1,7 @@
 const { Sequelize, models } = require('../sequelize');
 const { Op } = require('sequelize');
 const { getCloset } = require('../controller/closetController');
+const { getEvents } = require('../controller/calendarController');
 
 const TYPE_IDS = { top: 1, btm: 2, oneP: 3 };
 
@@ -12,29 +13,6 @@ class Outfit {
   }
 }
 
-async function getEvents(username, begin = null, end = null) {
-  try {
-    let where = {};
-    if (begin && end) {
-      where = { dateTimeStart: { [Op.between]: [begin, end] } };
-    }
-    return await models.event.findAll({
-      include: {
-        attributes: ['userId'],
-        model: models.user,
-        where: { username },
-        required: true
-      },
-      where: where,
-      order: [['dateTimeStart', 'ASC']]
-    });
-  } catch (err) {
-    if (process.env.NODE_ENV === 'development') {
-      console.log(err);
-    }
-    return [];
-  }
-}
 async function getRandomByType(username, typeId, count = 3) {
   const closet = await getCloset(username);
   return await closet.getArticles({

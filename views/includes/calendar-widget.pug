@@ -1,0 +1,32 @@
+mixin event(index, name, start, end, dressCodeId, color, visible)
+  - var display = visible ? "grid" : "none";
+  .event(
+    style="background-color: " + color + "; display:" + display,
+    index=`${index}`
+  )
+    span.event-detail.name= name
+    span.event-detail.dress-code= dressCodeId
+    .event-detail.duration
+      span.event-detail.start= `${start.day}/${start.month}/${start.year.toString().slice(2)} ${start.hour}:${start.minute} - ${end.day}/${end.month}/${end.year.toString().slice(2)} ${end.hour}:${end.minute}`
+
+.cal-widget
+  if empty
+    span= msg
+  else if events
+    - var i = 0;
+    each event in events
+      if i < 1
+        +event(event.index, event.name, event.start, event.end, event.dressCode, "black", true)
+      else
+        +event(event.index, event.name, event.start, event.end, event.dressCode, "black", false)
+      - i = 1;
+    .controls
+      div 
+        button(role='button', name='prev', dest='0') <
+      div
+        button(role='button', name='next', dest='1') >
+  else if err
+    span.error Error: Calendar Unavailable
+  else
+    span Loading...
+script(src='/scripts/calendar_widget.js') 

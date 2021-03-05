@@ -1,5 +1,5 @@
 .weatherWidget
-  unless weather == 'Weather Unavailable' 
+  unless weather.msg == 'Weather Unavailable' 
     .info 
       span.city #{weather.city} #[button(type="button" id="locate-me" title="Use Current Location").emoji-btn &#x1F9ED; #[span(class="screen-reader") Use Current Location]]
       span.desc #{weather.weatherPattern}
