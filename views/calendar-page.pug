@@ -13,6 +13,32 @@ block content
             <span class="calendar-render-range" id= 'renderRange'></span></div> 
         <div id='calendar'></div>
 
+        .dialog(style='display:none;')
+            .yeet 
+                h2 New Event
+                label(for='name') Name
+                input(id='name' name='name' type='text' )
+                label(for='desc') Description
+                input(id='desc' name='desc' type='text' )
+                label(for='start') Start Date
+                input(id='start' name='start' type='date' )
+                label(for='startTime') Start Time
+                input(id='startTime' name='startTime' type='time' )
+                label(for='end') End Date
+                input(id='end' name='end' type='date' )
+                label(for='endTime') End Time
+                input(id='endTime' name='endTime' type='time' )
+                label(for='dressCode') Dress Code
+                select(id='dressCode' name='dressCode')
+                    option(value='' selected) -- Dress Code --
+                    option(value='1') Casual 
+                    option(value='2') Semi-Formal 
+                    option(value='3') Formal 
+
+                button(type= 'button' id='calendarSave') Save
+
+
+
     script(src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous")
     script(src="https://uicdn.toast.com/tui.code-snippet/v1.5.2/tui-code-snippet.min.js")
     script(src="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.min.js")
