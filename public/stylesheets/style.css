@@ -1051,6 +1051,7 @@ footer.public {
   /* DASHBOARD OUTFIT CARDS ====================================================*/
   .dashboard .outfit {
     margin: 0.5rem;
+    max-width: 35%;
   }
   /*== CLOSET SPECIFIC STYLING =================================================*/
   .closet main {
