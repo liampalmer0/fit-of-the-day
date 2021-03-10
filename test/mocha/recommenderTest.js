@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
-const { Outfit } = require('../../api/recommender');
+const Outfit = require('../../common/Outfit');
 let recr;
 const proxyquire = require('proxyquire');
 
