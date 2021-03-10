@@ -4,14 +4,7 @@ const { getCloset } = require('../controller/closetController');
 const { getEvents } = require('../controller/calendarController');
 
 const TYPE_IDS = { top: 1, btm: 2, oneP: 3 };
-
-class Outfit {
-  constructor(base, partner = null, favorite = false) {
-    this.base = base;
-    this.partner = partner ? partner : base;
-    this.favorite = favorite;
-  }
-}
+const Outfit = require('../common/Outfit');
 
 async function getRandomByType(username, typeId, count = 3) {
   const closet = await getCloset(username);

@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 const proxyquire = require('proxyquire');
-const { Outfit } = require('../../api/recommender');
+const Outfit = require('../../common/Outfit');
 
 const USERNAME = 'tester';
 const DEFAULT_ZIPCODE = 10001;
