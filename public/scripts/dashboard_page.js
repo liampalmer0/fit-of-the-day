@@ -19,16 +19,21 @@ function ajaxRecommend() {
   xhttp.send();
 }
 function ajaxSetFavorite(e) {
+  const before = e.target.attributes.favorite ? true : false;
   const ids = e.target.value.split(',');
   let xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
-    if (this.readyState === 4 && this.status !== 200) {
-      e.target.checked = false;
+    if (this.readyState === 4 && this.status === 200) {
+      if (before) {
+        e.target.removeAttribute('favorite');
+      } else {
+        e.target.setAttribute('favorite', 'favorite');
+      }
     }
   };
   xhttp.open('POST', 'dashboard/favorite', true);
   xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  xhttp.send(`base=${ids[0]}&partner=${ids[1]}&checked=${e.target.checked}`);
+  xhttp.send(`base=${ids[0]}&partner=${ids[1]}&checked=${!before}`);
 }
 
 function showHideFilter() {

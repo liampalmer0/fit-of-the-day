@@ -5,7 +5,7 @@ mixin item(articleId, group, imgPath, name, desc)
     .cardtext
       .name= name
       .desc= desc
-    input(type='radio' name=group value=articleId required)
+    input.action(type='radio' name=group value=articleId required)
 mixin cardDisplay(title, active, group, items)
   fieldset(disabled=active)
     legend= title

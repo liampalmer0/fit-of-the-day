@@ -1,0 +1,53 @@
+extends layout
+mixin outfit(base, partner, fav=false)
+  .card
+    if base && base.dataValues.name
+      if partner && partner.dataValues.name
+        h2= `${base.dataValues.name.substring(0, 13)} + ${partner.dataValues.name.substring(0, 13)}`
+      else
+        h2= `${base.dataValues.name}`
+    if base
+      .cardimg
+        a(href="closet/article?id=" + base.dataValues.articleId)
+          img(
+            src="/user_img/liam/" + base.dataValues.filepath
+            alt=`Preview image of article \'${base.dataValues.name}\'`
+          )
+      if partner
+        .cardimg
+          a(href="closet/article?id=" + partner.dataValues.articleId)
+            img(
+              src="/user_img/liam/" + partner.dataValues.filepath
+              alt=`Preview image of article \'${partner.dataValues.name}\'`
+            )
+      .cardtext
+        .detail-icons
+        .desc
+          if base.dataValues.name
+            p= base.dataValues.name
+          if partner && partner.dataValues.name
+            p= partner.dataValues.name
+
+block content
+  include includes/internal-nav
+
+  main
+    h1 Favorite Outfits
+    if outfits
+      each outfit in outfits
+        .outfit
+          if outfit.base != -1 && outfit.partner != -1
+            if outfit.base.dataValues.articleId === outfit.partner.dataValues.articleId
+              +outfit(outfit.base, null)
+            else
+              +outfit(outfit.base, outfit.partner, outfit.favorite)
+          else
+            if outfit.base == -1
+              +outfit(null, null)
+            else
+              +outfit(outfit.base, null)
+
+    else
+      .empty-outfits
+        p Outfits that you have favorited will appear here.
+        p You can favorite a dashboard recommendation or add one on the closet page #[a(href="/" + username + "/closet/outfits/new") here]
