@@ -19,7 +19,7 @@ function ajaxRecommend() {
   xhttp.send();
 }
 function ajaxSetFavorite(e) {
-  const before = e.target.attributes.favorite ? true : false;
+  const before = e.target.attributes.favorite;
   const ids = e.target.value.split(',');
   let xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {

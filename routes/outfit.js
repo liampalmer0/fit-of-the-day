@@ -23,12 +23,13 @@ router.get('/', async (req, res) => {
     },
     where: { garmentTypeId: [TYPE_IDS.top, TYPE_IDS.oneP] }
   });
-
   // Iterate through base outfits and the favorites/saved outfits favorites
   bases.forEach((base) => {
-    if (base.dataValues.partner[0].outfit.dataValues.favorite) {
-      result.push(new Outfit(base, base.dataValues.partner[0], true));
-    }
+    base.dataValues.partner.forEach((partner) => {
+      if (partner.dataValues.outfit.favorite) {
+        result.push(new Outfit(base, partner, true));
+      }
+    });
   });
   res.render('outfit', {
     title: 'FOTD - Favorite Outfits',

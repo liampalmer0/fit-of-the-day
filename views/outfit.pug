@@ -1,5 +1,5 @@
 extends layout
-mixin outfit(base, partner, fav=false)
+mixin outfit(base, partner)
   .card
     if base && base.dataValues.name
       if partner && partner.dataValues.name
@@ -36,16 +36,11 @@ block content
     if outfits
       each outfit in outfits
         .outfit
-          if outfit.base != -1 && outfit.partner != -1
+          if outfit.partner != -1
             if outfit.base.dataValues.articleId === outfit.partner.dataValues.articleId
               +outfit(outfit.base, null)
             else
-              +outfit(outfit.base, outfit.partner, outfit.favorite)
-          else
-            if outfit.base == -1
-              +outfit(null, null)
-            else
-              +outfit(outfit.base, null)
+              +outfit(outfit.base, outfit.partner)
 
     else
       .empty-outfits
