@@ -15,14 +15,19 @@ var cal = new Calendar('#calendar', {
   }
 });
 
-function handlePopUp() {
-  const dialog = document.querySelector('.dialog');
+function handlePopUp(popupName) {
+  const dialog = document.querySelector(`.dialog[name='${popupName}']`);
 
   if (dialog.style.display === 'block') {
     dialog.style.display = 'none';
   } else {
     dialog.style.display = 'block';
   }
+}
+
+function closePopUp(e) {
+  const dialog = e.target.parentElement.parentElement;
+  dialog.style.display = 'none';
 }
 
 function saveEvent() {
@@ -40,7 +45,7 @@ function saveEvent() {
   let xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState === 4 && this.status === 200) {
-      document.querySelector('.msg').innerHTML = this.responseText;
+      // document.querySelector('.msg').innerHTML = this.responseText;
       console.log(this.responseText);
     }
   };
@@ -63,14 +68,48 @@ function addClickHandlers(elem, eventHandler) {
   });
 }
 
+function pad(n) {
+  return n < 10 ? '0' + n : n;
+}
+
+function eventDetailsPop(e) {
+  handlePopUp('detailsPopup');
+
+  let startDay = pad(e.schedule.start.getDay());
+  let startMonth = pad(e.schedule.start.getMonth());
+  let startYear = e.schedule.start.getFullYear();
+  let startHour = pad(e.schedule.start.getHours());
+  let startMinute = pad(e.schedule.start.getMinutes());
+
+  let endDay = pad(e.schedule.end.getDay());
+  let endMonth = pad(e.schedule.end.getMonth());
+  let endYear = e.schedule.end.getFullYear();
+  let endHour = pad(e.schedule.end.getHours());
+  let endMinute = pad(e.schedule.end.getMinutes());
+
+  let start = `${startYear}-${startMonth}-${startDay}`;
+  let startTime = `${startHour}:${startMinute}`;
+  let end = `${endYear}-${endMonth}-${endDay}`;
+  let endTime = `${endHour}:${endMinute}`;
+
+  document.querySelector('#nameDetails').value = e.schedule.title;
+  document.querySelector('#descDetails').value = e.schedule.body;
+  document.querySelector('#startDetails').value = start;
+  document.querySelector('#endDetails').value = end;
+  document.querySelector('#dressCodeDetails').value = e.schedule.calendarId;
+  document.querySelector('#startTimeDetails').value = startTime;
+  document.querySelector('#endTimeDetails').value = endTime;
+}
+
 cal.on({
   clickSchedule: function (e) {
     console.log('clickSchedule', e);
+    eventDetailsPop(e);
   },
   beforeCreateSchedule: function (e) {
     console.log('beforeCreateSchedule', e);
     // open a creation popup
-    handlePopUp();
+    handlePopUp('createPopup');
     // If you dont' want to show any popup, just use `e.guide.clearGuideElement()`
 
     // then close guide element(blue box from dragging or clicking days)
@@ -88,38 +127,154 @@ cal.on({
   }
 });
 
-function newEvent() {
-  calelendar.createSchedule({
-    id: 1,
-    calelendarId: userId.toString(),
-    title: '',
-    start: '',
-    end: '',
-    isAllDay: false,
-    color: '',
-    bgColor: '',
-    dressCodeId: ''
-    //dateTimeStart: '',
-    //dateTimeEnd: ''
-  });
+function loadEvents() {
+  let xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState === 4 && this.status === 200) {
+      generateSchedule(JSON.parse(this.responseText));
+    }
+  };
+  xhttp.open('GET', 'calendar/load?year=2021&month=3', true);
+  xhttp.send();
 }
 
-function editEvent() {
-  calendar.updateSchedule(schedule.id, schedule.calendarId, {
-    title: '',
-    start: '',
-    end: '',
-    isAllDay: false,
-    color: '',
-    bgColor: ''
-  });
+function ScheduleInfo() {
+  this.id = null;
+  this.calendarId = null;
+
+  this.title = null;
+  this.body = null;
+  this.isAllday = false;
+  this.start = null;
+  this.end = null;
+  this.category = '';
+  this.dueDateClass = '';
+  this.dressCodeId = '';
+
+  this.color = null;
+  this.bgColor = null;
+  this.dragBgColor = null;
+  this.borderColor = null;
+  this.customStyle = '';
+
+  this.isFocused = false;
+  this.isPending = false;
+  this.isVisible = true;
+  this.isReadOnly = false;
+  this.goingDuration = 0;
+  this.comingDuration = 0;
+  this.recurrenceRule = '';
+  this.state = '';
+
+  this.raw = {
+    memo: '',
+    hasToOrCc: false,
+    hasRecurrenceRule: false,
+    location: null,
+    class: 'public', // or 'private'
+    creator: {
+      name: '',
+      avatar: '',
+      company: '',
+      email: '',
+      phone: ''
+    }
+  };
 }
 
-function deleteEvent() {
-  calendar.deleteSchedule(schedule.id, schedule.calendarId);
+var CalendarList = [];
+
+function CalendarInfo() {
+  this.id = null;
+  this.name = null;
+  this.checked = true;
+  this.color = null;
+  this.bgColor = null;
+  this.borderColor = null;
+  this.dragBgColor = null;
+}
+
+function addCalendar(calendar) {
+  CalendarList.push(calendar);
+}
+
+function findCalendar(id) {
+  var found;
+
+  CalendarList.forEach(function (calendar) {
+    if (calendar.id === id) {
+      found = calendar;
+    }
+  });
+
+  return found || CalendarList[0];
+}
+
+(function () {
+  var calendar;
+  var id = 0;
+
+  calendar = new CalendarInfo();
+  id += 1;
+  calendar.id = String(id);
+  calendar.name = 'My Calendar';
+  calendar.color = '#000000';
+  calendar.bgColor = '#d49ae0';
+  calendar.dragBgColor = '#d49ae0';
+  calendar.borderColor = '#d49ae0';
+  addCalendar(calendar);
+
+  calendar = new CalendarInfo();
+  id += 1;
+  calendar.id = String(id);
+  calendar.name = 'Semi-Formal';
+  calendar.color = '#000000';
+  calendar.bgColor = '#9ae0d4';
+  calendar.dragBgColor = '#9ae0d4';
+  calendar.borderColor = '#9ae0d4';
+  addCalendar(calendar);
+
+  calendar = new CalendarInfo();
+  id += 1;
+  calendar.id = String(id);
+  calendar.name = 'Formal';
+  calendar.color = '#000000';
+  calendar.bgColor = '#9aa6e0';
+  calendar.dragBgColor = '#9aa6e0';
+  calendar.borderColor = '#9aa6e0';
+  addCalendar(calendar);
+})();
+
+function generateSchedule(data) {
+  ScheduleList = [];
+
+  data.forEach((event) => {
+    var schedule = new ScheduleInfo();
+    schedule.id = event.eventId;
+    schedule.calendarId = event.dressCodeId;
+    schedule.title = event.name;
+    schedule.body = event.desc;
+    schedule.category = 'time';
+    schedule.start = event.dateTimeStart;
+    schedule.end = event.dateTimeEnd;
+    schedule.dressCodeId = event.dressCodeId;
+
+    ScheduleList.push(schedule);
+  });
+  cal.createSchedules(ScheduleList);
+  refreshScheduleVisibility();
+}
+
+function hideDelete() {
+  dialog.style.display = 'none';
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   let a = document.querySelector('#calendarSave');
+  let close = document.querySelector('#detailClose');
+  let cancel = document.querySelector('#createCancel');
   addClickHandlers(a, saveEvent);
+  addClickHandlers(close, closePopUp);
+  addClickHandlers(cancel, closePopUp);
+  loadEvents();
 });
