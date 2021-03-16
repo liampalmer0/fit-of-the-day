@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const {
   getCalendarFrag,
-  saveEvent
+  saveEvent,
+  loadEvents
 } = require('../controller/calendarController');
 
 /* GET calendar page. */
@@ -13,5 +14,7 @@ router.get('/', (req, res) => {
 router.post('/newEvent', saveEvent);
 
 router.get('/events', getCalendarFrag);
+
+router.get('/load', loadEvents);
 
 module.exports = router;

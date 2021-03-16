@@ -19,8 +19,8 @@ block content
         ) Next
       span#renderRange.calendar-render-range
     #calendar
-    .dialog(style='display: none')
-      .yeet 
+    .dialog(name='createPopup')
+      .content
         h2 New Event
         label(for='name') Name
         input#name(name='name' type='text')
@@ -36,12 +36,35 @@ block content
         input#endTime(name='endTime' type='time')
         label(for='dressCode') Dress Code
         select#dressCode(name='dressCode')
-          option(value='' selected) -- Dress Code --
-          option(value='1') Casual
+          option(value='1' selected) Casual
           option(value='2') Semi-Formal
           option(value='3') Formal
 
         button#calendarSave(type='button') Save
+        button#createCancel(type='button') Cancel
+
+    .dialog(name='detailsPopup')
+      .content
+        h2 Event Details
+        button#detailClose(type='button') &times;
+        label(for='nameDetails') Name
+        input#nameDetails(name='nameDetails' type='text')
+        label(for='descDetails') Description
+        input#descDetails(name='descDetails' type='text')
+        label(for='startDetails') Start Date
+        input#startDetails(name='startDetails' type='date')
+        label(for='startTimeDetails') Start Time
+        input#startTimeDetails(name='startTimeDetails' type='time')
+        label(for='endDetails') End Date
+        input#endDetails(name='endDetails' type='date')
+        label(for='endTimeDetails') End Time
+        input#endTimeDetails(name='endTimeDetails' type='time')
+        label(for='dressCodeDetails') Dress Code
+        select#dressCodeDetails(name='dressCodeDetails')
+          option(value='1') Casual
+          option(value='2') Semi-Formal
+          option(value='3') Formal
+      
 
   script(
     src='https://code.jquery.com/jquery-3.2.1.slim.min.js'
