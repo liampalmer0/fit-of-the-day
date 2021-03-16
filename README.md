@@ -1,72 +1,43 @@
-# SeniorDesign
+![Screenshot of Fit of the Day public homepage](/screenshots/public-home.png)
 
-## Architecture
+# Fit of the Day
 
-Documentation [here](./docs/architecture.md)
+## Authors
 
-## Install
+**Liam Palmer**: Lead Developer & Project Manager
 
-**Requires:** Git, npm/node.js
+**Tyler Blair**: Network Engineer & Developer
 
-Run the following commands:
+**Daniel Le**: UI/UX Designer
 
-    git clone https://github.com/liampalmer0/SeniorDesign.git
- 
-    cd SeniorDesign
- 
-    npm install
+## About
 
-### Local Database
-Guide can be found [here](./docs/db-setup.md)
+> Senior design project for the Information Technology program at University of Cincinnati
 
-## Run
+Fit of the Day (FOTD) is an outfit recommendation web app. It allows user to automate their daily outfits based on their local weather data and calendar events.
 
-Navigate to the SeniorDesign directory and run:
+## Technologies Used
 
-    npm start
+FOTD is a web app built using [Node](https://nodejs.org), [Express](http://expressjs.com/), and [PostgreSQL](https://www.postgresql.org/) for persistence. A live site was also set up using [AWS](https://aws.amazon.com/) but is no longer available.
 
-or
+### Other tools used:
 
-    npm run debug
+- [Pug](https://pugjs.org) View Engine
+- [Sequelize ORM](https://sequelize.org/)
+- [OpenWeatherMap](https://openweathermap.org/)
+- [ToastUI Calendar](https://ui.toast.com/tui-calendar)
+- [Passport](http://www.passportjs.org/) Authentication
+- [Prettier](https://prettier.io/) Formatter
 
-## Githooks
+### For Testing:
 
-**Optional dependency:** make
+- [Mocha](https://mochajs.org/)
+- [Chai](https://www.chaijs.com/) Assertion Library
+- [Sinon.js](https://sinonjs.org/)
+- [proxyquire](https://github.com/thlorenz/proxyquire)
+- [Istanbul](https://istanbul.js.org/)
+- [Nightwatch.js](https://nightwatchjs.org/)
 
-While in the project directory, run either:
+## Presentation
 
-    make 
-
-or
-
-    git config core.hooksPath .githooks
-
-## Commit Guide
-
-    <header>
-    <BLANK LINE>
-    <body>
-    <BLANK LINE>
-    <footer>
-
-Use header format `<type>: <short summary>` 
-
-Where `<type>` is one of the following:
-
-* **build**: Changes that affect the build system or external dependencies (for example: npm)
-* **docs**: Documentation only changes
-* **feat**: A new feature
-* **fix**: A bug fix
-* **perf**: A code change that improves performance
-* **refactor**: A code change that neither fixes a bug nor adds a feature
-* **style**: A purely visual or CSS change
-* **test**: Adding missing tests or correcting existing tests
-
-and `<footer>` should contain a closing keyword (e.g. "fix") and the issue number the commit fixes (e.g. `Fix #4548`)
-
-**See more about commit workflow [here](./docs/workflow.md)**
-
-Based on the Angular contribution guide: https://github.com/angular/angular/blob/master/CONTRIBUTING.md
-
-
-
+(TBD)
