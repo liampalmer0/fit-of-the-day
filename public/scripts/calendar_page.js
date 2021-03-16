@@ -62,6 +62,11 @@ function closePopUp(e) {
   document.querySelector('#endTime').value = '';
 }
 
+function closePopUp(e) {
+  const dialog = e.target.parentElement.parentElement;
+  dialog.style.display = 'none';
+}
+
 function saveEvent() {
   let name = document.querySelector('#name').value;
   let desc = document.querySelector('#desc').value;
