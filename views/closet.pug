@@ -11,7 +11,11 @@ block content
     .buttons
       button#viewFilter(role='button' type='button') Filter <span class='arrow'> &darr; </span>
       .operations
-        a.laundry.img-btn(role='button' href='closet/laundryDay' title="Laundry Day") #[span.screen-reader Laundry day]
+        a.laundry.img-btn(
+          role='button'
+          href='closet/laundryDay'
+          tooltip='Set all articles to clean'
+        ) #[span.screen-reader Laundry Day Button. Sets all articles to clean]
         a#newArticle(href='closet/article/new') &plus; Article
         a#newOutfit(href='closet/outfits/new') &plus; Outfit
     form#filterForm.hide.filterForm(method='post')
