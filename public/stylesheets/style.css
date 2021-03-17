@@ -652,6 +652,7 @@ footer.public {
 .closet .closetControls > .buttons > .operations > * {
   background-color: var(--fotd-green);
   color: black;
+  position: relative;
 }
 .closet .closetControls > .buttons > .operations > .laundry {
   cursor: pointer;
@@ -666,6 +667,28 @@ footer.public {
   background-color: rgb(185, 185, 185);
   color: var(--main-fg);
   transition: background-color ease-in 0.15s;
+}
+.closet .closetControls > .buttons > .operations > .laundry:hover::before {
+  content: attr(tooltip);
+  background-color: var(--main-fg);
+  color: var(--main-bg);
+  position: absolute;
+  text-align: center;
+  width: 175px;
+  top: 2.5rem;
+  left: calc(calc(175px / -2) + 20px);
+  z-index: 1;
+  padding: 0.5rem;
+  border-radius: var(--fotd-border-radius);
+}
+.closet .closetControls > .buttons > .operations > .laundry:hover::after {
+  border: 10px solid;
+  content: '';
+  position: absolute;
+  z-index: 2;
+  top: calc(10px * 2);
+  left: calc(calc(10px / -2) + 20px);
+  border-color: transparent transparent black transparent;
 }
 .closet .closetControls > .buttons > .operations > a:hover {
   background-color: var(--fotd-green-lt);
