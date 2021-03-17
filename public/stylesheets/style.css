@@ -604,6 +604,19 @@ footer.public {
   flex-direction: column;
   justify-content: space-between;
 }
+.dashboard .cardtext .detail-icons {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+}
+.dashboard .cardtext .detail-icons > *:first-child {
+  height: 100%;
+  margin: auto 0;
+}
+.dashboard .cardtext .detail-icons img {
+  width: 3rem;
+  height: auto;
+}
 .dashboard .controls {
   display: flex;
   flex-flow: row wrap;
