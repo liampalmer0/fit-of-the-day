@@ -26,7 +26,7 @@ function handlePopUp(popupName, day) {
 
   if (popupName === 'createPopup') {
     let startDay = pad(day.start.getDay());
-    let startMonth = pad(day.start.getMonth());
+    let startMonth = pad(day.start.getMonth() + 1);
     let startYear = day.start.getFullYear();
     let start = `${startYear}-${startMonth}-${startDay}`;
 
@@ -35,7 +35,7 @@ function handlePopUp(popupName, day) {
     let startTime = `${startHour}:${startMinute}`;
 
     let endDay = pad(day.end.getDay());
-    let endMonth = pad(day.end.getMonth());
+    let endMonth = pad(day.end.getMonth() + 1);
     let endYear = day.end.getFullYear();
     let end = `${endYear}-${endMonth}-${endDay}`;
 
