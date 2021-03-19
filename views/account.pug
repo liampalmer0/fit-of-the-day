@@ -7,23 +7,17 @@ block content
     form(action=action method='post' id='accountForm')
       
       label(for='email') Email
-      input(id='name' type='text' name='name' placeholder='Name' required autofocus)
+      input(id='email' type='text' name='email' placeholder='email' required autofocus)
       
       label(for='password') Password
-      input(id='name' type='text' name='name' placeholder='Name' required autofocus)
-      
-      label(for='password') Calendar
-      input(id='name' type='text' name='name' placeholder='Name' required autofocus)
-      
-      //- input(type='submit' value=submitVal )
+      input(id='password' type='password' name='password' placeholder='password' required)
   
-      button(type="button" id="locate-me") Use Current Location
       form(method='post' id='weatherZipCode')
         label(for='zipCode') Set new zip code 
         input(id='zipCodeInput' type='text' name='zipCodeInput' placeholder='zip code' pattern='[0-9]*' maxlength='5')
-        //- a(role='button' href='/' + username + '/account') Cancel
-        input(type='reset' value='Reset')  
+        button(type="button" id="locate-me") Use Current Location
         input(id='submitZipCode' type='submit' value='Save')  
+        input(type='reset' value='Reset')  
 
       p.msg
       script(src="/scripts/account_page.js")
