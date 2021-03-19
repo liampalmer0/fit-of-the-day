@@ -76,14 +76,6 @@ footer {
   border-radius: var(--fotd-border-radius);
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
 }
-a.ddlink {
-  color: white;
-  background-color: #669900;
-  display: grid;
-  grid-template-columns: 1;
-  text-decoration: none;
-  padding: 15px;
-}
 .account > main > form {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
@@ -642,7 +634,7 @@ footer.public {
 .outfits main {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-} */
+}
 .closet .article.card {
   cursor: pointer;
   max-width: 90%;
@@ -767,13 +759,14 @@ footer.public {
   color: white;
   border: none;
 }
-.closetmessage {
-  font-weight: bold;
-  font-size: 30pt;
-  border: solid;
+.empty-msg {
+  font-size: 1rem;
+  border: solid black 1px;
   border-radius: var(--fotd-border-radius);
-  padding: 10rem 20rem;
-  width: 100%;
+  padding: 1rem 2rem;
+  margin: 0.5rem;
+  max-width: 100%;
+  grid-column: 1/-1;
   text-align: center;
 }
 /*== OUTFIT SPECIFIC STYLING ===========================================*/
