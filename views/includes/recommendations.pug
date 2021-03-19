@@ -28,16 +28,55 @@ mixin outfit(base, partner, fav=false)
           if partner && partner.dataValues.name
             p= partner.dataValues.name
         .detail-icons
-          #color.detailEntry
-            .colorSwatch(style="background-image: linear-gradient(#" + base.dataValues.color.toString(16).padStart(6, '0')+" 50%,#" + partner.dataValues.color.toString(16).padStart(6, '0')+" 50%);")
-          .detailEntry
-            if base.dataValues.dressCodeId == '1' || partner.dataValues.dressCodeId == '1'
-              img(src="/icons/desc/casual.png" title="Casual" alt="Casual Icon")
-            else if base.dataValues.dressCodeId == '2' || partner.dataValues.dressCodeId == '2'
-              img(src="/icons/desc/semi-formal.png" title="Semi-Formal" alt="Semi-Formal Icon")
-            else
-              img(src="/icons/desc/formal.png" title="Formal" alt="Formal Icon")
-        
+          if base && partner
+            #color.detailEntry
+              .colorSwatch(
+                style="background-image: linear-gradient(#" + base.dataValues.color.toString(16).padStart(6, "0") + " 50%,#" + partner.dataValues.color.toString(16).padStart(6, "0") + " 50%);"
+              )
+            .detailEntry
+              if base.dataValues.dressCodeId == '1' || partner.dataValues.dressCodeId == '1'
+                img(
+                  src='/icons/desc/casual.png'
+                  title='Casual'
+                  alt='Casual Icon'
+                )
+              else if base.dataValues.dressCodeId == '2' || partner.dataValues.dressCodeId == '2'
+                img(
+                  src='/icons/desc/semi-formal.png'
+                  title='Semi-Formal'
+                  alt='Semi-Formal Icon'
+                )
+              else
+                img(
+                  src='/icons/desc/formal.png'
+                  title='Formal'
+                  alt='Formal Icon'
+                )
+          else if base
+            #color.detailEntry
+              .colorSwatch(
+                style="background-color: #" + base.dataValues.color.toString(16).padStart(6, "0")
+              )
+            .detailEntry
+              if base.dataValues.dressCodeId == '1'
+                img(
+                  src='/icons/desc/casual.png'
+                  title='Casual'
+                  alt='Casual Icon'
+                )
+              else if base.dataValues.dressCodeId == '2'
+                img(
+                  src='/icons/desc/semi-formal.png'
+                  title='Semi-Formal'
+                  alt='Semi-Formal Icon'
+                )
+              else
+                img(
+                  src='/icons/desc/formal.png'
+                  title='Formal'
+                  alt='Formal Icon'
+                )
+
       if base && partner
         +favorite-btn(fav, base.dataValues.articleId, partner.dataValues.articleId)
       else
