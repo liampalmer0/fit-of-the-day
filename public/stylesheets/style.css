@@ -5,6 +5,12 @@
 * {
   box-sizing: border-box;
 }
+.aboutme {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  align: center;
+  padding: 30px 500px;
+}
 :root {
   --main-bg: #ffffff;
   --main-fg: #000000;
@@ -636,7 +642,7 @@ footer.public {
 .outfits main {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-}
+} */
 .closet .article.card {
   cursor: pointer;
   max-width: 90%;
@@ -760,6 +766,15 @@ footer.public {
   background-color: black;
   color: white;
   border: none;
+}
+.closetmessage {
+  font-weight: bold;
+  font-size: 30pt;
+  border: solid;
+  border-radius: var(--fotd-border-radius);
+  padding: 10rem 20rem;
+  width: 100%;
+  text-align: center;
 }
 /*== OUTFIT SPECIFIC STYLING ===========================================*/
 .outfit > main > .controls {

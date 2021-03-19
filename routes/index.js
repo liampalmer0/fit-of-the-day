@@ -9,5 +9,11 @@ router.get('/', (req, res, next) => {
   };
   res.render('index', data);
 });
-
+router.get('/about', (req, res, next) => {
+  const data ={
+    pagename: 'about',
+    title: 'About FOTD'
+  };
+  res.render('about', data);
+});
 module.exports = router;
