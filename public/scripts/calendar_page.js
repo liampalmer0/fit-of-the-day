@@ -15,7 +15,7 @@ var cal = new Calendar('#calendar', {
   }
 });
 
-function handlePopUp(popupName) {
+function handlePopUp(popupName, day) {
   const dialog = document.querySelector(`.dialog[name='${popupName}']`);
 
   if (dialog.style.display === 'block') {
@@ -23,11 +23,43 @@ function handlePopUp(popupName) {
   } else {
     dialog.style.display = 'block';
   }
+
+  if (popupName === 'createPopup') {
+    let startDay = pad(day.start.getDay());
+    let startMonth = pad(day.start.getMonth());
+    let startYear = day.start.getFullYear();
+    let start = `${startYear}-${startMonth}-${startDay}`;
+
+    let startHour = pad(day.start.getHours());
+    let startMinute = pad(day.start.getMinutes());
+    let startTime = `${startHour}:${startMinute}`;
+
+    let endDay = pad(day.end.getDay());
+    let endMonth = pad(day.end.getMonth());
+    let endYear = day.end.getFullYear();
+    let end = `${endYear}-${endMonth}-${endDay}`;
+
+    let endHour = pad(day.end.getHours());
+    let endMinute = pad(day.end.getMinutes());
+    let endTime = `${endHour}:${endMinute}`;
+
+    document.querySelector('#start').value = start;
+    document.querySelector('#end').value = end;
+    document.querySelector('#startTime').value = startTime;
+    document.querySelector('#endTime').value = endTime;
+  }
 }
 
 function closePopUp(e) {
   const dialog = e.target.parentElement.parentElement;
   dialog.style.display = 'none';
+  document.querySelector('#name').value = '';
+  document.querySelector('#desc').value = '';
+  document.querySelector('#start').value = '';
+  document.querySelector('#end').value = '';
+  document.querySelector('#dressCode').value = '';
+  document.querySelector('#startTime').value = '';
+  document.querySelector('#endTime').value = '';
 }
 
 function saveEvent() {
@@ -42,11 +74,27 @@ function saveEvent() {
   let start = `${startDate} ${startTime}`;
   let end = `${endDate} ${endTime}`;
 
+  var schedule = new ScheduleInfo();
+  schedule.id = '';
+  schedule.calendarId = dressCode;
+  schedule.title = name;
+  schedule.body = desc;
+  schedule.category = 'time';
+  schedule.start = start;
+  schedule.end = end;
+
   let xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState === 4 && this.status === 200) {
-      // document.querySelector('.msg').innerHTML = this.responseText;
-      console.log(this.responseText);
+      cal.createSchedules([schedule]);
+      handlePopUp('createPopup');
+      name.value = '';
+      desc.value = '';
+      start.value = '';
+      end.value = '';
+      dressCode.value = '';
+      startTime.value = '';
+      endTime.value = '';
     }
   };
   xhttp.open('POST', 'calendar/newEvent', true);
@@ -109,7 +157,7 @@ cal.on({
   beforeCreateSchedule: function (e) {
     console.log('beforeCreateSchedule', e);
     // open a creation popup
-    handlePopUp('createPopup');
+    handlePopUp('createPopup', e);
     // If you dont' want to show any popup, just use `e.guide.clearGuideElement()`
 
     // then close guide element(blue box from dragging or clicking days)
