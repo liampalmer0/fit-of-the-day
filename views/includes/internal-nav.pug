@@ -8,17 +8,17 @@ nav(role='navigation').internal
       a(class='' href= '/' + username + '/closet') Closet
         span
           img(src='/icons/folder.png' width='20' height='20')
+      a(class='' href= '/' + username + '/calendar') Calendar
+        span
+          img(src='/icons/calendar-icon.png' width='20' height='20')
       .dropdown
         div(class='') More
           img(src='/icons/more.png' width='20' height='20')
         .ddcontent
           a.ddlink(href= '/' + username + '/account') Account
-          a.ddlink(href= '/' + username + '/about') About FOTD
-          a.ddlink(href= '/' + username + '/settings') Password
+          a.ddlink(href= '/about') About FOTD
           a.ddlink(href= '/' + username + '/help') Help
-      a(class='' href= '/logout') Logout
-        span
-          img(src='/icons/logout.png' width='20' height='20')
+          a.ddlink(href= '/' + username + '/logout') Logout
     .widgets
       if (pagename === 'dashboard')
         div

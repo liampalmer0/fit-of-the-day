@@ -1,11 +1,19 @@
 mixin article(articlePath, imgPath, name, desc)
-  .article.card(role='button' tabindex='0')
-    .cardimg
-      img(src=imgPath alt='A preview image of the article')
-    .cardtext
-      .name= name
-      .desc= desc
-    input(type='hidden' value=articlePath)
+    .article.card(role='button' tabindex='0')
+      .cardimg
+        img(src=imgPath alt='A preview image of the article')
+      .cardtext
+        .name= name
+        .desc= desc
+      input(type='hidden', value=articlePath)
 if articles
-  each item in articles
-    +article(`/article?id=${item.articleId}`, '/user_img/liam/' + item.dataValues.filepath, item.dataValues.name, item.dataValues.desc)
+  if articles.length === 0
+    p(class="closetmessage") Not enough clothes try clicking the #[a(href='/' + username + '/closet/new') New Article] button!
+  else
+    each item in articles
+      +article(
+        `/article?id=${item.articleId}`,
+        '/user_img/liam/' + item.dataValues.filepath,
+        item.dataValues.name, 
+        item.dataValues.desc
+      )
