@@ -173,7 +173,7 @@ describe('Article Controller', function () {
     });
 
     it('should create a new article with bottom/one piece default image', async function () {
-      body.type = 'bottom';
+      body.type = 'btm';
       let created = { dataValues: { articleId: 1 } };
       let createArticleStub = sinon.stub().resolves(created);
       getClosetStub.resolves({ createArticle: createArticleStub });
@@ -279,7 +279,7 @@ describe('Article Controller', function () {
     });
 
     it('should update the article with bottom/one piece default image', async function () {
-      body.type = 'bottom';
+      body.type = 'btm';
       updateStub.resolves();
       let redirect = sinon.spy();
       let res = { redirect };

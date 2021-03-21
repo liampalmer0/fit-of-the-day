@@ -2,9 +2,7 @@ const { models } = require('../sequelize');
 const fs = require('fs');
 const path = require('path');
 const { getCloset } = require('./closetController');
-
-const TYPE_IDS = { top: 1, bottom: 2, 'one piece': 3 };
-const DRESS_CODE_IDS = { casual: 1, 'semi-formal': 2, formal: 3 };
+const { TYPE_IDS, DRESS_CODE_IDS } = require('../common/constants');
 
 async function getArticle(articleId, username) {
   try {
