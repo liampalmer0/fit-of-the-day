@@ -31,17 +31,17 @@ form#articleForm(action=action method='post' enctype='multipart/form-data')
   else
     input(type='file' name='image')
 
-  - const types = ["top", "bottom", "one piece"];
+  - const types = [["top", "top"], ["bottom", "btm"], ["one piece", "single"]];
   label(for='type') Type
   select#type(name='type')
     each gType in types
       if article
         if article.garmentType === gType
-          option(value=gType selected)= gType
+          option(value=gType[1] selected)= gType[0]
         else
-          option(value=gType)= gType
+          option(value=gType[1])= gType[0]
       else
-        option(value=gType)= gType
+        option(value=gType[1])= gType[0]
 
   - const dressCodes = ["casual", "semi-formal", "formal"];
   label(for='dressCode') Dress Code

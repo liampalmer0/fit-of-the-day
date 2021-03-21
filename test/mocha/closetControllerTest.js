@@ -1,6 +1,7 @@
 const { expect } = require('chai');
 const proxyquire = require('proxyquire');
 const sinon = require('sinon');
+const Outfit = require('../../common/Outfit');
 
 const USERNAME = 'tester';
 
@@ -90,7 +91,11 @@ describe('Closet Controller', function () {
     });
 
     it("should render the closet page with all of a closet's articles", async function () {
-      let articles = [{ dataValues: { articleId: 1 } }];
+      let partners = [
+        { dataValues: { articleId: 3, outfit: { favorite: true } } },
+        { dataValues: { articleId: 4, outfit: { favorite: false } } }
+      ];
+      let articles = [{ dataValues: { articleId: 1, partner: partners } }];
       getArticlesStub.resolves(articles);
       findOneClosetStub.resolves({ getArticles: getArticlesStub });
       let render = sinon.spy();
@@ -100,7 +105,7 @@ describe('Closet Controller', function () {
 
       expect(findOneClosetStub.calledOnce, 'Find one closet not called once').to
         .be.true;
-      expect(getArticlesStub.calledOnce, 'Get articles not called once').to.be
+      expect(getArticlesStub.calledTwice, 'Get articles not called once').to.be
         .true;
       expect(
         render.calledWith('closet', {
@@ -108,7 +113,8 @@ describe('Closet Controller', function () {
           pagename: 'closet',
           success: undefined,
           error: undefined,
-          articles: articles
+          articles: articles,
+          outfits: [new Outfit(articles[0], partners[0], true)]
         })
       ).to.be.true;
       expect(req.session.opStatus).to.deep.equal({
