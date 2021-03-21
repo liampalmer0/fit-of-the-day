@@ -39,7 +39,7 @@ async function getZipCode(username) {
     let data = await models.user.findOne({
       where: { username }
     });
-    return data ? data.dataValues.zipcode : DEFAULT_ZIP;
+    return data.dataValues.zipcode ? data.dataValues.zipcode : DEFAULT_ZIP;
   } catch {
     return DEFAULT_ZIP;
   }
