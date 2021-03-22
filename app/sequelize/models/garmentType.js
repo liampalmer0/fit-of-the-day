@@ -2,7 +2,7 @@ module.exports = (sequelize, DataTypes) =>
   sequelize.define(
     'garmentType',
     {
-      'garmentTypeId': {
+      garmentTypeId: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,

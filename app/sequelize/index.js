@@ -8,15 +8,15 @@ const { dev, prod } = keys.db.config;
 // In production the connection URL should be in an environment var
 // const sequelize = new Sequelize(process.env.DB_CONNECTION_URL);
 var sequelize = {};
-if (process.env.NODE_ENV === 'development') {
-  sequelize = new Sequelize(dev.database, dev.user, dev.password, {
-    dialect: dev.dialect,
-    host: dev.host
-  });
-} else if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
   sequelize = new Sequelize(prod.database, prod.user, prod.password, {
     dialect: prod.dialect,
     host: prod.host
+  });
+} else {
+  sequelize = new Sequelize(dev.database, dev.user, dev.password, {
+    dialect: dev.dialect,
+    host: dev.host
   });
 }
 

@@ -15,7 +15,7 @@ class user extends Model {
 module.exports = (sequelize, DataTypes) =>
   user.init(
     {
-      'userId': {
+      userId: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,

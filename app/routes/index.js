@@ -10,7 +10,7 @@ router.get('/', (req, res, next) => {
   res.render('index', data);
 });
 router.get('/about', (req, res, next) => {
-  const data ={
+  const data = {
     pagename: 'about',
     title: 'About FOTD'
   };

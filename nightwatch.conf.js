@@ -1,7 +1,7 @@
 module.exports = {
   // An array of folders (excluding subfolders) where your tests are located;
   // if this is not specified, the test source must be passed as the second argument to the test runner.
-  'src_folders': ['test/nightwatch/tests'],
+  'src_folders': ['app/test/nightwatch/tests'],
 
   'test_settings': {
     default: {
