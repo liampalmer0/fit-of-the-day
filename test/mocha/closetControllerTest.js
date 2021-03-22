@@ -87,7 +87,7 @@ describe('Closet Controller', function () {
     let req;
     beforeEach(function () {
       session = { username: USERNAME, opStatus: {} };
-      req = { session, file: null };
+      req = { session, file: null, query: {} };
     });
 
     it("should render the closet page with all of a closet's articles", async function () {
@@ -114,7 +114,8 @@ describe('Closet Controller', function () {
           success: undefined,
           error: undefined,
           articles: articles,
-          outfits: [new Outfit(articles[0], partners[0], true)]
+          outfits: [new Outfit(articles[0], partners[0], true)],
+          tab: 'articles'
         })
       ).to.be.true;
       expect(req.session.opStatus).to.deep.equal({

@@ -12,6 +12,7 @@ mixin cardDisplay(title, active, group, items)
     each item in items
       +item(item.dataValues.articleId, group, '/user_img/liam/' + item.dataValues.filepath, item.dataValues.name, item.dataValues.desc)
 .staticContainer 
+  a(href="/" + username + "/closet?outfits=true") Cancel
   input(type='submit' value='Create Outfit')
 .cardContainers
   .topbtm

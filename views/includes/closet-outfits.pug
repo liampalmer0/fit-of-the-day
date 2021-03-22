@@ -1,0 +1,69 @@
+mixin outfit(base, partner)
+  .card
+    if base
+      .cardimg
+        a(href="closet/article?id=" + base.dataValues.articleId)
+          img(
+            src="/user_img/liam/" + base.dataValues.filepath
+            alt=`Preview image of article \'${base.dataValues.name}\'`
+          )
+      if partner
+        .cardimg
+          a(href="closet/article?id=" + partner.dataValues.articleId)
+            img(
+              src="/user_img/liam/" + partner.dataValues.filepath
+              alt=`Preview image of article \'${partner.dataValues.name}\'`
+            )
+      .cardtext
+        p= base.dataValues.name
+        if partner
+          span &plus;
+          p= partner.dataValues.name
+        .desc
+        .detail-icons
+          #color.detailEntry
+            if base && partner
+              .colorSwatch(
+                style="background-image: linear-gradient(#" + base.dataValues.color.toString(16).padStart(6, "0") + " 50%,#" + partner.dataValues.color.toString(16).padStart(6, "0") + " 50%);"
+              )
+            else
+              .colorSwatch(
+                style="background-color: #" + base.dataValues.color.toString(16).padStart(6, "0")
+              )
+          .detailEntry
+            - let dirty = partner ? base.dataValues.dirty && partner.dataValues.dirty : base.dataValues.dirty;
+            if dirty
+              img(src='/icons/desc/dirty.png' title='Dirty' alt='Dirty icon')
+            else
+              img(src='/icons/desc/clean.png' title='Clean' alt='Clean icon')
+          .detailEntry
+            - let dc = partner ? Math.min(base.dataValues.dressCodeId, partner.dataValues.dressCodeId) : base.dataValues.dressCodeId;
+            if dc === 1
+              img(
+                src='/icons/desc/casual.png'
+                title='Casual'
+                alt='Casual Icon'
+              )
+            else if dc === 2
+              img(
+                src='/icons/desc/semi-formal.png'
+                title='Semi-Formal'
+                alt='Semi-Formal Icon'
+              )
+            else
+              img(
+                src='/icons/desc/formal.png'
+                title='Formal'
+                alt='Formal Icon'
+              )
+if outfits && outfits.length > 0
+  each outfit in outfits
+    if outfit.partner != -1
+      if outfit.base.dataValues.articleId === outfit.partner.dataValues.articleId
+        +outfit(outfit.base, null)
+      else
+        +outfit(outfit.base, outfit.partner)
+else
+  .empty-msg
+    p Outfits that you have favorited will appear here.
+    p You can favorite a dashboard recommendation or add one on the closet page #[a(href="/" + username + "/closet/outfits/new") here]

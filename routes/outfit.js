@@ -1,42 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const { models } = require('../sequelize');
-const TYPE_IDS = { top: 1, btm: 2, oneP: 3 };
-const Outfit = require('../common/Outfit');
-
-/* GET outfit page. */
-router.get('/', async (req, res) => {
-  let result = [];
-  const closet = await models.closet.findOne({
-    include: {
-      model: models.user,
-      required: true,
-      where: { username: req.session.username }
-    }
-  });
-  let bases = await closet.getArticles({
-    include: {
-      model: models.article,
-      as: 'partner',
-      required: true,
-      where: { garmentTypeId: [TYPE_IDS.btm, TYPE_IDS.oneP] }
-    },
-    where: { garmentTypeId: [TYPE_IDS.top, TYPE_IDS.oneP] }
-  });
-  // Iterate through base outfits and the favorites/saved outfits favorites
-  bases.forEach((base) => {
-    base.dataValues.partner.forEach((partner) => {
-      if (partner.dataValues.outfit.favorite) {
-        result.push(new Outfit(base, partner, true));
-      }
-    });
-  });
-  res.render('outfit', {
-    title: 'FOTD - Favorite Outfits',
-    pagename: 'outfits',
-    outfits: result
-  });
-});
 
 /* GET new outfit form page. */
 router.get('/new', (req, res) => {
@@ -79,34 +43,55 @@ router.get('/new', (req, res) => {
       }
     });
 });
-router.post('/new', (req, res) => {
-  // add row with the given article(s) to outfit table
-  // if single item outfit, associate it with itself
-  let article = -1;
-  let partner = -1;
-  if (req.body.single) {
-    article = req.body.single;
-    partner = req.body.single;
-  } else if (req.body.top && req.body.bottom) {
-    article = req.body.top;
-    partner = req.body.bottom;
-  }
-  models.outfit
-    .create({
+
+/**
+ * add row with the given article(s) to outfit table
+ * if single item outfit, associate it with itself
+ */
+router.post('/new', async (req, res) => {
+  try {
+    let article = -1;
+    let partner = -1;
+    if (req.body.single) {
+      article = req.body.single;
+      partner = req.body.single;
+    } else if (req.body.top && req.body.bottom) {
+      article = req.body.top;
+      partner = req.body.bottom;
+    }
+    await models.outfit.create({
       articleArticleId: article,
       partnerArticleId: partner,
       name: 'createdOutfit',
       favorite: true
-    })
-    .then(function (result) {
-      res.send(JSON.stringify(result));
-    })
-    .catch((err) => {
+    });
+    req.session.opStatus = {
+      success: { msg: 'Outfit saved successfully' },
+      error: false
+    };
+    res.redirect('/' + req.session.username + '/closet?outfits=true');
+  } catch (err) {
+    if (
+      err.errors &&
+      err.errors.length === 2 &&
+      err.errors[0].type === 'unique violation' &&
+      err.errors[1].type === 'unique violation'
+    ) {
+      req.session.opStatus = {
+        success: { msg: 'Outfit saved successfully' },
+        error: false
+      };
+    } else {
       if (process.env.NODE_ENV === 'development') {
         console.log(err);
       }
-      res.send('Outfit combo already exists');
-    });
+      req.session.opStatus = {
+        error: { msg: 'Outfit creation failed' },
+        success: false
+      };
+    }
+    res.redirect('/' + req.session.username + '/closet?outfits=true');
+  }
 });
 
 module.exports = router;

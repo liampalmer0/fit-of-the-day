@@ -8,7 +8,10 @@ const {
 
 /* GET calendar page. */
 router.get('/', (req, res) => {
-  res.render('calendar-page', { pagename: 'calendar' });
+  res.render('calendar-page', {
+    pagename: 'calendar',
+    title: 'FOTD - Calendar'
+  });
 });
 
 router.post('/newEvent', saveEvent);
