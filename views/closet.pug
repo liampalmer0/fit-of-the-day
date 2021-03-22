@@ -78,8 +78,23 @@ block content
           )
       .formControls
         input#submitFilters(type='submit' value='Filter')
-        input#filterReset(type='reset' value='Reset Filters')
-
+        input#filterReset(type='reset' value='Reset')
+    .tabs
+      if tab === 'outfits'
+        button.tab(type='button' name='articles') Articles
+        button.tab.active(type='button' name='outfits') Outfits
+      else
+        button.tab.active(type='button' name='articles') Articles
+        button.tab(type='button' name='outfits') Outfits
   main
-    include includes/closet-articles
+    if tab === 'outfits'
+      article.articles.hidden
+        include includes/closet-articles
+      article.outfits
+        include includes/closet-outfits
+    else
+      article.articles
+        include includes/closet-articles
+      article.outfits.hidden
+        include includes/closet-outfits
   script(src='/scripts/closet_page.js' type='text/javascript')

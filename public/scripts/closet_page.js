@@ -1,23 +1,21 @@
-function handleDivButtons() {
-  const articles = document.querySelectorAll('.article');
+function handleCardClicks() {
   const articlePaths = document.querySelectorAll('.article > input');
-  for (let i = 0; i < articles.length; i++) {
-    articles[i].addEventListener('click', () => {
+  document.querySelectorAll('.article').forEach((article, i) => {
+    article.addEventListener('click', () => {
       window.location.href += articlePaths[i].value;
     });
-    articles[i].addEventListener('keydown', (event) => {
+    article.addEventListener('keydown', (event) => {
       if (event.keyCode === 13 || event.keyCode === 32) {
         window.location.href += articlePaths[i].value;
       }
     });
-  }
+  });
 }
 
 function handleFilterDropdown() {
-  const viewFilter = document.querySelector('#viewFilter');
   const arrow = document.querySelector('#viewFilter > span');
   const filters = document.querySelector('#filterForm');
-  viewFilter.addEventListener('click', () => {
+  document.querySelector('#viewFilter').addEventListener('click', () => {
     if (filters.style.display === 'grid') {
       filters.style.display = 'none';
       arrow.innerHTML = '&darr;';
@@ -45,25 +43,52 @@ function setupSliders() {
 }
 
 function postFilter() {
-  let color = document.querySelector('#color').value;
-  let dresscode = document.querySelector('#dresscode').value;
-  let type = document.querySelector('#type').value;
-  let tempMin = document.querySelector('#tempMin').value;
-  let tempMax = document.querySelector('#tempMax').value;
-  let dirty = document.querySelector('#dirty').value;
   let xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState === 4 && this.status === 200) {
-      document.querySelector('main').innerHTML = this.responseText;
-      handleDivButtons();
+      document.querySelector(
+        'main article.articles'
+      ).innerHTML = this.responseText;
+      handleCardClicks();
     }
   };
   xhttp.open('POST', 'closet/filter', true);
   xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   xhttp.send(
-    `color=${color}&type=${type}&dresscode=${dresscode}` +
-      `&dirty=${dirty}&tempMin=${tempMin}&tempMax=${tempMax}`
+    `color=${document.querySelector('#color').value}` +
+      `&type=${document.querySelector('#type').value}` +
+      `&dresscode=${document.querySelector('#dresscode').value}` +
+      `&dirty=${document.querySelector('#dirty').value}` +
+      `&tempMin=${document.querySelector('#tempMin').value}` +
+      `&tempMax=${document.querySelector('#tempMax').value}`
   );
+}
+function switchTab(event) {
+  let tabname = event.target.attributes.name.value;
+  if (tabname === 'outfits' || tabname === 'articles') {
+    let outfits = document.querySelector('article.outfits');
+    let articles = document.querySelector('article.articles');
+    if (tabname === 'outfits') {
+      let articleTab = document.querySelector(".tab[name='articles']");
+      articleTab.classList.remove('active');
+      event.target.classList.add('active');
+      outfits.style.display = 'grid';
+      articles.style.display = 'none';
+    } else if (tabname === 'articles') {
+      let outfitTab = document.querySelector(".tab[name='outfits']");
+      outfitTab.classList.remove('active');
+      event.target.classList.add('active');
+      outfits.style.display = 'none';
+      articles.style.display = 'grid';
+    }
+  }
+}
+function setupTabs() {
+  document.querySelectorAll('button.tab').forEach((tab) => {
+    tab.addEventListener('click', (event) => {
+      switchTab(event);
+    });
+  });
 }
 
 function setupAjax() {
@@ -76,8 +101,9 @@ function setupAjax() {
 }
 
 window.onload = function () {
-  handleDivButtons();
+  handleCardClicks();
   handleFilterDropdown();
   setupSliders();
   setupAjax();
+  setupTabs();
 };

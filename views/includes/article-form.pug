@@ -36,7 +36,7 @@ form#articleForm(action=action method='post' enctype='multipart/form-data')
   select#type(name='type')
     each gType in types
       if article
-        if article.garmentType === gType
+        if article.garmentType === gType[0]
           option(value=gType[1] selected)= gType[0]
         else
           option(value=gType[1])= gType[0]

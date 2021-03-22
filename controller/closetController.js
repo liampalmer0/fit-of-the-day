@@ -1,5 +1,7 @@
 const { models } = require('../sequelize');
 const { Op } = require('sequelize');
+const { TYPE_IDS } = require('../common/constants');
+const Outfit = require('../common/Outfit');
 
 async function getCloset(username) {
   return await models.closet.findOne({
@@ -12,19 +14,39 @@ async function getCloset(username) {
     }
   });
 }
+async function getOutfits(closet) {
+  let outfits = [];
+  let bases = await closet.getArticles({
+    include: {
+      model: models.article,
+      as: 'partner',
+      required: true,
+      where: { garmentTypeId: [TYPE_IDS.btm, TYPE_IDS.single] }
+    },
+    where: { garmentTypeId: [TYPE_IDS.top, TYPE_IDS.single] }
+  });
+  // Iterate through base outfits and the favorites/saved outfits favorites
+  bases.forEach((base) => {
+    base.dataValues.partner.forEach((partner) => {
+      if (partner.dataValues.outfit.favorite) {
+        outfits.push(new Outfit(base, partner, true));
+      }
+    });
+  });
+  return outfits;
+}
 
 async function showCloset(req, res, next) {
   try {
-    const success = req.session.opStatus.success;
-    const error = req.session.opStatus.error;
     const closet = await getCloset(req.session.username);
-    const articles = await closet.getArticles();
     const data = {
       title: 'FOTD - Closet',
       pagename: 'closet',
-      success,
-      error,
-      articles
+      success: req.session.opStatus.success,
+      error: req.session.opStatus.error,
+      articles: await closet.getArticles(),
+      outfits: await getOutfits(closet),
+      tab: req.query.outfits ? 'outfits' : 'articles'
     };
     req.session.opStatus.success = false;
     req.session.opStatus.error = false;
@@ -72,8 +94,9 @@ function createWhere(filters = {}) {
 async function filterCloset(req, res, next) {
   try {
     const closet = await getCloset(req.session.username);
-    const articles = await closet.getArticles({ where: createWhere(req.body) });
-    res.render('includes/closet-articles', { articles: articles });
+    res.render('includes/closet-articles', {
+      articles: await closet.getArticles({ where: createWhere(req.body) })
+    });
   } catch (err) {
     if (process.env.NODE_ENV === 'development') {
       console.log(err);
