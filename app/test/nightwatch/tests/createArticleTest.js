@@ -13,11 +13,11 @@ module.exports = {
   },
   'step two: go to create article form': function (browser) {
     browser
-      .waitForElementVisible("a[name='closet']")
+      .waitForElementVisible("a[href='/tester/closet']")
       .pause(500)
-      .click("a[name='closet']")
+      .click("a[href='/tester/closet']")
       .assert.titleContains('FOTD - Closet')
-      .waitForElementVisible('link text', 'New Article')
+      .waitForElementVisible('link text', '+ Article')
       .pause(500)
       .click('css selector', "a[id='newArticle']")
       .assert.titleContains('FOTD - Create Article')
@@ -28,8 +28,8 @@ module.exports = {
       .waitForElementVisible('form#articleForm')
       .pause(500)
       .setValue("input[id='name']", 'testArticle')
-      .setValue('select#color', 'blue')
-      .setValue('select#type', 'bottom')
+      .setValue('input#color', '#0055ff')
+      .setValue('select#type', 'btm')
       .setValue('select#dressCode', 'formal')
       .submitForm('form#articleForm');
   },
@@ -38,7 +38,7 @@ module.exports = {
       .waitForElementVisible('body')
       .assert.titleContains('FOTD - testArticle')
       .assert.visible('p.success')
-      .assert.containsText('p.success', 'New article created successfully')
+      .assert.containsText('p.success', 'Article created successfully')
       .end();
     //TODO: rollback creation
   }

@@ -11,7 +11,7 @@ const {
 } = require('../controller/articleController');
 
 const multer = require('multer');
-const upload = multer({ dest: 'public/user_img/liam/' });
+const upload = multer({ dest: 'app/public/user_img/liam/' });
 
 /* GET article page. */
 router.get('/', showArticle);
