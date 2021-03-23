@@ -50,6 +50,7 @@ async function getCalendarFrag(req, res) {
         let ev = events[i];
         let start = new Date(ev.dataValues.dateTimeStart);
         let end = new Date(ev.dataValues.dateTimeEnd);
+        let timeOpt = { hour: '2-digit', minute: '2-digit' };
         stripped.push({
           index: i,
           name: ev.dataValues.name,
@@ -59,15 +60,13 @@ async function getCalendarFrag(req, res) {
             day: start.getDate(),
             month: start.getMonth(),
             year: start.getFullYear(),
-            hour: start.getHours(),
-            minute: start.getMinutes()
+            time: start.toLocaleTimeString(['en-US'], timeOpt)
           },
           end: {
             day: end.getDate(),
             month: end.getMonth(),
             year: end.getFullYear(),
-            hour: end.getHours(),
-            minute: end.getMinutes()
+            time: end.toLocaleTimeString(['en-US'], timeOpt)
           }
         });
       }

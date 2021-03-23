@@ -7,7 +7,7 @@ mixin event(index, name, start, end, dressCode, color, visible)
     span.event-detail.name= name
     span.event-detail.dress-code= dressCode
     .event-detail.duration
-      span.event-detail.start= `${start.hour}:${start.minute} - ${end.hour}:${end.minute}`
+      span.event-detail.start= `${start.time} - ${end.time}`
 .cal-widget
   if empty
     span= msg
