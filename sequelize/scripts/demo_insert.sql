@@ -1,13 +1,13 @@
 INSERT INTO event("userId", "name", "desc", "dressCodeId", "dateTimeStart", "dateTimeEnd") 
 VALUES 
-(2,'Study at Velma''s', 'History & Archaeology', 1, TIMESTAMP '2021-03-07 06:00:00-05', TIMESTAMP '2021-03-07 09:00:00-05'),
-(2,'Study at Velma''s', 'Biological Diversity', 1, TIMESTAMP '2021-03-07 06:00:00-05' + interval '1 week', TIMESTAMP '2021-03-07 09:00:00-05' + '1 week'),
-(2,'Study at Velma''s', 'Faust & Astrophysics', 1, TIMESTAMP '2021-03-07 06:00:00-05' + interval '2 weeks', TIMESTAMP '2021-03-07 09:00:00-05' + '2 weeks'),
+(2,'Study at Velma''s', 'History & Archaeology', 1, TIMESTAMP '2021-03-07 18:00:00-05', TIMESTAMP '2021-03-07 21:00:00-05'),
+(2,'Study at Velma''s', 'Biological Diversity', 1, TIMESTAMP '2021-03-07 18:00:00-05' + interval '1 week', TIMESTAMP '2021-03-07 21:00:00-05' + '1 week'),
+(2,'Study at Velma''s', 'Faust & Astrophysics', 1, TIMESTAMP '2021-03-07 18:00:00-05' + interval '2 weeks', TIMESTAMP '2021-03-07 21:00:00-05' + '2 weeks'),
 (2,'Cara & John Wedding', 'Outdoor wedding', 3, (CURRENT_TIMESTAMP - interval '2 weeks 3 days'), (CURRENT_TIMESTAMP - interval '2 weeks 2 days')),
 (2,'Aisha Farewell Party', 'Moving to EU', 2, (CURRENT_TIMESTAMP - interval '1 week 3 days'), (CURRENT_TIMESTAMP - interval '1 week 2 days 21 hours')),
 (2,'Mystery with Daphne & Fred', 'Spooky Carnival', 2, (CURRENT_TIMESTAMP - interval '2 days 6 hours'), (CURRENT_TIMESTAMP - interval '2 days 2 hours')),
 (2,'IT Presentation','School presentation', 1, (CURRENT_TIMESTAMP + interval '3 hour'), (CURRENT_TIMESTAMP + interval '5 hours')),
-(2,'Lunch Shaggy & Scooby', 'Dog food for some reason', 1, (CURRENT_TIMESTAMP + interval '5 hours'), (CURRENT_TIMESTAMP + interval '7 hours')),
+(2,'Lunch with Shaggy & Scooby', 'Dog food for some reason', 1, (CURRENT_TIMESTAMP + interval '5 hours'), (CURRENT_TIMESTAMP + interval '7 hours')),
 (2,'Omar Party','Friendly get together', 1, (CURRENT_TIMESTAMP + interval '3 days'), (CURRENT_TIMESTAMP + interval '3 days 5 hours')),
 (2,'Dinner w/ Sofia','Date with Sofia from Tallinn', 2, (CURRENT_TIMESTAMP + interval '1 week'), (CURRENT_TIMESTAMP + interval '1 week 2 hours')),
 (2,'Henry''s Birthday','Henry''s surprise birthday party at his place', 1, (CURRENT_TIMESTAMP + interval '2 weeks'), (CURRENT_TIMESTAMP + interval '2 weeks 4 hours'));
