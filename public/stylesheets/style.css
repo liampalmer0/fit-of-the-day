@@ -1117,7 +1117,8 @@ footer.public {
   cursor: pointer;
 }
 /*== CALENDAR DIALOG STYLING ==========================================*/
-.calendar .dialog {
+.calendar .dialog[name='createPopup'],
+.calendar .dialog[name='detailsPopup'] {
   display: none;
   position: fixed;
   z-index: 1;
@@ -1128,8 +1129,7 @@ footer.public {
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
 }
-
-.calendar .dialog .content {
+.calendar .dialog[name='createPopup'] .content {
   position: relative;
   display: grid;
   grid-template-columns: 50% 50%;
@@ -1139,6 +1139,15 @@ footer.public {
   width: 30%;
   box-shadow: 0px 0px 10px rgba(16, 16, 16, 0.55);
   padding: 1rem;
+}
+.calendar .dialog[name='detailsPopup'] .content {
+  position: relative;
+  margin: 15% auto;
+  width: 30%;
+}
+.tui-full-calendar-popup-top-line {
+  left: 0;
+  border-radius: 0;
 }
 
 .calendar .dialog .content button,

@@ -19,6 +19,7 @@ block content
         ) Next
       span#renderRange.calendar-render-range
     #calendar
+
     .dialog(name='createPopup')
       .content
         h2 New Event
@@ -42,29 +43,23 @@ block content
 
         button#calendarSave(type='button') Save
         button#createCancel(type='button') Cancel
-
-    .dialog(name='detailsPopup')
-      .content
-        h2 Event Details
+    
+    .tui-full-calendar-popup.tui-full-calendar-popup-detail.dialog(
+      name='detailsPopup'
+    )
+      .tui-full-calendar-popup-container.content
         button#detailClose(type='button') &times;
-        label(for='nameDetails') Name
-        input#nameDetails(name='nameDetails' type='text')
-        label(for='descDetails') Description
-        input#descDetails(name='descDetails' type='text')
-        label(for='startDetails') Start Date
-        input#startDetails(name='startDetails' type='date')
-        label(for='startTimeDetails') Start Time
-        input#startTimeDetails(name='startTimeDetails' type='time')
-        label(for='endDetails') End Date
-        input#endDetails(name='endDetails' type='date')
-        label(for='endTimeDetails') End Time
-        input#endTimeDetails(name='endTimeDetails' type='time')
-        label(for='dressCodeDetails') Dress Code
-        select#dressCodeDetails(name='dressCodeDetails')
-          option(value='1') Casual
-          option(value='2') Semi-Formal
-          option(value='3') Formal
-      
+        .tui-full-calendar-popup-section.tui-full-calendar-section-header
+          div
+            span.tui-full-calendar-schedule-title
+          .tui-full-calendar-popup-detail-date.tui-full-calendar-content
+        .tui-full-calendar-section-detail 
+          .tui-full-calendar-popup-detail-item.tui-full-calendar-popup-detail-item-indent
+            span.tui-full-calendar-content.desc
+          .tui-full-calendar-popup-detail-item 
+            span.tui-full-calendar-icon.tui-full-calendar-calendar-dot
+            span.tui-full-calendar-content.dresscode
+        .tui-full-calendar-popup-top-line
 
   script(
     src='https://code.jquery.com/jquery-3.2.1.slim.min.js'
@@ -87,7 +82,6 @@ block content
   script(
     src='https://cdnjs.cloudflare.com/ajax/libs/chance/1.0.13/chance.min.js'
   )
-  script(src='/tuiCalendar/dist/tui-calendar.js')
 
   script(src='/scripts/calendar_page.js')
   script(src='/tuiCalendar/js/default.js')

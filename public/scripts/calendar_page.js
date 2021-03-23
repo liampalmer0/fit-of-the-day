@@ -15,7 +15,66 @@ var cal = new Calendar('#calendar', {
   }
 });
 
-function handlePopUp(popupName, day) {
+function fillDetails(schedule) {
+  let dresscodes = ['Casual', 'Semi-formal', 'Formal'];
+  let calColors = ['#d49ae0', '#9ae0d4', '#9aa6e0'];
+  //set top line color
+  document.querySelector('.tui-full-calendar-popup-top-line').style.background =
+    calColors[schedule.calendarId - 1];
+  // set title
+  document.querySelector(
+    '.dialog .tui-full-calendar-schedule-title'
+  ).innerHTML = schedule.title;
+  // set desc
+  document.querySelector('.tui-full-calendar-content.desc').innerHTML =
+    schedule.body;
+  // set dress code
+  document.querySelector(
+    '.tui-full-calendar-icon.tui-full-calendar-calendar-dot'
+  ).style.background = calColors[schedule.calendarId - 1];
+  document.querySelector('.tui-full-calendar-content.dresscode').innerHTML =
+    dresscodes[schedule.calendarId - 1];
+  // set time/date
+  document.querySelector(
+    '.tui-full-calendar-popup-detail-date.tui-full-calendar-content'
+  ).innerHTML =
+    schedule.start.getFullYear() +
+    '.' +
+    pad(schedule.start.getMonth() + 1) +
+    '.' +
+    pad(schedule.start.getDate()) +
+    ' ' +
+    schedule.start
+      .toDate()
+      .toLocaleTimeString(['en-US'], { hour: '2-digit', minute: '2-digit' }) +
+    ' - ' +
+    schedule.end.getFullYear() +
+    '.' +
+    pad(schedule.end.getMonth() + 1) +
+    '.' +
+    pad(schedule.end.getDate()) +
+    ' ' +
+    schedule.end
+      .toDate()
+      .toLocaleTimeString(['en-US'], { hour: '2-digit', minute: '2-digit' });
+}
+
+function fillCreate(day) {
+  document.querySelector('#start').value = `${day.start.getFullYear()}-${pad(
+    day.start.getMonth() + 1
+  )}-${pad(day.start.getDate())}`;
+  document.querySelector('#startTime').value = `${pad(
+    day.start.getHours()
+  )}:${pad(day.start.getMinutes())}`;
+
+  document.querySelector('#end').value = `${day.end.getFullYear()}-${pad(
+    day.end.getMonth() + 1
+  )}-${pad(day.end.getDate())}`;
+  document.querySelector('#endTime').value = `${pad(day.end.getHours())}:${pad(
+    day.end.getMinutes()
+  )}`;
+}
+function handlePopUp(popupName, e) {
   const dialog = document.querySelector(`.dialog[name='${popupName}']`);
 
   if (dialog.style.display === 'block') {
@@ -25,32 +84,13 @@ function handlePopUp(popupName, day) {
   }
 
   if (popupName === 'createPopup') {
-    let startDay = pad(day.start.getDay());
-    let startMonth = pad(day.start.getMonth() + 1);
-    let startYear = day.start.getFullYear();
-    let start = `${startYear}-${startMonth}-${startDay}`;
-
-    let startHour = pad(day.start.getHours());
-    let startMinute = pad(day.start.getMinutes());
-    let startTime = `${startHour}:${startMinute}`;
-
-    let endDay = pad(day.end.getDay());
-    let endMonth = pad(day.end.getMonth() + 1);
-    let endYear = day.end.getFullYear();
-    let end = `${endYear}-${endMonth}-${endDay}`;
-
-    let endHour = pad(day.end.getHours());
-    let endMinute = pad(day.end.getMinutes());
-    let endTime = `${endHour}:${endMinute}`;
-
-    document.querySelector('#start').value = start;
-    document.querySelector('#end').value = end;
-    document.querySelector('#startTime').value = startTime;
-    document.querySelector('#endTime').value = endTime;
+    fillCreate(e);
+  } else if (popupName === 'detailsPopup') {
+    fillDetails(e.schedule);
   }
 }
 
-function closePopUp(e) {
+function closeParentPopUp(e) {
   const dialog = e.target.parentElement.parentElement;
   dialog.style.display = 'none';
   document.querySelector('#name').value = '';
@@ -60,11 +100,6 @@ function closePopUp(e) {
   document.querySelector('#dressCode').value = '';
   document.querySelector('#startTime').value = '';
   document.querySelector('#endTime').value = '';
-}
-
-function closePopUp(e) {
-  const dialog = e.target.parentElement.parentElement;
-  dialog.style.display = 'none';
 }
 
 function saveEvent() {
@@ -114,9 +149,9 @@ function addClickHandlers(elem, eventHandler) {
     eventHandler(e);
   });
   // handler for space bar and enter key
-  elem.addEventListener('keydown', (event) => {
-    if (event.keyCode === 13 || event.keyCode === 32) {
-      eventHandler(event);
+  elem.addEventListener('keydown', (e) => {
+    if (e.keyCode === 13 || e.keyCode === 32) {
+      eventHandler(e);
     }
   });
 }
@@ -126,32 +161,7 @@ function pad(n) {
 }
 
 function eventDetailsPop(e) {
-  handlePopUp('detailsPopup');
-
-  let startDay = pad(e.schedule.start.getDay());
-  let startMonth = pad(e.schedule.start.getMonth());
-  let startYear = e.schedule.start.getFullYear();
-  let startHour = pad(e.schedule.start.getHours());
-  let startMinute = pad(e.schedule.start.getMinutes());
-
-  let endDay = pad(e.schedule.end.getDay());
-  let endMonth = pad(e.schedule.end.getMonth());
-  let endYear = e.schedule.end.getFullYear();
-  let endHour = pad(e.schedule.end.getHours());
-  let endMinute = pad(e.schedule.end.getMinutes());
-
-  let start = `${startYear}-${startMonth}-${startDay}`;
-  let startTime = `${startHour}:${startMinute}`;
-  let end = `${endYear}-${endMonth}-${endDay}`;
-  let endTime = `${endHour}:${endMinute}`;
-
-  document.querySelector('#nameDetails').value = e.schedule.title;
-  document.querySelector('#descDetails').value = e.schedule.body;
-  document.querySelector('#startDetails').value = start;
-  document.querySelector('#endDetails').value = end;
-  document.querySelector('#dressCodeDetails').value = e.schedule.calendarId;
-  document.querySelector('#startTimeDetails').value = startTime;
-  document.querySelector('#endTimeDetails').value = endTime;
+  handlePopUp('detailsPopup', e);
 }
 
 cal.on({
@@ -164,7 +174,6 @@ cal.on({
     // open a creation popup
     handlePopUp('createPopup', e);
     // If you dont' want to show any popup, just use `e.guide.clearGuideElement()`
-
     // then close guide element(blue box from dragging or clicking days)
     e.guide.clearGuideElement();
   },
@@ -251,18 +260,6 @@ function addCalendar(calendar) {
   CalendarList.push(calendar);
 }
 
-function findCalendar(id) {
-  var found;
-
-  CalendarList.forEach(function (calendar) {
-    if (calendar.id === id) {
-      found = calendar;
-    }
-  });
-
-  return found || CalendarList[0];
-}
-
 (function () {
   var calendar;
   var id = 0;
@@ -270,7 +267,7 @@ function findCalendar(id) {
   calendar = new CalendarInfo();
   id += 1;
   calendar.id = String(id);
-  calendar.name = 'My Calendar';
+  calendar.name = 'Casual';
   calendar.color = '#000000';
   calendar.bgColor = '#d49ae0';
   calendar.dragBgColor = '#d49ae0';
@@ -318,16 +315,9 @@ function generateSchedule(data) {
   refreshScheduleVisibility();
 }
 
-function hideDelete() {
-  dialog.style.display = 'none';
-}
-
 document.addEventListener('DOMContentLoaded', () => {
-  let a = document.querySelector('#calendarSave');
-  let close = document.querySelector('#detailClose');
-  let cancel = document.querySelector('#createCancel');
-  addClickHandlers(a, saveEvent);
-  addClickHandlers(close, closePopUp);
-  addClickHandlers(cancel, closePopUp);
+  addClickHandlers(document.querySelector('#calendarSave'), saveEvent);
+  addClickHandlers(document.querySelector('#detailClose'), closeParentPopUp);
+  addClickHandlers(document.querySelector('#createCancel'), closeParentPopUp);
   loadEvents();
 });
