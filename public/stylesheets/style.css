@@ -1211,6 +1211,7 @@ footer.public {
   }
   /* DASHBOARD OUTFIT CARDS ====================================================*/
   .dashboard .outfit {
+    background-color: transparent;
     margin: 0.5rem;
     max-width: 35%;
   }
