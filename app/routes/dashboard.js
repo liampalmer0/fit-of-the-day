@@ -12,4 +12,6 @@ router.get('/recommend', controller.regenRecommendations);
 
 router.post('/favorite', controller.setFavorite);
 
+router.get('/dirty', controller.setDirty);
+
 module.exports = router;

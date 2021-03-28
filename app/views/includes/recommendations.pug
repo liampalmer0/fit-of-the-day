@@ -2,9 +2,14 @@ mixin favorite-btn(active, baseId, partnerId)
   button.favorite.img-btn.action(
     title='Set as favorite'
     favorite=active
-    type='checkbox'
     value=baseId + "," + partnerId
   )
+mixin dirty-btn(active, id)
+  button.dirty.img-btn(
+    title='Set as dirty'
+    dirty=active
+    value=id
+  ) &times;
 mixin outfit(base, partner, fav=false)
   .card
     if base
@@ -24,9 +29,13 @@ mixin outfit(base, partner, fav=false)
       .cardtext
         .desc
           if base.dataValues.name
-            p= base.dataValues.name
+            .name 
+              span= base.dataValues.name
+              +dirty-btn(base.dataValues.dirty, base.dataValues.articleId)
           if partner && partner.dataValues.name
-            p= partner.dataValues.name
+            .name
+              span= partner.dataValues.name
+              +dirty-btn(partner.dataValues.dirty, partner.dataValues.articleId)
         .detail-icons
           if base && partner
             #color.detailEntry
@@ -52,6 +61,7 @@ mixin outfit(base, partner, fav=false)
                   title='Formal'
                   alt='Formal Icon'
                 )
+
           else if base
             #color.detailEntry
               .colorSwatch(

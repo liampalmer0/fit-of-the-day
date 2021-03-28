@@ -111,11 +111,28 @@ async function setFavorite(req, res, next) {
   }
 }
 
+async function setDirty(req, res, next) {
+  try {
+    const id = req.query.articleId;
+    const checked = req.query.checked === 'undefined' ? 't' : 'f';
+    await models.article.update(
+      {
+        dirty: checked
+      },
+      { where: { articleId: id } }
+    );
+    res.sendStatus(200);
+  } catch (err) {
+    next(err);
+  }
+}
+
 module.exports = {
   showDashboard,
   regenFiltered,
   getWeather,
   regenRecommendations,
   setFavorite,
+  setDirty,
   getZipCode
 };

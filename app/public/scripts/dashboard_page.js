@@ -10,6 +10,7 @@ function ajaxRecommend() {
     if (this.readyState === 4 && this.status === 200) {
       document.querySelector('.recommendations').innerHTML = this.responseText;
       setFavoriteListeners();
+      setDirtyListeners();
     } else if (this.readyState === 4 && this.status !== 200) {
       document.querySelector('.recommendations').innerHTML =
         '<p class="error">Error: Recommendations Unavailable</p>';
@@ -34,6 +35,28 @@ function ajaxSetFavorite(e) {
   xhttp.open('POST', 'dashboard/favorite', true);
   xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   xhttp.send(`base=${ids[0]}&partner=${ids[1]}&checked=${!before}`);
+}
+function setDirtyListeners() {
+  document.querySelectorAll('button.dirty').forEach((b) => {
+    handlePress(b, ajaxSetDirty);
+  });
+}
+
+function ajaxSetDirty(e) {
+  const before = e.target.attributes.dirty;
+  const id = e.target.value;
+  let xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState === 4 && this.status === 200) {
+      if (before) {
+        e.target.removeAttribute('dirty');
+      } else {
+        e.target.setAttribute('dirty', 'dirty');
+      }
+    }
+  };
+  xhttp.open('GET', `dashboard/dirty?articleId=${id}&checked=${before}`, true);
+  xhttp.send();
 }
 
 function showHideFilter() {
@@ -65,6 +88,6 @@ function handlePress(elem, action) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  setupButtons();
   ajaxRecommend();
+  setupButtons();
 });
