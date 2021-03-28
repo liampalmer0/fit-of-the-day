@@ -44,7 +44,7 @@ async function showCloset(req, res, next) {
       pagename: 'closet',
       success: req.session.opStatus.success,
       error: req.session.opStatus.error,
-      articles: await closet.getArticles(),
+      articles: await closet.getArticles({ order: [['garmentTypeId', 'ASC']] }),
       outfits: await getOutfits(closet),
       tab: req.query.outfits ? 'outfits' : 'articles'
     };
