@@ -598,6 +598,30 @@ footer.public {
   max-width: 100%;
   max-height: 100%;
 }
+.dashboard .card .desc .name {
+  margin-bottom: 1rem;
+}
+.dashboard .card .desc .name span {
+  margin: auto;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.dashboard .card .desc .name button.dirty {
+  background: transparent;
+  font-size: 1.5rem;
+  color: #777;
+  transition: transform 0.2s;
+}
+.dashboard .card .desc .name button.dirty[dirty='dirty'] {
+  color: rgb(233, 76, 90);
+}
+.dashboard .card .desc .name button.dirty:hover {
+  color: rgb(233, 76, 90);
+}
+.dashboard .card .desc .name button.dirty:active {
+  transform: scale(1.25);
+  color: rgb(184, 33, 33);
+}
 .dashboard .card.single {
   display: flex;
   height: 100%;
