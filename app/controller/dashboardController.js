@@ -79,10 +79,18 @@ function regenFiltered(req, res, next) {
 }
 
 async function regenRecommendations(req, res, next) {
+  let empty = false;
   const outfits = await recommend(req.session.username, {
     tempAverage: req.session.temp
   });
-  res.render('includes/recommendations', { outfits });
+  if (
+    outfits[0].base === -1 &&
+    outfits[1].base === -1 &&
+    outfits[2].base === -1
+  ) {
+    empty = true;
+  }
+  res.render('includes/recommendations', { outfits: outfits, empty: empty });
 }
 
 async function setFavorite(req, res, next) {
