@@ -104,135 +104,6 @@ nav.internal {
   margin: auto 0rem;
   text-align: left;
 }
-nav.internal > .widgets {
-  display: none;
-}
-.dashboard nav.internal > .widgets {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  max-width: 100%;
-  border-top: 2px #404040 solid;
-}
-nav.internal > .widgets div {
-  display: grid;
-  margin: 0rem;
-}
-nav.internal .widgets .cal-widget,
-nav.internal .widgets .weatherWidget {
-  display: flex;
-  max-width: 100%;
-  background-color: inherit;
-  justify-content: space-between;
-  overflow: hidden;
-}
-nav.internal .widgets .weatherWidget span,
-nav.internal .widgets .cal-widget > span {
-  margin: auto;
-}
-/*== WEATHER WIDGET STYLES ============================== */
-nav.internal .widgets .weatherWidget img {
-  margin: auto;
-  border-radius: var(--fotd-border-radius);
-  max-width: 50px;
-  max-height: 50px;
-}
-nav.internal .widgets .weatherWidget .emoji-btn {
-  background-color: inherit;
-  border: none;
-  cursor: pointer;
-  font-size: 1.3rem;
-  text-align: center;
-  margin: auto 0.25rem;
-  padding: 0rem;
-  max-width: 50px;
-  max-height: 50px;
-}
-nav.internal .widgets .weatherWidget > .info {
-  text-align: left;
-  margin: 0;
-  padding: 0rem 0rem 0rem 0.5rem;
-}
-nav.internal .widgets .weatherWidget > .info > .city {
-  font-size: 1.75rem;
-}
-nav.internal .widgets .weatherWidget > .info > .desc {
-  width: 100%;
-  color: #c2c2c2;
-  font-size: 1rem;
-}
-nav.internal .widgets .weatherWidget > .data {
-  display: flex;
-  flex-flow: row wrap;
-}
-nav.internal .widgets .weatherWidget > .data > .temp {
-  display: flex;
-  flex: row wrap;
-  align-items: stretch;
-  margin: auto;
-}
-nav.internal .widgets .weatherWidget > .data > .temp > .num {
-  margin-top: 0rem;
-  font-size: 2rem;
-}
-nav.internal .widgets .weatherWidget > .data > .temp > .unit {
-  margin-top: 0rem;
-  font-size: 1rem;
-}
-/*== CALENDAR WIDGET STYLES ============================= */
-nav.internal .widgets .cal-widget {
-  position: relative;
-  margin: 0.5rem 0 0 0;
-}
-nav.internal .widgets .cal-widget .event {
-  background-color: #282828;
-  color: var(--main-bg);
-  display: grid;
-  width: 100%;
-  grid-template-columns: 100%;
-  padding: 0.25rem 0.5rem;
-  text-align: left;
-}
-nav.internal .widgets .cal-widget .event .event-detail.name {
-  font-size: 1.1rem;
-  font-weight: bold;
-}
-nav.internal .widgets .cal-widget .event .event-detail.dress-code {
-  font-size: 1rem;
-}
-nav.internal .widgets .cal-widget .event .event-detail.start,
-nav.internal .widgets .cal-widget .event .event-detail.end {
-  font-size: 0.8rem;
-}
-nav.internal .widgets .cal-widget .controls {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  opacity: 0;
-}
-nav.internal .widgets .cal-widget:hover .controls {
-  opacity: 100%;
-}
-nav.internal .widgets .cal-widget .controls div {
-  position: absolute;
-  width: 100%;
-}
-nav.internal .widgets .cal-widget .controls button {
-  position: relative;
-  transform: translateY(-50%);
-  z-index: 1;
-  background-color: rgba(0, 0, 0, 0.6);
-  color: #ffffff;
-}
-nav.internal .widgets .cal-widget .controls div:first-child button {
-  margin: auto auto auto 0.15rem;
-}
-nav.internal .widgets .cal-widget .controls div:last-child button {
-  margin: auto 0.15rem auto auto;
-}
-/* ======================================================= */
 nav.internal > .navlinks {
   display: flex;
   max-width: 100%;
@@ -520,7 +391,7 @@ footer.public {
   margin: 1rem auto;
   padding: 1rem 1rem;
   border-radius: var(--fotd-border-radius);
-  box-shadow: 0px 3px 5px rgba(16, 16, 16, 0.1);
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.15);
 }
 .card input.action,
 .card button.action {
@@ -550,6 +421,136 @@ footer.public {
   font-size: 1rem;
 }
 /*== DASHBOARD SPECIFIC STYLING ==============================================*/
+.dashboard .widgets {
+  display: flex;
+  justify-content: space-between;
+  flex-flow: column nowrap;
+  max-width: 100%;
+}
+.dashboard .widgets > div {
+  flex: 1;
+  margin: 0 0.5rem 0.5rem 0.5rem;
+}
+.cal-widget,
+.weatherWidget {
+  display: flex;
+  max-width: 100%;
+  background-color: inherit;
+  justify-content: space-between;
+  overflow: hidden;
+}
+.weatherWidget span,
+.cal-widget > span {
+  margin: auto;
+}
+/*== WEATHER WIDGET STYLES ============================== */
+.weatherWidget img {
+  margin: auto;
+  border-radius: var(--fotd-border-radius);
+  max-width: 50px;
+  max-height: 50px;
+}
+.weatherWidget .emoji-btn {
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
+  font-size: 1.3rem;
+  text-align: center;
+  margin: auto 0.25rem;
+  padding: 0rem;
+  max-width: 50px;
+  max-height: 50px;
+}
+.weatherWidget > .info {
+  display: flex;
+  flex-flow: column nowrap;
+  text-align: left;
+  margin: 0;
+  padding: 0rem 0rem 0rem 0.5rem;
+}
+.weatherWidget > .info > .city {
+  font-size: 1.5rem;
+}
+.weatherWidget > .info > .weather-desc {
+  width: 100%;
+  color: #777777;
+  font-size: 1rem;
+}
+.weatherWidget > .data {
+  display: flex;
+  flex-flow: row no-wrap;
+}
+.weatherWidget > .data > .temp {
+  display: flex;
+  flex: row wrap;
+  align-items: stretch;
+  margin: auto;
+}
+.weatherWidget > .data > .temp > .num {
+  margin-top: 0rem;
+  font-size: 1.5rem;
+}
+.weatherWidget > .data > .temp > .unit {
+  margin-top: 0rem;
+  font-size: 1rem;
+}
+/*== CALENDAR WIDGET STYLES ============================= */
+.cal-widget {
+  position: relative;
+  margin: 0.5rem 0 0 0;
+}
+.cal-widget .event {
+  color: var(--main-fg);
+  display: grid;
+  width: 100%;
+  grid-template-columns: 100%;
+  padding: 0.25rem 0.5rem;
+  text-align: left;
+}
+.cal-widget .event .event-detail.name {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+.cal-widget .event .event-detail.dress-code {
+  font-size: 1rem;
+}
+.cal-widget .event .event-detail.start,
+.cal-widget .event .event-detail.end {
+  font-size: 0.8rem;
+}
+.cal-widget .event-controls {
+  display: grid;
+  grid-template-columns: 1fr;
+  position: absolute;
+  top: 0;
+  right: -5%;
+  transform: translateX(-100%);
+  width: 10%;
+  opacity: 0;
+  border-radius: 100%;
+}
+.cal-widget:hover .event-controls {
+  opacity: 100%;
+}
+.cal-widget .event-controls button {
+  position: relative;
+  border: none;
+  padding: 0.25rem 0.5rem;
+  z-index: 1;
+  font-size: 1.2rem;
+  background-color: inherit;
+  border-radius: 1.2rem;
+  color: #777;
+  cursor: pointer;
+  border: #e0e0e0 solid 1px;
+}
+.cal-widget .event-controls button:active {
+  color: var(--main-fg);
+  border-color: var(--main-fg);
+}
+.cal-widget .event-controls div:first-child button {
+  margin: auto auto 0.15rem auto;
+}
 .dashboard main {
   display: flex;
   max-width: 100%;
@@ -557,31 +558,42 @@ footer.public {
   align-items: flex-start;
   margin: 0.5rem auto;
 }
+.dashboard .sidebar {
+  width: 100%;
+}
 .dashboard .recommendations {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
+  margin-top: 0.5rem;
+}
+.dashboard .recommendations .empty-recs {
+  margin: 0 0.5rem 0.5rem 0.5rem;
+  flex: 0 1 100%;
 }
 .dashboard .filter > form {
   max-width: 100%;
   display: none;
   flex-flow: column nowrap;
   border-radius: var(--fotd-border-radius);
-  background-color: #e0e0e0;
+  background-color: #f7f7f7;
   text-align: center;
   margin-top: 0.25rem;
   padding: 0.5rem 0.5rem 1rem 0.5rem;
 }
-.dashboard .filter > form > label {
-  display: none;
+.dashboard .filter > form label {
   font-size: 0.8rem;
   font-weight: bold;
-  text-align: right;
-  margin: auto 1rem;
+  text-align: left;
 }
 .dashboard .filter > form > select {
-  margin-top: 1rem;
+  margin: 0.5rem 0;
+}
+.dashboard .filter > form > div {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
 }
 /* DASHBOARD OUTFIT CARDS ====================================================*/
 .dashboard .outfit {
@@ -591,26 +603,48 @@ footer.public {
   margin: 1rem;
 }
 .dashboard .card {
-  margin: auto;
+  margin: 0 auto;
   width: auto;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+}
+.dashboard .card .cardtext {
+  padding: 0;
+  margin-top: 0.25rem;
 }
 .dashboard .card .cardimg img {
   max-width: 100%;
   max-height: 100%;
 }
+.dashboard .card .desc {
+  display: flex;
+  justify-content: space-evenly;
+  flex-flow: row wrap;
+  width: 100%;
+}
 .dashboard .card .desc .name {
-  margin-bottom: 1rem;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+  border-radius: 2rem;
+  margin-bottom: 0.25rem;
+  background-color: var(--main-bg);
 }
 .dashboard .card .desc .name span {
+  padding-left: 0.75rem;
   margin: auto;
   word-wrap: break-word;
   word-break: break-all;
 }
 .dashboard .card .desc .name button.dirty {
   background: transparent;
+  margin-bottom: 0.25rem;
   font-size: 1.5rem;
   color: #777;
   transition: transform 0.2s;
+  cursor: pointer;
 }
 .dashboard .card .desc .name button.dirty[dirty='dirty'] {
   color: rgb(233, 76, 90);
@@ -622,13 +656,26 @@ footer.public {
   transform: scale(1.25);
   color: rgb(184, 33, 33);
 }
-.dashboard .card.single {
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-  justify-content: space-between;
+.dashboard .card .detailEntry .avg-temp {
+  position: relative;
 }
-.dashboard .cardtext .detail-icons,
+.dashboard .card .detailEntry .avg-temp::before {
+  position: absolute;
+  bottom: -0.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  content: 'AVERAGE';
+  font-size: 0.6rem;
+}
+.dashboard .cardtext .detail-icons {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  background-color: var(--main-bg);
+  border-radius: var(--fotd-border-radius);
+  margin-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
 .closet .cardtext .detail-icons {
   display: flex;
   flex-flow: row wrap;
@@ -640,7 +687,8 @@ footer.public {
   margin: auto 0;
 }
 .dashboard .cardtext .detail-icons img,
-.closet .cardtext .detail-icons img {
+.closet .cardtext .detail-icons img,
+.article .item-card .detailEntry img {
   width: 3rem;
   height: auto;
 }
@@ -950,12 +998,13 @@ footer.public {
 /*== ARTICLE SPECIFIC STYLING ================================================*/
 .article main {
   margin-bottom: 1rem;
+  display: flex;
 }
 .article section.item-card {
   display: grid;
   grid-template-columns: 1fr;
   margin: 0rem auto;
-  width: 95%;
+  text-align: left;
 }
 .article section.item-card p.desc {
   margin-top: 0rem;
@@ -972,6 +1021,7 @@ footer.public {
 }
 .article .item-card > .item-details {
   display: grid;
+  grid-row-start: span 2;
   grid-template-columns: 1fr;
   box-sizing: border-box;
   padding: 0rem 1rem;
@@ -994,11 +1044,12 @@ footer.public {
   border-radius: 50%;
   border: rgba(0, 0, 0, 0.5) 2px solid;
 }
-.article .item-card > .item-details > .options {
+.article .item-card > .options {
   display: flex;
   justify-content: space-between;
+  width: 100%;
 }
-.article .item-card > .item-details > .options > * {
+.article .item-card > .options > * {
   background-color: var(--fotd-green);
   color: var(--main-fg-color);
   padding: 0.5rem 1rem;
@@ -1200,25 +1251,8 @@ footer.public {
   nav.internal {
     grid-template-columns: 1fr 8fr;
   }
-  .dashboard nav.internal > .widgets {
-    display: flex;
-    margin: 0;
-    justify-content: space-between;
-    text-align: center;
-    max-width: 100%;
-    grid-column: 1 / span 2;
-  }
-  nav.internal > .widgets > * {
-    min-width: 33%;
-    max-width: 50%;
-  }
-
   nav.internal > .navlinks {
     grid-row: auto;
-  }
-  nav.internal .widgets .cal-widget {
-    position: relative;
-    margin: 0.5rem 0.5rem 0 0;
   }
   /*== INDEX SPECIFIC STYLING ==================================================*/
   .index main > .hero-card {
@@ -1236,6 +1270,16 @@ footer.public {
     width: 65%;
   }
   /*== DASHBOARD SPECIFIC STYLING ==============================================*/
+  .dashboard .widgets {
+    flex-flow: row wrap;
+  }
+  .dashboard .widgets .card {
+    padding: 0.5rem;
+  }
+  .cal-widget {
+    position: relative;
+    margin: 0;
+  }
   .dashboard .recommendations {
     display: flex;
     flex-direction: row;
@@ -1244,9 +1288,11 @@ footer.public {
   }
   /* DASHBOARD OUTFIT CARDS ====================================================*/
   .dashboard .outfit {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: stretch;
     background-color: transparent;
-    margin: 0.5rem;
-    max-width: 35%;
+    margin: 0 0.5rem 0.5rem 0.5rem;
   }
   /*== CLOSET SPECIFIC STYLING =================================================*/
   .closet main article {
@@ -1272,22 +1318,25 @@ footer.public {
   }
   /*== ARTICLE SPECIFIC STYLING ================================================*/
   .article section.item-card {
-    grid-template-columns: max-content 1fr;
+    grid-template-columns: repeat(2, 1fr);
     margin-top: 1rem;
   }
   .article section.item-card > .item-image > img {
+    border-radius: var(--fotd-border-radius);
+    max-width: 300px;
+    width: 100%;
     height: auto;
   }
   .article section.item-card > :nth-child(2) {
     margin-left: 1rem;
   }
-  .article section.item-card > .item-details > .options {
+  .article section.item-card > .options {
     flex-direction: column;
+    justify-content: center;
   }
-  .article section.item-card > .item-details > .options > a {
+  .article section.item-card > .options > a {
     width: 80%;
-    margin-top: 1rem;
-    margin-left: 0em;
+    margin: auto;
   }
   /* == Article Delete Dialog =========================== */
   .article .dialog .dialogContent {
@@ -1307,7 +1356,6 @@ footer.public {
     width: 50%;
   }
   /*== DASHBOARD SPECIFIC STYLING ==============================================*/
-
   /*== CLOSET SPECIFIC STYLING =================================================*/
   .closet main article {
     grid-template-columns: repeat(3, 1fr);
@@ -1344,12 +1392,10 @@ footer.public {
     grid-template-columns: 1fr;
   }
   /*== ARTICLE SPECIFIC STYLING ================================================*/
-  .article section.item-card > .item-details > .options {
+  .article section.item-card > .options {
     flex-direction: row;
-    justify-content: flex-start;
-    width: 15rem;
   }
-  .article section.item-card > .item-details > .options > a {
+  .article section.item-card > .options > a {
     width: 100%;
     margin: auto 0.5rem;
   }
@@ -1374,17 +1420,25 @@ footer.public {
   /*== DASHBOARD SPECIFIC STYLING ==============================================*/
   .dashboard main {
     flex-direction: row;
-    margin: 0.5rem 1.5rem;
+    margin: 0.5rem;
   }
-  .dashboard .controls {
-    flex: 1;
+  .dashboard .sidebar {
+    flex: 2;
     display: flex;
     flex-flow: column;
     justify-content: space-between;
-    padding: 0 0.5rem;
+    padding: 0;
   }
   .dashboard .recommendations {
-    flex: 4;
+    flex: 5;
+    margin-top: 0;
+  }
+  .dashboard .widgets {
+    flex-flow: column nowrap;
+  }
+  .dashboard .widgets > div:nth-of-type(2) {
+    flex: 1;
+    margin: 0.5rem;
   }
   /*== CLOSET SPECIFIC STYLING =================================================*/
   .closet main article {

@@ -1,7 +1,7 @@
 mixin event(index, name, start, end, dressCode, color, visible)
   - var display = visible ? "grid" : "none";
   .event(
-    style="border-left: 3px " + color + " solid;display:" + display
+    style="border-left: 4px " + color + " solid;display:" + display
     index=`${index}`
   )
     span.event-detail.name= name
@@ -20,11 +20,11 @@ mixin event(index, name, start, end, dressCode, color, visible)
       else
         +event(event.index, event.name, event.start, event.end, event.dressCode, dc[event.dressCode], false)
       - i = 1;
-    .controls
+    .event-controls
       div 
-        button(role='button' name='prev' dest='0') <
+        button(role='button' name='prev' dest='0') &#9650;
       div
-        button(role='button' name='next' dest='1') >
+        button(role='button' name='next' dest='1') &#9660;
   else if err
     span.error Error: Calendar Unavailable
   else

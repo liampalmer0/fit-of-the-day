@@ -3,22 +3,29 @@ extends layout
 block content
   include includes/internal-nav
   main(role='main')
-    .controls
-      button(name='regenerate') &#128260; Refresh
-      button(name='filter') &darr; Filter
-      .filter
-        form#filterform(action='' method='post')
-          label(for='type') Type:
-          select#type(name='type')
-            option(value='' selected) -- type --
-            option(value='topbtm') Top/Bottom
-            option(value='single') Single
-          label(for='drscode') Dress Code:
-          select#drscode(name='drscode')
-            option(value='' selected) -- dress code --
-            option(value='casual') Casual
-            option(value='semi') Semi-formal
-            option(value='formal') Formal
+    .sidebar
+      .widgets
+        div.card
+          include includes/weather-widget
+        div.card
+          include includes/calendar-widget
+      .controls
+        button(name='regenerate') &#128260; Refresh
+        button(name='filter') &darr; Filter
+        .filter
+          form#filterform(action='' method='post')
+            label(for='type') Type:
+            select#type(name='type')
+              option(value='' selected) -- type --
+              option(value='topbtm') Top/Bottom
+              option(value='single') Single
+            label(for='drscode') Dress Code:
+            select#drscode(name='drscode')
+              option(value='' selected) -- dress code --
+              option(value='casual') Casual
+              option(value='semi') Semi-formal
+              option(value='formal') Formal
+      
     section.recommendations
       include includes/recommendations
     if error

@@ -5,11 +5,7 @@ mixin favorite-btn(active, baseId, partnerId)
     value=baseId + "," + partnerId
   )
 mixin dirty-btn(active, id)
-  button.dirty.img-btn(
-    title='Set as dirty'
-    dirty=active
-    value=id
-  ) &times;
+  button.dirty.img-btn(title='Set as dirty' dirty=active value=id) &times;
 mixin outfit(base, partner, fav=false)
   .card
     if base
@@ -44,11 +40,12 @@ mixin outfit(base, partner, fav=false)
               )
             .detailEntry
               if base.dataValues.dressCodeId == '1' || partner.dataValues.dressCodeId == '1'
-                img(
-                  src='/icons/desc/casual.png'
-                  title='Casual'
-                  alt='Casual Icon'
-                )
+                //- img(
+                //-   src='/icons/desc/casual.png'
+                //-   title='Casual'
+                //-   alt='Casual Icon'
+                //- )
+                p &#x1F576
               else if base.dataValues.dressCodeId == '2' || partner.dataValues.dressCodeId == '2'
                 img(
                   src='/icons/desc/semi-formal.png'
@@ -61,6 +58,9 @@ mixin outfit(base, partner, fav=false)
                   title='Formal'
                   alt='Formal Icon'
                 )
+            .detailEntry
+              - var temp = Math.floor((base.dataValues.tempMin + base.dataValues.tempMax + partner.dataValues.tempMin + partner.dataValues.tempMax) / 4);
+                p.avg-temp #{temp}&#176;F
 
           else if base
             #color.detailEntry
@@ -69,11 +69,12 @@ mixin outfit(base, partner, fav=false)
               )
             .detailEntry
               if base.dataValues.dressCodeId == '1'
-                img(
-                  src='/icons/desc/casual.png'
-                  title='Casual'
-                  alt='Casual Icon'
-                )
+                //- img(
+                //-   src='/icons/desc/casual.png'
+                //-   title='Casual'
+                //-   alt='Casual Icon'
+                //- )
+                p &#x1F576
               else if base.dataValues.dressCodeId == '2'
                 img(
                   src='/icons/desc/semi-formal.png'
@@ -86,29 +87,34 @@ mixin outfit(base, partner, fav=false)
                   title='Formal'
                   alt='Formal Icon'
                 )
+            .detailEntry
+              - var temp = Math.floor((base.dataValues.tempMin + base.dataValues.tempMax) / 2);
+              p.avg-temp #{temp}&#176;F
 
       if base && partner
         +favorite-btn(fav, base.dataValues.articleId, partner.dataValues.articleId)
       else
         +favorite-btn(fav, base.dataValues.articleId, base.dataValues.articleId)
     else
-      .cardimg
-      .cardtext
-        .detail-icons
-        .desc
-          p Not enough clothing to recommend!
-          p Visit #[a(href="/" + username + "/closet") Closet] to add more items
+      .empty-outfit
+        p Not enough clothing to recommend!
+        p Visit #[a(href="/" + username + "/closet") Closet] to add more items
 
 if outfits
-  each outfit in outfits
-    .outfit
-      if outfit.base != -1 && outfit.partner != -1
-        if outfit.base.dataValues.articleId === outfit.partner.dataValues.articleId
-          +outfit(outfit.base, null, outfit.favorite)
+  if !empty
+    each outfit in outfits
+      .outfit
+        if outfit.base != -1 && outfit.partner != -1
+          if outfit.base.dataValues.articleId === outfit.partner.dataValues.articleId
+            +outfit(outfit.base, null, outfit.favorite)
+          else
+            +outfit(outfit.base, outfit.partner, outfit.favorite)
         else
-          +outfit(outfit.base, outfit.partner, outfit.favorite)
-      else
-        if outfit.base == -1
-          +outfit(null, null)
-        else
-          +outfit(outfit.base, null)
+          if outfit.base == -1
+            +outfit(null, null)
+          else
+            +outfit(outfit.base, null)
+  else
+    .card.empty-recs 
+      p Not enough clothing to recommend!
+      p Add or edit items #[a(href="/" + username + "/closet") here]
