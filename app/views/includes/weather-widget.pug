@@ -1,8 +1,8 @@
 .weatherWidget
-  unless weather.msg == 'Weather Unavailable' 
+  unless weather.msg == 'Weather Unavailable'
     .info 
       span.city #{weather.city} #[button#locate-me.emoji-btn(type='button' title='Use Current Location') &#x1F9ED; #[span.screen-reader Use Current Location]]
-      span.desc #{weather.weatherPattern}
+      span.weather-desc #{weather.weatherPattern}
     .data
       img(src="http://openweathermap.org/img/wn/" + weather.icon + ".png")
       .temp

@@ -9,7 +9,7 @@ block content
       p.error Error: #{error.msg}
   main(role='main')
     if article
-      section.item-card
+      section.item-card.card
         .item-image
           img(
             src="/user_img/liam/" + article.filepath
@@ -29,10 +29,18 @@ block content
               p= "#" + article.color.toUpperCase()
             .detailEntry
               if article.dirty
-                p &#x1F92E
+                //- p &#x1F92E
+                img(
+                  src='/icons/desc/dirty.png'
+                  alt='icon representing dirty state'
+                )
                 p DIRTY
               else
-                p &#x1F9FC
+                //- p &#x1F9FC
+                img(
+                  src='/icons/desc/clean.png'
+                  alt='icon representing clean state'
+                )
                 p CLEAN
             .detailEntry
               if article.garmentType == 'top'
@@ -54,9 +62,9 @@ block content
             ul
               li Minimum : #{article.tempMin}
               li Maximum : #{article.tempMax}
-          .options
-            a(role='button' href="article/edit?id=" + article.articleId) Edit
-            a#deleteBtn(role='button' href='#') Delete
+        .options
+          a(role='button' href="article/edit?id=" + article.articleId) Edit
+          a#deleteBtn(role='button' href='#') Delete
 
   if article
     .dialog
