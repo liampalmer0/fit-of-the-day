@@ -2,22 +2,39 @@ extends layout
 
 block content
   include includes/internal-nav
-  main(role='main')
-
-    form(action=action method='post' id='accountForm')
-      
+  main.card(role='main')
+    h1 Account settings
+    form#accountForm(action=action method='post')
       label(for='email') Email
-      input(id='email' type='text' name='email' placeholder='email' required autofocus)
-      
-      label(for='password') Password
-      input(id='password' type='password' name='password' placeholder='password' required)
-  
-      form(method='post' id='weatherZipCode')
-        label(for='zipCode') Set new zip code 
-        input(id='zipCodeInput' type='text' name='zipCodeInput' placeholder='zip code' pattern='[0-9]*' maxlength='5')
-        button(type="button" id="locate-me") Use Current Location
-        input(id='submitZipCode' type='submit' value='Save')  
-        input(type='reset' value='Reset')  
+      input#email(
+        type='text'
+        name='email'
+        placeholder='email'
+        required
+        autofocus
+      )
 
-      p.msg
-      script(src="/scripts/account_page.js")
+      label(for='password') Password
+      input#password(
+        type='password'
+        name='password'
+        placeholder='password'
+        required
+      )
+      .controls
+        //- input(type='submit' value='Save')
+
+    form#weatherZipCode(method='post')
+      label(for='zipCode') Set new zip code #[span.msg]
+      .zip-entry
+        input#zipCodeInput(
+          type='text'
+          name='zipCodeInput'
+          placeholder='zip code'
+          pattern='[0-9]*'
+          maxlength='5'
+        )
+        button#locate-me.emoji-btn(type='button' title='Use Current Location') &#x1F9ED;
+      .controls 
+        button#submitZipCode Save
+  script(src='/scripts/account_page.js')

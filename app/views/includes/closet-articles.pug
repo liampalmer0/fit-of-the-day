@@ -9,7 +9,8 @@ mixin article(articlePath, imgPath, name, desc)
 if articles
   if articles.length === 0
     .empty-msg
-      p No articles to show. #[a(href="/" + username + "/closet/article/new") Add one] here
+      p No articles to show. 
+      p Add one #[a(href="/" + username + "/closet/article/new") here]
   else
     each item in articles
       +article(`/article?id=${item.articleId}`, '/user_img/liam/' + item.dataValues.filepath, item.dataValues.name, item.dataValues.desc)

@@ -159,7 +159,7 @@ async function recommend(username, weather = { tempAverage: 75 }) {
     const closet = await getCloset(username);
     const now = new Date();
     const nextDay = new Date(now.toUTCString());
-    nextDay.setUTCHours(now.getUTCDate() + 1);
+    nextDay.setUTCDate(now.getUTCDate() + 1);
     const upcoming = await getEvents(
       username,
       now.toUTCString(),

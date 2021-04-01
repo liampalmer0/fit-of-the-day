@@ -5,7 +5,7 @@ const { getCurrentWeather } = require('../api/openWeatherMap');
 
 /* GET settings page. */
 router.get('/', (req, res, next) => {
-  res.render('account', { pagename: 'account' });
+  res.render('account', { pagename: 'account', title: 'FOTD - Account' });
 });
 
 router.post('/zip', async (req, res, next) => {
@@ -22,11 +22,9 @@ router.post('/zip', async (req, res, next) => {
     );
     let coords = await getCurrentWeather(req.body.zip);
     req.session.coords = { lat: coords.lat, lon: coords.lon };
-    res.send('The new zip code was saved.');
+    res.sendStatus(200);
   } catch (err) {
-    res.send(
-      'There was an error saving the new zip code. Please try again later.'
-    );
+    res.sendStatus(500);
   }
 });
 

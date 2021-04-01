@@ -2,7 +2,7 @@ extends layout
 
 block content
   include includes/internal-nav
-  main.newArticle(role='main')
-    h1 Create New Article
+  main.newArticle(role='main').card
+    h1 New Article
     .articleForm 
       include includes/article-form
