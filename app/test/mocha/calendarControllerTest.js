@@ -97,9 +97,9 @@ describe('Calendar Controller', function () {
       findAllEventsStub.resolves(mockedEventData);
       let start = new Date(mockedEventData[0].dataValues.dateTimeStart);
       let end = new Date(mockedEventData[0].dataValues.dateTimeEnd);
+      let timeOpt = { hour: '2-digit', minute: '2-digit' };
 
       await calCtrl.getCalendarFrag(req, res);
-
       expect(
         render.calledWith('includes/calendar-widget', {
           events: [
@@ -112,15 +112,13 @@ describe('Calendar Controller', function () {
                 day: start.getDate(),
                 month: start.getMonth(),
                 year: start.getFullYear(),
-                hour: start.getHours(),
-                minute: start.getMinutes()
+                time: start.toLocaleTimeString(['en-US'], timeOpt)
               },
               end: {
                 day: end.getDate(),
                 month: end.getMonth(),
                 year: end.getFullYear(),
-                hour: end.getHours(),
-                minute: end.getMinutes()
+                time: start.toLocaleTimeString(['en-US'], timeOpt)
               }
             }
           ],

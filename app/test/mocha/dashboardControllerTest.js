@@ -155,7 +155,10 @@ describe('DashboardController', function () {
 
       expect(recommendStub.calledOnce, 'Recommend not called').to.be.true;
       expect(
-        render.calledWith('includes/recommendations', { outfits: outfits })
+        render.calledWith('includes/recommendations', {
+          outfits: outfits,
+          empty: true
+        })
       ).to.be.true;
     });
   });
