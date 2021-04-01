@@ -8,12 +8,6 @@
 html {
   font-size: 1rem;
 }
-.aboutme {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  align: center;
-  padding: 30px 500px;
-}
 :root {
   --main-bg: #ffffff;
   --main-fg: #000000;
@@ -22,6 +16,7 @@ html {
   --fotd-green-med: rgb(156, 214, 144);
   --fotd-green-dark: rgb(100, 150, 110);
   --fotd-border-radius: 10px;
+  --fotd-red: rgb(233, 76, 90);
 }
 .screen-reader {
   position: absolute;
@@ -78,19 +73,6 @@ footer {
   text-align: center;
   border-radius: var(--fotd-border-radius);
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
-}
-.account > main > form {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  border-color: var(--fotd-green-med);
-  border-style: solid;
-  border-radius: 15px;
-  margin: auto;
-  width: 50%;
-  padding: 1rem 2.5rem;
-}
-.account main {
-  margin-top: 1rem;
 }
 
 /*== INTERNAL NAV SPECIFIC STYLING ==========================================*/
@@ -571,6 +553,9 @@ footer.public {
 .dashboard .recommendations .empty-recs {
   margin: 0 0.5rem 0.5rem 0.5rem;
   flex: 0 1 100%;
+  min-height: 80vh;
+  justify-content: center;
+  align-items: center;
 }
 .dashboard .filter > form {
   max-width: 100%;
@@ -647,10 +632,10 @@ footer.public {
   cursor: pointer;
 }
 .dashboard .card .desc .name button.dirty[dirty='dirty'] {
-  color: rgb(233, 76, 90);
+  color: var(--fotd-red);
 }
 .dashboard .card .desc .name button.dirty:hover {
-  color: rgb(233, 76, 90);
+  color: var(--fotd-red);
 }
 .dashboard .card .desc .name button.dirty:active {
   transform: scale(1.25);
@@ -671,6 +656,7 @@ footer.public {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
+  align-items: center;
   background-color: var(--main-bg);
   border-radius: var(--fotd-border-radius);
   margin-top: 0.25rem;
@@ -888,14 +874,22 @@ footer.public {
   border: none;
 }
 .closet .empty-msg {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
   font-size: 1rem;
-  border: solid black 1px;
+  border: solid #e0e0e0 1px;
+  color: #777;
   border-radius: var(--fotd-border-radius);
   padding: 1rem 2rem;
   margin: 0.5rem;
   max-width: 100%;
   grid-column: 1/-1;
   text-align: center;
+  min-height: 50vh;
+}
+.closet .empty-msg a {
+  color: var(--fotd-green-dark);
 }
 /*== OUTFIT SPECIFIC STYLING ===========================================*/
 .outfit,
@@ -994,7 +988,65 @@ footer.public {
   grid-template-columns: 4fr 3fr;
 }
 /*== SETTINGS SPECIFIC STYLING ================================================*/
+.account main {
+  display: flex;
+  flex-flow: column;
+  width: 50%;
+  margin: 1rem auto auto auto;
+  text-align: left;
+}
+.account main h1 {
+  margin: 0.25rem 0;
+}
+.account > main > form {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  margin: auto;
+  width: 100%;
+  padding: 1rem;
+}
+.account > main > form input {
+  margin: 0.5rem 0;
+  padding: 0.25rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  border: 1px #e0e0e0 solid;
+}
+.account main form .controls {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+}
+.account main form .zip-entry {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+}
+.account main form .zip-entry input[type='text'] {
+  flex: 1;
+}
+.account main form .zip-entry .emoji-btn {
+  background-color: transparent;
+  cursor: pointer;
+}
 
+.account main form button,
+.account main form input[type='reset'],
+.account main form input[type='submit'] {
+  background-color: var(--fotd-green);
+  color: var(--main-fg);
+  border: none;
+  margin: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 1rem;
+  border-radius: var(--fotd-border-radius);
+}
+.account main form .msg.ok {
+  color: var(--fotd-green-dark);
+}
+.account main form .msg.bad {
+  color: var(--fotd-red);
+}
 /*== ARTICLE SPECIFIC STYLING ================================================*/
 .article main {
   margin-bottom: 1rem;
@@ -1062,7 +1114,12 @@ footer.public {
 .createArticle main,
 .editArticle main {
   max-width: 100%;
-  margin: 0rem auto;
+  margin: 0 auto;
+  text-align: left;
+}
+.createArticle main h1,
+.editArticle main h1 {
+  margin: 0.25rem 0;
 }
 .createArticle main .articleForm > form,
 .editArticle main .articleForm > form {
@@ -1192,6 +1249,27 @@ footer.public {
   cursor: pointer;
 }
 /*== CALENDAR DIALOG STYLING ==========================================*/
+.calendar main .menu {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 1rem 0.25rem;
+}
+.calendar-render-range {
+  font-size: 1.2rem;
+  margin: auto 0;
+}
+.calendar main .menu button {
+  background-color: var(--main-bg);
+  border-radius: 1.5rem;
+  font-size: 0.8rem;
+  margin-right: 0.25rem;
+  box-shadow: none;
+}
+.calendar main .menu button:active {
+  box-shadow: none;
+}
 .calendar .dialog[name='createPopup'],
 .calendar .dialog[name='detailsPopup'] {
   display: none;
@@ -1375,15 +1453,6 @@ footer.public {
     grid-column: 1 / span 2;
   }
   /*== SETTINGS SPECIFIC STYLING ================================================*/
-  .settings .container {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    color: var(--main-fg);
-    width: min-content;
-    margin: auto;
-    border-radius: 25px;
-    box-shadow: 8px 8px 25px rgba(16, 16, 16, 0.3);
-  }
   /*== OUTFIT CREATE FORM  =====================================================*/
   .outfitForm > .cardContainers fieldset {
     grid-template-columns: repeat(3, 1fr);
@@ -1453,7 +1522,7 @@ footer.public {
   .createArticle main,
   .editArticle main {
     max-width: 50%;
-    margin: 0rem auto;
+    margin: 1rem auto;
   }
   .createArticle main .articleForm > form,
   .editArticle main .articleForm > form {

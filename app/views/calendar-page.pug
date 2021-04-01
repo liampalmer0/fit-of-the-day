@@ -3,7 +3,7 @@ extends layout
 block content
   include includes/internal-nav
   main(role='main')
-    #menu
+    #menu.menu
       span#menu-navi
         button.btn.btn-default.btn-sm.move-today(
           type='button'
@@ -12,11 +12,11 @@ block content
         button.btn.btn-default.btn-sm.move-day(
           type='button'
           data-action='move-prev'
-        ) Previous
+        ) &larr;
         button.btn.btn-default.btn-sm.move-day(
           type='button'
           data-action='move-next'
-        ) Next
+        ) &rarr;
       span#renderRange.calendar-render-range
     #calendar
 
@@ -43,7 +43,7 @@ block content
 
         button#calendarSave(type='button') Save
         button#createCancel(type='button') Cancel
-    
+
     .tui-full-calendar-popup.tui-full-calendar-popup-detail.dialog(
       name='detailsPopup'
     )

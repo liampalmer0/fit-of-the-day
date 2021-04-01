@@ -27,8 +27,8 @@ async function getEvents(username, begin = null, end = null) {
 }
 
 async function loadEvents(req, res, next) {
-  let start = new Date(req.query.year, req.query.month - 1, 1, 0, 0, 0);
-  let end = new Date(req.query.year, req.query.month, 0, 23, 59, 59);
+  let start = new Date(req.query.year, req.query.month - 2, 1, 0, 0, 0);
+  let end = new Date(req.query.year, req.query.month + 1, 0, 23, 59, 59);
   let events = await getEvents(req.session.username, start, end);
 
   res.send(events);

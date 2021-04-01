@@ -166,11 +166,11 @@ function eventDetailsPop(e) {
 
 cal.on({
   clickSchedule: function (e) {
-    console.log('clickSchedule', e);
+    // console.log('clickSchedule', e);
     eventDetailsPop(e);
   },
   beforeCreateSchedule: function (e) {
-    console.log('beforeCreateSchedule', e);
+    // console.log('beforeCreateSchedule', e);
     // open a creation popup
     handlePopUp('createPopup', e);
     // If you dont' want to show any popup, just use `e.guide.clearGuideElement()`
@@ -178,25 +178,34 @@ cal.on({
     e.guide.clearGuideElement();
   },
   beforeUpdateSchedule: function (e) {
-    console.log('beforeUpdateSchedule', e);
+    // console.log('beforeUpdateSchedule', e);
     e.schedule.start = e.start;
     e.schedule.end = e.end;
     cal.updateSchedule(e.schedule.id, e.schedule.calendarId, e.schedule);
   },
   beforeDeleteSchedule: function (e) {
-    console.log('beforeDeleteSchedule', e);
+    // console.log('beforeDeleteSchedule', e);
     cal.deleteSchedule(e.schedule.id, e.schedule.calendarId);
   }
 });
 
 function loadEvents() {
+  let now = new Date();
   let xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState === 4 && this.status === 200) {
       generateSchedule(JSON.parse(this.responseText));
     }
   };
-  xhttp.open('GET', 'calendar/load?year=2021&month=3', true);
+
+  xhttp.open(
+    'GET',
+    'calendar/load?year=' +
+      now.getFullYear() +
+      '&month=' +
+      (now.getMonth() + 1),
+    true
+  );
   xhttp.send();
 }
 
