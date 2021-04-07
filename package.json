@@ -65,10 +65,10 @@
     "pugAttributeSeparator": "as-needed"
   },
   "nyc": {
+    "include": "app",
     "exclude": [
-      "sequelize/**",
-      "test/**",
-      "*.js"
+      "app/sequelize/**",
+      "app/test/**"
     ]
   }
 }
