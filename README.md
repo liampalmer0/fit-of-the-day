@@ -12,7 +12,7 @@
 
 ## About
 
-> Senior design project for the Information Technology program at University of Cincinnati
+**Senior design project for the Information Technology program at University of Cincinnati**
 
 Fit of the Day (FOTD) is a clothing recommendation web app. It allows users to automate their daily outfit choice based on their local weather data, calendar events.
 
@@ -37,7 +37,3 @@ FOTD is a web app built using [Node](https://nodejs.org), [Express](http://expre
 - [proxyquire](https://github.com/thlorenz/proxyquire)
 - [Istanbul](https://istanbul.js.org/)
 - [Nightwatch.js](https://nightwatchjs.org/)
-
-## Presentation
-
-(TBD)
